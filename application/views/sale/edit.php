@@ -589,8 +589,8 @@
                                                         }
                                                         $html .= '</select></div>';
                                                         $html .= '</div><div class="col-sm-2"><div id="div_qty' . $id . '" class="input-group"><input type="number" name="qty[]" step=".01" step=".01" value="' . $inv_item->qty . '" id="qty' . $id . '" class="form-control" placeholder="Qty"><span class="input-group-addon bootstrap-touchspin-postfix">' . $unit . '</span></div></div>';
-                                                        $html .= '<div class="col-sm-2"><div id="div_sale_price' . $id . '" class="input-group"><input type="number" onblur="setTwoNumberDecimal(this.id)" onkeyup="CalculateSubTotal(' . $id . ');" step="0.01" name="sale_price[]" id="sale_price' . $id . '" value="' . $inv_item->product_sale_price . '" class="form-control" placeholder="Sale Price"><span class="input-group-addon bootstrap-touchspin-postfix">Rs</span></div></div>';
-                                                        $html .= '<div class="col-sm-2" style="width:13%;"><div id="div_discount' . $id . '" class="input-group"><input type="number" onblur="setTwoNumberDecimal(this.id)" step="0.01" onkeydown="checkTabPress(event);" onkeyup="CalculateSubTotal(' . $id . ');"  name="discount[]" id="discount' . $id . '" value="' . $inv_item->discount . '" class="form-control discount" placeholder="Discount"><span class="input-group-addon bootstrap-touchspin-postfix">Rs</span></div></div>';
+                                                        $html .= '<div class="col-sm-2"><div id="div_sale_price' . $id . '" class="input-group"><input type="number" onblur="setTwoNumberDecimal(this.id)" onkeyup="CalculateSubTotal(' . $id . ');" step="0.01" name="sale_price[]" id="sale_price' . $id . '" value="' . $inv_item->product_sale_price . '" class="form-control" placeholder="Sale Price"><span class="input-group-addon bootstrap-touchspin-postfix">₦</span></div></div>';
+                                                        $html .= '<div class="col-sm-2" style="width:13%;"><div id="div_discount' . $id . '" class="input-group"><input type="number" onblur="setTwoNumberDecimal(this.id)" step="0.01" onkeydown="checkTabPress(event);" onkeyup="CalculateSubTotal(' . $id . ');"  name="discount[]" id="discount' . $id . '" value="' . $inv_item->discount . '" class="form-control discount" placeholder="Discount"><span class="input-group-addon bootstrap-touchspin-postfix">₦</span></div></div>';
                                                         $html .= '<div class="col-sm-1" style="width:12%;"><div id="div_batch' . $id . '" class="input-group"><select onchange="GetBatchProCount(this.value,' . $id . ')" name="batch[]" id="batch' . $id . '" class="chosen-select">';
                                                         $html .= '<option value="">Batch No</option>';
                                                         foreach ($batches as $batch) {
@@ -609,8 +609,8 @@
                                                 <div class="col-sm-12">
                                                     <div class="col-sm-3"></div>
                                                     <div class="col-sm-4" style="font-size: 22px; font-weight: bold; color:#003eff;">Total</div>
-                                                    <div id="tot_dis" class="col-sm-3" style="font-size: 20px; font-weight: bold;"><span><?= $invoice[0]->total_discount ?></span> Rs</div>
-                                                    <div id="total" class="col-sm-2" style="font-size: 22px; font-weight: bold; color:#003eff;"><span><?= $invoice[0]->invoice_total ?></span> Rs
+                                                    <div id="tot_dis" class="col-sm-3" style="font-size: 20px; font-weight: bold;">₦ <span><?= $invoice[0]->total_discount ?></span></div>
+                                                    <div id="total" class="col-sm-2" style="font-size: 22px; font-weight: bold; color:#003eff;">₦ <span><?= $invoice[0]->invoice_total ?></span>
                                                         <input type="hidden" name="invoice_total" id="invoice_total" value="<?= $invoice[0]->invoice_total ?>" />
                                                     </div>
                                                 </div>
@@ -668,8 +668,8 @@
                                                     $("#div_discount" + u_id + " span").remove();
 
                                                     $("#div_qty" + u_id).append('<span class="input-group-addon bootstrap-touchspin-postfix">' + unit_symbol + '</span>');
-                                                    $("#div_sale_price" + u_id).append('<span class="input-group-addon bootstrap-touchspin-postfix">Rs</span>');
-                                                    $("#div_discount" + u_id).append('<span class="input-group-addon bootstrap-touchspin-postfix">Rs</span>');
+                                                    $("#div_sale_price" + u_id).append('<span class="input-group-addon bootstrap-touchspin-postfix">₦</span>');
+                                                    $("#div_discount" + u_id).append('<span class="input-group-addon bootstrap-touchspin-postfix">₦</span>');
 
                                                 }
                                                 function add_product() {

@@ -564,8 +564,8 @@
                                                 <div class="col-sm-12">
                                                     <div class="col-sm-3"></div>
                                                     <div class="col-sm-4" style="font-size: 22px; font-weight: bold; color:#003eff;">Total</div>
-                                                    <div id="tot_dis" class="col-sm-3" style="font-size: 20px; font-weight: bold;"><span>0.00</span> Rs</div>
-                                                    <div id="total" class="col-sm-2" style="font-size: 22px; font-weight: bold; color:#003eff;"><span>0.00</span> Rs
+                                                    <div id="tot_dis" class="col-sm-3" style="font-size: 20px; font-weight: bold;">₦ <span>0.00</span></div>
+                                                    <div id="total" class="col-sm-2" style="font-size: 22px; font-weight: bold; color:#003eff;">₦ <span>0.00</span>
                                                         <input type="hidden" name="invoice_total" id="invoice_total" />
                                                     </div>
                                                 </div>
@@ -623,8 +623,8 @@
                                                     $("#div_discount" + u_id + " span").remove();
 
                                                     $("#div_qty" + u_id).append('<span class="input-group-addon bootstrap-touchspin-postfix">' + unit_symbol + '</span>');
-                                                    $("#div_sale_price" + u_id).append('<span class="input-group-addon bootstrap-touchspin-postfix">Rs</span>');
-                                                    $("#div_discount" + u_id).append('<span class="input-group-addon bootstrap-touchspin-postfix">Rs</span>');
+                                                    $("#div_sale_price" + u_id).append('<span class="input-group-addon bootstrap-touchspin-postfix">₦</span>');
+                                                    $("#div_discount" + u_id).append('<span class="input-group-addon bootstrap-touchspin-postfix">₦</span>');
 
                                                 }
                                                 function add_product() {

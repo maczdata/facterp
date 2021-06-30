@@ -580,7 +580,7 @@
                                                 <div class="col-md-7" style="font-weight:bold; font-size: 20px; font-style: italic;">Total Sales <span style="font-size: 13px;">(Selected)</span></div>
                                                 <div class="col-md-5" style="font-weight:bold; font-size: 20px;"><?php
                                                     print_r($total_balnc);
-                                                    echo " Rs/-";
+                                                    echo " ₦/-";
                                                     ?></div>
                                             </div>
                                             <div class="col-md-2  pull-right form-group has-feedback "><i style="margin: 0px 15px auto;" class="glyph-icon icon-search form-control-feedback"></i><input class="form-control" type="text" id="search" name="search" placeholder="Search"/></div>

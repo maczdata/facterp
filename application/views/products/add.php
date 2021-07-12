@@ -505,24 +505,57 @@
                                     <div class="example-box-wrapper">
                                         <form method="post" action="<?= base_url() ?>products/add" id="SubmitAdd" class="form-horizontal bordered-row">
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label">Product Name</label>
-                                                <div class="col-sm-4">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon glyph-icon icon-circle-o"></span>
-                                                        <input type="text" name="name" id="name" onkeyup="RevertValidation()" class="form-control" placeholder="Product Name">
-                                                    </div>
-                                                </div>
-                                                <label class="col-sm-2 control-label">Warehouse</label>
-                                                <div class="col-sm-4">
-                                                    <select name="warehouse" onchange="RevertValidation()" id="warehouse" class="chosen-select">
-                                                        <option value="">Select Warehouse</option>
-                                                        <?php foreach ($warehouses as $warehouse) { ?>
-                                                            <option value="<?= $warehouse->warehouse_id ?>"><?= $warehouse->warehouse_name ?></option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </div>
+												<div class="form-row">
+													<label class="col-sm-2 control-label">Product Name</label>
+													<div class="col-sm-4">
+														<div class="input-group">
+															<span class="input-group-addon glyph-icon icon-circle-o"></span>
+															<input type="text" name="name" id="name" onkeyup="RevertValidation()" class="form-control" placeholder="Product Name">
+														</div>
+													</div>
+													
+													<label class="col-sm-2 control-label">Location Type</label>
+													<div class="col-sm-4">
+														<select  onchange="toggleType()" id="location_type" class="chosen-select">
+															<option value="">Select Type </option>
+															
+															<option value="1">Store</option>
+															<option value="2">Warehouse</option>
+														
+														</select>
+													</div>
+												</div>
+												
+												<div class="form-row" id="warehouse_div" >
+													<label class="col-sm-2 control-label">Warehouse</label>
+													<div class="col-sm-4">
+														<select name="warehouse" onchange="RevertValidation()" id="warehouse" class="chosen-select">
+															<option value="0">Select Warehouse</option>
+															<?php foreach ($warehouses as $warehouse) { ?>
+																<option value="<?= $warehouse->warehouse_id ?>"><?= $warehouse->warehouse_name ?></option>
+															<?php } ?>
+														</select>
+													</div>
+												</div>
+											</div>
+	
+												<div class="form-row" id="store_div">
+													<label class="col-sm-2 control-label">Store</label>
+													<div class="col-sm-4">
+														<select name="store" onchange="RevertValidation()" id="store" class="chosen-select">
+															<option value="0">Select Store</option>
+				                                            <?php foreach ($stores as $store) { ?>
+																<option value="<?= $store->store_id ?>"><?= $store->store_name ?></option>
+				                                            <?php } ?>
+														</select>
+													</div>
+												</div>
+													
                                             </div>
-                                            <div class="form-group">
+	
+										
+											
+											<div class="form-group">
                                                 <label class="col-sm-2 control-label">Product Type</label>
                                                 <div class="col-sm-2">
                                                     <select name="product_type" onchange="RevertValidation()" id="product_type" class="chosen-select" >
@@ -624,6 +657,9 @@
             CKEDITOR.replace('desc');
             </script>
             <script>
+				$("#store_div").hide();
+				$("#warehouse_div").hide();
+				
                 function ConfirmAdd() {
                     var name = $("#name").val();
                     var warehouse = $("#warehouse").val();
@@ -719,6 +755,19 @@
                     }
                     
                 }
+                
+                function toggleType(){
+                    let location_type = $("#location_type").val();
+                    if(location_type == 1){
+                        $("#store_div").show();
+                        $("#warehouse_div").hide();
+					}
+                    
+                    if(location_type == 2){
+                        $("#store_div").hide();
+                        $("#warehouse_div").show();
+					}
+				}
             </script>
 
         </div>

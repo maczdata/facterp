@@ -12,7 +12,7 @@
 
         <meta charset="UTF-8">
         <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
-          <title> Facteezo: Product </title>
+         <title> Facteezo: Stores </title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
@@ -492,112 +492,40 @@
                             <script type="text/javascript" src="<?= base_url() ?>assets/widgets/chosen/chosen-demo.js"></script>
 
                             <div id="page-title">
-                                <h2>EDIT PRODUCT</h2>
-                                <p>Edit information for product</p>
+                                <h2>Add a new store</h2>
+                                <p>Add Name and Address for store</p>
 
                             </div>
 
                             <div class="panel">
                                 <div class="panel-body">
                                     <h3 class="title-hero">
-                                        Edit
+                                        Add
                                     </h3>
                                     <div class="example-box-wrapper">
-                                        <form method="post" action="<?= base_url() ?>products/edit" id="SubmitAdd" class="form-horizontal bordered-row">
+                                        <form method="post" action="<?= base_url() ?>stores/add" id="SubmitAdd" class="form-horizontal bordered-row">
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label">Product Name</label>
-                                                <div class="col-sm-4">
+                                                <label class="col-sm-3 control-label">Store  Name</label>
+                                                <div class="col-sm-6">
                                                     <div class="input-group">
                                                         <span class="input-group-addon glyph-icon icon-circle-o"></span>
-                                                        <input type="text" value="<?= $product[0]->product_name ?>" name="name" id="name" class="form-control" placeholder="Product Name">
+                                                        <input type="text" name="name" onkeyup="Validation()" id="name" class="form-control" placeholder="store Name">
                                                     </div>
                                                 </div>
-                                                <label class="col-sm-2 control-label">Warehouse</label>
-                                                <div class="col-sm-4">
-                                                    <select name="warehouse" id="warehouse" class="chosen-select">
-                                                        <?php foreach ($warehouses as $warehouse) { ?>
-                                                            <option <?= $product[0]->warehouse_id == $warehouse->warehouse_id ? "selected" : "" ?> value="<?= $warehouse->warehouse_id ?>"><?= $warehouse->warehouse_name ?></option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </div>
                                             </div>
-                                            <input type="hidden" name="product_id" value="<?= $product[0]->product_id ?>" />
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label">Product Type</label>
-                                                <div class="col-sm-2">
-                                                    <select name="product_type" id="product_type" class="chosen-select">
-                                                        <option value="">Select Option</option>
-                                                        <option <?= $product[0]->type == "raw" ? "selected" : "" ?> value="raw">Raw Material</option>
-                                                        <option <?= $product[0]->type == "production" ? "selected" : "" ?> value="production">Production</option>
-                                                        <option <?= $product[0]->type == "process" ? "selected" : "" ?> value="production">Process</option>
-                                                        
-                                                    </select>
-                                                </div>
-                                                <label class="col-sm-2 control-label">Product Category</label>
-                                                <div class="col-sm-2">
-                                                    <select name="product_category" id="product_category" class="chosen-select">
-                                                        <option value="">Select Option</option>
-                                                        <?php foreach ($product_categories as $product_category) { ?>
-                                                            <option <?= $product[0]->product_category_id == $product_category->product_category_id ? "selected" : "" ?> value="<?= $product_category->product_category_id ?>"><?= $product_category->product_category_name ?></option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </div>
-                                                <label class="col-sm-2 control-label">In Stock</label>
-                                                <div class="col-sm-2">
+                                                <label class="col-sm-3 control-label">Address</label>
+                                                <div class="col-sm-6">
                                                     <div class="input-group">
-                                                        <span class="input-group-addon glyph-icon icon-cubes"></span>
-                                                        <input value="<?= $product[0]->instock ?>" type="number" name="instock" id="instock" class="form-control" placeholder="In Stock">
+                                                        <span class="input-group-addon glyph-icon icon-home"></span>
+                                                        <input type="text" name="address" onkeyup="Validation()" id="address" class="form-control" placeholder="Address">
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label">Product Unit</label>
-                                                <div class="col-sm-2">
-                                                    <select name="product_unit" id="product_unit" class="chosen-select">
-                                                        <option value="">Select Option</option>
-                                                        <?php foreach ($units as $unit) { ?>
-                                                            <option <?= $product[0]->unit_id == $unit->unit_id ? "selected" : "" ?> value="<?= $unit->unit_id ?>"><?= $unit->unit_symbol ?></option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </div>
-                                                <label class="col-sm-2 control-label">Purchase Unit</label>
-                                                <div class="col-sm-2">
-                                                    <select name="purchase_unit" id="purchase_unit" class="chosen-select">
-                                                        <option value="">Select Option</option>
-                                                        <?php foreach ($units as $unit) { ?>
-                                                            <option <?= $product[0]->purchase_unit_id == $unit->unit_id ? "selected" : "" ?> value="<?= $unit->unit_id ?>"><?= $unit->unit_symbol ?></option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </div>
-                                                <label class="col-sm-2 control-label">Sale Unit</label>
-                                                <div class="col-sm-2">
-                                                    <select name="sale_unit" id="sale_unit" class="chosen-select">
-                                                        <option value="">Select Option</option>
-                                                        <?php foreach ($units as $unit) { ?>
-                                                            <option <?= $product[0]->sale_unit_id == $unit->unit_id ? "selected" : "" ?> value="<?= $unit->unit_id ?>"><?= $unit->unit_symbol ?></option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label">Product Rate</label>
-                                                <div class="col-sm-2">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon glyph-icon icon-cubes"></span>
-                                                        <input type="number" value="<?= $product[0]->product_rate ?>" name="product_rate" id="product_rate" class="form-control" placeholder="Product Rate">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-12">Description</label>
-                                                <div class="col-sm-12">
-                                                    <textarea name="desc" id="desc"><?= $product[0]->description ?></textarea>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-md-4 col-sm-0"></div>
                                                 <button class="btn btn-alt btn-hover btn-blue-alt col-md-4" onclick="return ConfirmAdd();">
-                                                    <span>CONFIRM EDIT Product</span>
+                                                    <span>CONFIRM ADD NEW Store</span>
                                                     <i class="glyph-icon icon-arrow-right"></i>
                                                 </button>
                                                 <div class="col-md-4 col-sm-0"></div>
@@ -617,61 +545,43 @@
 
             <!-- JS Demo -->
             <script type="text/javascript" src="<?= base_url() ?>assets-minified/admin-all-demo.js"></script>
-            <script src="<?= base_url() ?>ckeditor/ckeditor.js"></script>
             <script>
-            // Replace the <textarea id="editor1"> with a CKEditor
-            // instance, using default configuration.
-            CKEDITOR.replace('desc');
-            </script>
-            <script>
-                function ConfirmAdd() {
-                    var name = $("#name").val();
-                    var warehouse = $("#warehouse").val();
-                    var product_type = $("#product_type").val();
-                    var instock = $("#instock").val();
-                    var product_unit = $("#product_unit").val();
-                    var purchase_unit = $("#purchase_unit").val();
-                    var sale_unit = $("#sale_unit").val();
-                    var product_category = $("#product_category").val();
-                    var err = false;
-                    if (name == "" || name == null) {
-                        $("#name").css("border", "1px solid red");
-                        err = true;
-                    }
-                    if (warehouse == "" || warehouse == null) {
-                        $("#warehouse_chosen").css("border", "1px solid red");
-                        err = true;
-                    }
-                    if (product_type == "" || product_type == null) {
-                        $("#product_type_chosen").css("border", "1px solid red");
-                        err = true;
-                    }
-                    if (instock == "" || instock == null) {
-                        $("#instock").css("border", "1px solid red");
-                        err = true;
-                    }
-                    if (product_unit == "" || product_unit == null) {
-                        $("#product_unit_chosen").css("border", "1px solid red");
-                        err = true;
-                    }
-                    if (purchase_unit == "" || purchase_unit == null) {
-                        $("#purchase_unit_chosen").css("border", "1px solid red");
-                        err = true;
-                    }
-                    if (sale_unit == "" || sale_unit == null) {
-                        $("#sale_unit").css("border", "1px solid red");
-                        err = true;
-                    }
-                    if (product_category == "" || product_category == null) {
-                        $("#product_category_chosen").css("border", "1px solid red");
-                        err = true;
-                    }
-                    if (err === true) {
-                        return false;
-                    } else {
-                        $("#SubmitAdd").submit();
-                    }
+            function ConfirmAdd() {
+                var name = $("#name").val();
+                var address = $("#address").val();
+                var err = false;
+                if (name == "" || name == null) {
+                    $("#name").css("border", "1px solid red");
+                    err = true;
                 }
+                if (address == "" || address == null) {
+                    $("#address").css("border", "1px solid red");
+                    err = true;
+                }
+                if (err === true) {
+                    return false;
+                } else {
+                    $("#SubmitAdd").submit();
+                }
+            }
+            function Validation() {
+                var name = $("#name").val();
+                var address = $("#address").val();
+                var err = false;
+                if (name !== "" & name !== null) {
+                    $("#name").css("border", "1px solid #dfe8f1");
+                    err = true;
+                }
+                if (address !== "" & address !== null) {
+                    $("#address").css("border", "1px solid #dfe8f1");
+                    err = true;
+                }
+                // if (err === true) {
+                //     return false;
+                // } else {
+                //     $("#SubmitAdd").submit();
+                // }
+            }
             </script>
 
         </div>

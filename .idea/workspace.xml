@@ -19,10 +19,14 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="new store and store listing completed">
+    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="adding products to warehouse and stores">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/controllers/Products.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Products.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/products/add.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/products/add.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Stores.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Stores.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Warehouses.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Warehouses.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/core/MY_Model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/core/MY_Model.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/products/all.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/products/all.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/products/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/products/edit.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +69,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1626015296257</updated>
-      <workItem from="1626015299102" duration="5584000" />
+      <workItem from="1626015299102" duration="11726000" />
     </task>
     <task id="LOCAL-00001" summary="new store and store listing completed">
       <created>1626018607669</created>
@@ -74,7 +78,14 @@
       <option name="project" value="LOCAL" />
       <updated>1626018607669</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="adding products to warehouse and stores">
+      <created>1626082310502</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1626082310502</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -93,12 +104,13 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="new store and store listing completed" />
-    <option name="LAST_COMMIT_MESSAGE" value="new store and store listing completed" />
+    <MESSAGE value="adding products to warehouse and stores" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding products to warehouse and stores" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="247" y="78" key="Vcs.Push.Dialog.v2" timestamp="1626018610120">
+    <state x="247" y="78" key="Vcs.Push.Dialog.v2" timestamp="1626082312633">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="247" y="78" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1626018610120" />
+    <state x="247" y="78" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1626082312633" />
   </component>
 </project>

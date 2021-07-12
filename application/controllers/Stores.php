@@ -41,9 +41,22 @@ class Stores extends MY_Controller {
             $data = array();
             $data['store_name'] = $this->db->escape_str($this->input->post("name", true));
             $data['store_address'] = $this->db->escape_str($this->input->post("address", true));
-            if ($this->web->Add("stores", $data)) {
+            $store_id = $this->web->Add("stores", $data);
+	
+	        $products = $this->web->GetAll("product_id", "products");
+	        foreach ($products as $product) {
+		        $data = array(
+			        'store_stock_store_id' => $store_id,
+			        'store_stock_product_id' => $product->product_id,
+			        'store_stock_quantity' => 0
+		        );
+		
+		        $this->web->Add('store_stock', $data);
+	        }
+	
+	       
                 redirect("stores", "refresh");
-            }
+           
         } else {
             $this->load->view("stores/add", $this->data);
         }

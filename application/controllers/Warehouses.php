@@ -41,9 +41,22 @@ class Warehouses extends MY_Controller {
             $data = array();
             $data['warehouse_name'] = $this->db->escape_str($this->input->post("name", true));
             $data['warehouse_address'] = $this->db->escape_str($this->input->post("address", true));
-            if ($this->web->Add("warehouses", $data)) {
+           $warehouse_id = $this->web->AddReturnId("warehouses", $data);
+	
+	        $products = $this->web->GetAll("product_id", "products");
+	       foreach ($products as $product) {
+		       $data = array(
+			       'warehouse_stock_warehouse_id' => $warehouse_id,
+			       'warehouse_stock_product_id' => $product->product_id,
+			       'warehouse_stock_quantity' => 0
+		       );
+		
+		       $this->web->Add('warehouse_stock', $data);
+	       }
+           
+           
                 redirect("warehouses", "refresh");
-            }
+            
         } else {
             $this->load->view("warehouses/add", $this->data);
         }

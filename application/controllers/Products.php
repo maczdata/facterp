@@ -158,6 +158,7 @@ class Products extends MY_Controller {
             $data = array();
             $data['product_name'] = $this->db->escape_str($this->input->post("name", true));
             $data['warehouse_id'] = $this->db->escape_str($this->input->post("warehouse", true));
+	        $data['store_id'] = $this->db->escape_str($this->input->post("store", true));
             $data['type'] = $this->db->escape_str($this->input->post("product_type", true));
             $data['unit_id'] = $this->db->escape_str($this->input->post("product_unit", true));
             $data['purchase_unit_id'] = $this->db->escape_str($this->input->post("purchase_unit", true));
@@ -171,6 +172,7 @@ class Products extends MY_Controller {
             }
         } else {
             $this->data['warehouses'] = $this->web->GetAll("warehouse_id", "warehouses");
+	        $this->data['stores'] = $this->web->GetAll("store_id", "stores");
             $this->data['units'] = $this->web->GetAll("unit_id", "units");
             $this->data['product_categories'] = $this->web->GetAll("product_category_id", "product_categories");
 //            print_r($this->data['warehouses']);

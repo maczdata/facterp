@@ -219,14 +219,14 @@ class Products extends MY_Controller {
 				        'credit_qty' => $quantity,
 				        'description' => 'Initial Stocking',
 				        'type' => 'STORE',
-				        'warehouse_id' => $store_id
+				        'store_id' => $store_id
 			        );
 			
 			        $this->web->Add('product_ledger', $ledger);
 			
 		        }else{
 			        $data = array(
-				        'store_stock_store_id' => $store_id,
+				        'store_stock_store_id' => $store->store_id,
 				        'store_stock_product_id' => $product_id,
 				        'store_stock_quantity' => 0
 			        );

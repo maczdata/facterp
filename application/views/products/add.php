@@ -561,7 +561,7 @@
                                                     <select name="product_type" onchange="RevertValidation()" id="product_type" class="chosen-select" >
                                                         <option value="">Select Option</option>
                                                         <option value="raw">Raw Material</option>
-                                                        <option value="production">Production</option>
+                                                        <option value="production">Product</option>
                                                         <option value="production">Process</option>
                                                         
                                                     </select>

@@ -101,6 +101,9 @@ class MY_Model extends CI_Model {
         $query = $this->db->query($query);
         return $query->result();
     }
+    
+    
+   
 
     function Update($primary, $table, $value, $data) {
 

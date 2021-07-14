@@ -848,5 +848,18 @@ AND product_ledger.date_ledger > '" . $to_date . "' GROUP BY product_ledger.prod
         $result = $query->result();
         return $result;
     }
+    
+    function GetProductsStore(){
+    	$query = "select * from store_stock left join stores on stores.store_id  = store_stock.store_stock_store_id left join products on products.product_id = store_stock.store_stock_product_id";
+        $query = $this->db->query($query);
+        return $query->result();
+    }
+    
+    
+    function GetProductsWarehouse(){
+	    $query = "select * from warehouse_stock left join warehouses on warehouses.warehouse_id  = warehouse_stock.warehouse_stock_warehouse_id left join products on products.product_id = warehouse_stock.warehouse_stock_product_id";
+	    $query = $this->db->query($query);
+	    return $query->result();
+    }
 
 }

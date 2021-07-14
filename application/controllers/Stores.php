@@ -41,7 +41,7 @@ class Stores extends MY_Controller {
             $data = array();
             $data['store_name'] = $this->db->escape_str($this->input->post("name", true));
             $data['store_address'] = $this->db->escape_str($this->input->post("address", true));
-            $store_id = $this->web->Add("stores", $data);
+            $store_id = $this->web->AddReturnId("stores", $data);
 	
 	        $products = $this->web->GetAll("product_id", "products");
 	        foreach ($products as $product) {

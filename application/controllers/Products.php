@@ -120,11 +120,11 @@ class Products extends MY_Controller {
 
     function view() {
         $product_id = $this->uri->segment(3);
-        $this->data['product'] = $this->web->GetOneWithInner("product_id", "products", "units", "unit_id", "warehouses", "warehouse_id", $product_id);
+        $this->data['product'] = $this->web->GetOneWithInner("product_id", "products", "units", "unit_id", NULL, NULL, $product_id);
         $this->data['warehouses'] = $this->web->GetAll("warehouse_id", "warehouses");
         $this->data['units'] = $this->web->GetAll("unit_id", "units");
         $this->data['product_categories'] = $this->web->GetAll("product_category_id", "product_categories");
-//        print_r($this->data['product']);
+        //print_r($this->data['product']);
 //        die();
         $this->load->view("products/edit", $this->data);
     }
@@ -157,20 +157,92 @@ class Products extends MY_Controller {
         if ($this->input->post()) {
             $data = array();
             $data['product_name'] = $this->db->escape_str($this->input->post("name", true));
-            $data['warehouse_id'] = $this->db->escape_str($this->input->post("warehouse", true));
+            $warehouse_id = $this->db->escape_str($this->input->post("warehouse", true));
+	        $store_id = $this->db->escape_str($this->input->post("store", true));
             $data['type'] = $this->db->escape_str($this->input->post("product_type", true));
             $data['unit_id'] = $this->db->escape_str($this->input->post("product_unit", true));
             $data['purchase_unit_id'] = $this->db->escape_str($this->input->post("purchase_unit", true));
             $data['sale_unit_id'] = $this->db->escape_str($this->input->post("sale_unit", true));
             $data['product_category_id'] = $this->db->escape_str($this->input->post("product_category", true));
-            $data['instock'] = $this->input->post("instock", true);
+            //$data['instock'] = $this->input->post("instock", true);
+            $quantity = $this->input->post("instock", true);
             $data['product_rate'] = $this->input->post("product_rate", true);
             $data['description'] = htmlentities($this->input->post("desc", true));
-            if ($this->web->Add("products", $data)) {
-                redirect("products", "refresh");
-            }
+            
+            $product_id = $this->web->AddReturnId("products", $data);
+	
+	        $warehouses = $this->web->GetAll("warehouse_id", "warehouses");
+	        
+	        foreach ($warehouses as $warehouse){
+	        	if($warehouse_id == $warehouse->warehouse_id){
+	        		$data = array(
+	        			'warehouse_stock_warehouse_id' => $warehouse_id,
+				        'warehouse_stock_product_id' => $product_id,
+				        'warehouse_stock_quantity' => $quantity
+			        );
+	        		
+	        		$ledger = array(
+	        			'product_id' =>$product_id,
+				        'debit_qty' => 0.000,
+				        'credit_qty' => $quantity,
+				        'description' => 'Initial Stocking',
+				        'type' => 'WAREHOUSE',
+				        'warehouse_id' => $warehouse_id
+			        );
+	        		
+	        		$this->web->Add('product_ledger', $ledger);
+	        		
+		        }else{
+			        $data = array(
+				        'warehouse_stock_warehouse_id' => $warehouse->warehouse_id,
+				        'warehouse_stock_product_id' => $product_id,
+				        'warehouse_stock_quantity' => 0
+			        );
+		        }
+	        	
+	        	$this->web->Add('warehouse_stock', $data);
+	        	
+	        }
+	
+	        $stores = $this->web->GetAll("store_id", "stores");
+	        foreach ($stores as $store){
+		        if($store_id == $store->store_id){
+			        $data = array(
+				        'store_stock_store_id' => $store_id,
+				        'store_stock_product_id' => $product_id,
+				        'store_stock_quantity' => $quantity
+			        );
+			
+			        $ledger = array(
+				        'product_id' =>$product_id,
+				        'debit_qty' => 0.000,
+				        'credit_qty' => $quantity,
+				        'description' => 'Initial Stocking',
+				        'type' => 'STORE',
+				        'warehouse_id' => $store_id
+			        );
+			
+			        $this->web->Add('product_ledger', $ledger);
+			
+		        }else{
+			        $data = array(
+				        'store_stock_store_id' => $store_id,
+				        'store_stock_product_id' => $product_id,
+				        'store_stock_quantity' => 0
+			        );
+		        }
+		
+		        $this->web->Add('store_stock', $data);
+		
+	        }
+            
+            
+            
+         redirect("products", "refresh");
+         
         } else {
             $this->data['warehouses'] = $this->web->GetAll("warehouse_id", "warehouses");
+	        $this->data['stores'] = $this->web->GetAll("store_id", "stores");
             $this->data['units'] = $this->web->GetAll("unit_id", "units");
             $this->data['product_categories'] = $this->web->GetAll("product_category_id", "product_categories");
 //            print_r($this->data['warehouses']);

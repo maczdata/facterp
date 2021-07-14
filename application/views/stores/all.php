@@ -1,7 +1,9 @@
+<script>
+    var curr_date = "<?= date("Y-m-d") ?>";
+</script>
 <!DOCTYPE html>
 <html  lang="en">
 
-    <!-- Mirrored from agileui.com/demo/monarch/demo/admin-template/forms-elements.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 02 Mar 2017 12:11:32 GMT -->
     <head>
 
         <style>
@@ -12,7 +14,7 @@
 
         <meta charset="UTF-8">
         <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
-          <title> Facteezo: Product </title>
+            <title> Facteezo: stores </title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
@@ -37,11 +39,11 @@
 
 
         <script type="text/javascript">
-            $(window).load(function () {
-                setTimeout(function () {
-                    $('#loading').fadeOut(400, "linear");
-                }, 300);
-            });
+    $(window).load(function () {
+        setTimeout(function () {
+            $('#loading').fadeOut(400, "linear");
+        }, 300);
+    });
         </script>
 
 
@@ -416,196 +418,97 @@
                         <div class="container">
 
 
-                            <!-- jQueryUI Spinner -->
+                            <!-- Data tables -->
 
-                            <script type="text/javascript" src="<?= base_url() ?>assets/widgets/spinner/spinner.js"></script>
+<!--<link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/widgets/datatable/datatable.css">-->
+                            <script type="text/javascript" src="<?= base_url() ?>assets/widgets/datatable/datatable.js"></script>
+                            <script type="text/javascript" src="<?= base_url() ?>assets/widgets/datatable/datatable-bootstrap.js"></script>
+                            <script type="text/javascript" src="<?= base_url() ?>assets/widgets/datatable/datatable-responsive.js"></script>
+
                             <script type="text/javascript">
-            /* jQuery UI Spinner */
 
-            $(function () {
-                "use strict";
-                $(".spinner-input").spinner();
-            });
+    /* Datatables responsive */
+
+    $(document).ready(function () {
+        $('#datatable-responsive').DataTable({
+            responsive: true
+        });
+    });
+
+    $(document).ready(function () {
+        $('.dataTables_filter input').attr("placeholder", "Search...");
+    });
+
                             </script>
 
-                            <!-- jQueryUI Autocomplete -->
-
-                            <script type="text/javascript" src="<?= base_url() ?>assets/widgets/autocomplete/autocomplete.js"></script>
-                            <script type="text/javascript" src="<?= base_url() ?>assets/widgets/autocomplete/menu.js"></script>
-                            <script type="text/javascript" src="<?= base_url() ?>assets/widgets/autocomplete/autocomplete-demo.js"></script>
-
-                            <!-- Touchspin -->
-
-<!--<link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/widgets/touchspin/touchspin.css">-->
-                            <script type="text/javascript" src="<?= base_url() ?>assets/widgets/touchspin/touchspin.js"></script>
-                            <script type="text/javascript" src="<?= base_url() ?>assets/widgets/touchspin/touchspin-demo.js"></script>
-
-                            <!-- Input switch -->
-
-<!--<link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/widgets/input-switch/inputswitch.css">-->
-                            <script type="text/javascript" src="<?= base_url() ?>assets/widgets/input-switch/inputswitch.js"></script>
-                            <script type="text/javascript">
-            /* Input switch */
-
-            $(function () {
-                "use strict";
-                $('.input-switch').bootstrapSwitch();
-            });
-                            </script>
-
-                            <!-- Textarea -->
-
-                            <script type="text/javascript" src="<?= base_url() ?>assets/widgets/textarea/textarea.js"></script>
-                            <script type="text/javascript">
-            /* Textarea autoresize */
-
-            $(function () {
-                "use strict";
-                $('.textarea-autosize').autosize();
-            });
-                            </script>
-
-                            <!-- Multi select -->
-
-<!--<link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/widgets/multi-select/multiselect.css">-->
-                            <script type="text/javascript" src="<?= base_url() ?>assets/widgets/multi-select/multiselect.js"></script>
-                            <script type="text/javascript">
-            /* Multiselect inputs */
-
-            $(function () {
-                "use strict";
-                $(".multi-select").multiSelect();
-                $(".ms-container").append('<i class="glyph-icon icon-exchange"></i>');
-            });
-                            </script>
-
-                            <!-- Uniform -->
-
-<!--<link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/widgets/uniform/uniform.css">-->
-                            <script type="text/javascript" src="<?= base_url() ?>assets/widgets/uniform/uniform.js"></script>
-                            <script type="text/javascript" src="<?= base_url() ?>assets/widgets/uniform/uniform-demo.js"></script>
-
-                            <!-- Chosen -->
-
-<!--<link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/widgets/chosen/chosen.css">-->
-                            <script type="text/javascript" src="<?= base_url() ?>assets/widgets/chosen/chosen.js"></script>
-                            <script type="text/javascript" src="<?= base_url() ?>assets/widgets/chosen/chosen-demo.js"></script>
-
-                            <div id="page-title">
-                                <h2>EDIT PRODUCT</h2>
-                                <p>Edit information for product</p>
-
+                            <div id="page-title" style="overflow: hidden;">
+                                <div class="col-md-6">
+                                    <h2>stores</h2>
+                                    <p>Add, Edit or Delete stores</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <button class="btn btn-blue-alt pull-right" onclick="AddUser();"><span style="margin-right: 5px;" class="glyph-icon icon-plus"></span>Add store</button>
+                                </div>
                             </div>
 
                             <div class="panel">
                                 <div class="panel-body">
                                     <h3 class="title-hero">
-                                        Edit
+                                        All stores
                                     </h3>
                                     <div class="example-box-wrapper">
-                                        <form method="post" action="<?= base_url() ?>products/edit" id="SubmitAdd" class="form-horizontal bordered-row">
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label">Product Name</label>
-                                                <div class="col-sm-4">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon glyph-icon icon-circle-o"></span>
-                                                        <input type="text" value="<?= $product[0]->product_name ?>" name="name" id="name" class="form-control" placeholder="Product Name">
-                                                    </div>
-                                                </div>
-                                                <label class="col-sm-2 control-label">Warehouse</label>
-                                                <div class="col-sm-4">
-                                                    <select name="warehouse" id="warehouse" class="chosen-select">
-                                                        <?php foreach ($warehouses as $warehouse) { ?>
-                                                            <option <?= $product[0]->warehouse_id == $warehouse->warehouse_id ? "selected" : "" ?> value="<?= $warehouse->warehouse_id ?>"><?= $warehouse->warehouse_name ?></option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <input type="hidden" name="product_id" value="<?= $product[0]->product_id ?>" />
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label">Product Type</label>
-                                                <div class="col-sm-2">
-                                                    <select name="product_type" id="product_type" class="chosen-select">
-                                                        <option value="">Select Option</option>
-                                                        <option <?= $product[0]->type == "raw" ? "selected" : "" ?> value="raw">Raw Material</option>
-                                                        <option <?= $product[0]->type == "production" ? "selected" : "" ?> value="production">Production</option>
-                                                        <option <?= $product[0]->type == "process" ? "selected" : "" ?> value="production">Process</option>
-                                                        
-                                                    </select>
-                                                </div>
-                                                <label class="col-sm-2 control-label">Product Category</label>
-                                                <div class="col-sm-2">
-                                                    <select name="product_category" id="product_category" class="chosen-select">
-                                                        <option value="">Select Option</option>
-                                                        <?php foreach ($product_categories as $product_category) { ?>
-                                                            <option <?= $product[0]->product_category_id == $product_category->product_category_id ? "selected" : "" ?> value="<?= $product_category->product_category_id ?>"><?= $product_category->product_category_name ?></option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </div>
-                                                <label class="col-sm-2 control-label">In Stock</label>
-                                                <div class="col-sm-2">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon glyph-icon icon-cubes"></span>
-                                                        <input value="<?= $product[0]->instock ?>" type="number" name="instock" id="instock" class="form-control" placeholder="In Stock">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label">Product Unit</label>
-                                                <div class="col-sm-2">
-                                                    <select name="product_unit" id="product_unit" class="chosen-select">
-                                                        <option value="">Select Option</option>
-                                                        <?php foreach ($units as $unit) { ?>
-                                                            <option <?= $product[0]->unit_id == $unit->unit_id ? "selected" : "" ?> value="<?= $unit->unit_id ?>"><?= $unit->unit_symbol ?></option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </div>
-                                                <label class="col-sm-2 control-label">Purchase Unit</label>
-                                                <div class="col-sm-2">
-                                                    <select name="purchase_unit" id="purchase_unit" class="chosen-select">
-                                                        <option value="">Select Option</option>
-                                                        <?php foreach ($units as $unit) { ?>
-                                                            <option <?= $product[0]->purchase_unit_id == $unit->unit_id ? "selected" : "" ?> value="<?= $unit->unit_id ?>"><?= $unit->unit_symbol ?></option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </div>
-                                                <label class="col-sm-2 control-label">Sale Unit</label>
-                                                <div class="col-sm-2">
-                                                    <select name="sale_unit" id="sale_unit" class="chosen-select">
-                                                        <option value="">Select Option</option>
-                                                        <?php foreach ($units as $unit) { ?>
-                                                            <option <?= $product[0]->sale_unit_id == $unit->unit_id ? "selected" : "" ?> value="<?= $unit->unit_id ?>"><?= $unit->unit_symbol ?></option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label">Product Rate</label>
-                                                <div class="col-sm-2">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon glyph-icon icon-cubes"></span>
-                                                        <input type="number" value="<?= $product[0]->product_rate ?>" name="product_rate" id="product_rate" class="form-control" placeholder="Product Rate">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-12">Description</label>
-                                                <div class="col-sm-12">
-                                                    <textarea name="desc" id="desc"><?= $product[0]->description ?></textarea>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-md-4 col-sm-0"></div>
-                                                <button class="btn btn-alt btn-hover btn-blue-alt col-md-4" onclick="return ConfirmAdd();">
-                                                    <span>CONFIRM EDIT Product</span>
-                                                    <i class="glyph-icon icon-arrow-right"></i>
-                                                </button>
-                                                <div class="col-md-4 col-sm-0"></div>
-                                            </div>
-                                        </form>
+                                        <table id="datatable-responsive" class="table table-striped table-bordered responsive no-wrap" cellspacing="0" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Name</th>
+                                                    <th>Address</th>
+                                                    <th>Manage</th>
+                                                </tr>
+                                            </thead>
+
+<!-- <tfoot>
+<tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Status</th>
+    <th>Manage</th>
+</tr>
+</tfoot> -->
+
+                                            <tbody>
+                                                <?php foreach ($stores as $store) {
+                                                    ?>
+                                                    <tr>
+                                                        <td><?= $store->store_id ?></td>
+                                                        <td><?= $store->store_name ?></td>
+                                                        <td><?= $store->store_address ?></td>
+
+                                                        <td>
+                                                        <?php if($this->session->userdata('user_group_id') == 1){ ?>
+                                                            <button class="btn btn-round btn-info" data-toggle="tooltip" data-placement="top" title="Edit" data-toggle="modal" data-target="#myModal" onclick="Editstore('<?= $store->store_id ?>');">
+                                                                <i class="glyph-icon icon-pencil"></i>
+                                                            </button>
+                                                            <button class="btn btn-round btn-danger" data-toggle="tooltip" data-placement="top" title="Delete" onclick="Deletestore('<?= $store->store_id ?>');">
+                                                                <i class="glyph-icon icon-trash"></i>
+                                                            </button>
+                                                        <?php } ?>    
+                                                            <button onclick="GoLedger('<?= $store->store_id ?>');"  class="btn btn-round btn-success" >
+                                                                <i class="glyph-icon icon-file-image-o"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                <?php }
+                                                ?>
+
+
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
 
 
@@ -617,65 +520,69 @@
 
             <!-- JS Demo -->
             <script type="text/javascript" src="<?= base_url() ?>assets-minified/admin-all-demo.js"></script>
-            <script src="<?= base_url() ?>ckeditor/ckeditor.js"></script>
-            <script>
-            // Replace the <textarea id="editor1"> with a CKEditor
-            // instance, using default configuration.
-            CKEDITOR.replace('desc');
-            </script>
-            <script>
-                function ConfirmAdd() {
-                    var name = $("#name").val();
-                    var warehouse = $("#warehouse").val();
-                    var product_type = $("#product_type").val();
-                    var instock = $("#instock").val();
-                    var product_unit = $("#product_unit").val();
-                    var purchase_unit = $("#purchase_unit").val();
-                    var sale_unit = $("#sale_unit").val();
-                    var product_category = $("#product_category").val();
-                    var err = false;
-                    if (name == "" || name == null) {
-                        $("#name").css("border", "1px solid red");
-                        err = true;
-                    }
-                    if (warehouse == "" || warehouse == null) {
-                        $("#warehouse_chosen").css("border", "1px solid red");
-                        err = true;
-                    }
-                    if (product_type == "" || product_type == null) {
-                        $("#product_type_chosen").css("border", "1px solid red");
-                        err = true;
-                    }
-                    if (instock == "" || instock == null) {
-                        $("#instock").css("border", "1px solid red");
-                        err = true;
-                    }
-                    if (product_unit == "" || product_unit == null) {
-                        $("#product_unit_chosen").css("border", "1px solid red");
-                        err = true;
-                    }
-                    if (purchase_unit == "" || purchase_unit == null) {
-                        $("#purchase_unit_chosen").css("border", "1px solid red");
-                        err = true;
-                    }
-                    if (sale_unit == "" || sale_unit == null) {
-                        $("#sale_unit").css("border", "1px solid red");
-                        err = true;
-                    }
-                    if (product_category == "" || product_category == null) {
-                        $("#product_category_chosen").css("border", "1px solid red");
-                        err = true;
-                    }
-                    if (err === true) {
-                        return false;
-                    } else {
-                        $("#SubmitAdd").submit();
-                    }
-                }
-            </script>
 
+            <script>
+                                                            function Editstore(unit_id) {
+                                                                window.location.href = "<?= base_url() ?>stores/view/" + unit_id;
+                                                                //        $.post("<?//= base_url() ?>users/edit", {id: user_id})
+                                                                //            .done(function (data) {
+                                                                //                if ($.trim(data) == 'done') {
+                                                                //                    window.location.href = "<?= base_url() ?>dashboard";
+                                                                //                }
+                                                                //                if ($.trim(data) == 'failed') {
+                                                                ////                                                            alert('here');
+                                                                //                    window.location.href = "<?= base_url() ?>";
+                                                                //
+                                                                //                }
+                                                                //            });
+                                                            }
+                                                            function Deletestore(unit_id) {
+                                                                var cnfirm = confirm("Are You Sure?");
+                                                                if (cnfirm) {
+                                                                    $.post("<?= base_url() ?>stores/delete", {id: unit_id})
+                                                                            .done(function (data) {
+//                                                                                    alert(data);
+                                                                                if ($.trim(data) == 'done') {
+                                                                                    location.reload(true);
+                                                                                }
+                                                                            });
+                                                                }
+                                                            }
+                                                            function AddUser() {
+                                                                window.location.href = "<?= base_url() ?>stores/add";
+                                                            }
+                                                            function GoLedger(store_id) {
+//                                                                alert(curr_date);
+                                                                $.post("<?= base_url() ?>" + "reports/store_statement", {store: store_id, from_date: curr_date, to_date: curr_date})
+                                                                        .done(function (data) {
+//                                                                            console.log(data);
+//                                                                            return false;
+                                                                            var newDoc = document.open("text/html", "replace");
+                                                                            newDoc.write(data);
+                                                                            newDoc.close();
+                                                                        });
+                                                            }
+
+
+            </script>
         </div>
+        <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                            <h4 class="modal-title">Edit User</h4>
+                                        </div>
+                                        <div class="modal-body">
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
     </body>
 
-    <!-- Mirrored from agileui.com/demo/monarch/demo/admin-template/forms-elements.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 02 Mar 2017 12:11:42 GMT -->
 </html>

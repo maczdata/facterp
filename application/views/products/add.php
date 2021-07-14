@@ -530,7 +530,7 @@
 													<label class="col-sm-2 control-label">Warehouse</label>
 													<div class="col-sm-4">
 														<select name="warehouse" onchange="RevertValidation()" id="warehouse" class="chosen-select">
-															<option value="0">Select Warehouse</option>
+															<option value="">Select Warehouse</option>
 															<?php foreach ($warehouses as $warehouse) { ?>
 																<option value="<?= $warehouse->warehouse_id ?>"><?= $warehouse->warehouse_name ?></option>
 															<?php } ?>
@@ -543,7 +543,7 @@
 													<label class="col-sm-2 control-label">Store</label>
 													<div class="col-sm-4">
 														<select name="store" onchange="RevertValidation()" id="store" class="chosen-select">
-															<option value="0">Select Store</option>
+															<option value="">Select Store</option>
 				                                            <?php foreach ($stores as $store) { ?>
 																<option value="<?= $store->store_id ?>"><?= $store->store_name ?></option>
 				                                            <?php } ?>
@@ -663,6 +663,8 @@
                 function ConfirmAdd() {
                     var name = $("#name").val();
                     var warehouse = $("#warehouse").val();
+                    var store = $("#store").val();
+                    var location_type = $("#location_type").val();
                     var product_type = $("#product_type").val();
                     var instock = $("#instock").val();
                     var product_unit = $("#product_unit").val();
@@ -675,12 +677,18 @@
                         $("#name").css("border", "1px solid red");
                         err = true;
                     }
-                    if (warehouse == "" || warehouse == null) {
+                    if ((warehouse == "" || warehouse == null) && (store == "" || store == null) ) {
                         $("#warehouse_chosen").css("border", "1px solid red");
+                        $("#store_chosen").css("border", "1px solid red");
                         err = true;
                     }
                     if (product_type == "" || product_type == null) {
                         $("#product_type_chosen").css("border", "1px solid red");
+                        err = true;
+                    }
+
+                    if (location_type == "" || location_type == null) {
+                        $("#location_type_chosen").css("border", "1px solid red");
                         err = true;
                     }
                     if (instock == "" || instock == null) {
@@ -767,6 +775,12 @@
                         $("#store_div").hide();
                         $("#warehouse_div").show();
 					}
+				}
+				
+				function checkWareStore(e){
+                    e.preventDefault()
+					
+					
 				}
             </script>
 

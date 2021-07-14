@@ -66,7 +66,7 @@
 					endforeach;
 					
 				$new_quantity = $old_quantity - $qty;
-				$update_debitstock = "Update store_stock set store_stock_quantity={$new_quantity} WHERE product_id ={$data['product_id']} AND WHERE store_stock_store_id ={$s_store_id}";
+				$update_debitstock = "Update store_stock set store_stock_quantity={$new_quantity} WHERE store_stock_product_id ={$data['product_id']} AND store_stock_store_id ={$s_store_id}";
 				$this->db->query($update_debitstock);
 				
 				
@@ -80,7 +80,7 @@
 				endforeach;
 				
 				$new_quantity = $old_quantity + $qty;
-				$update_debitstock = "Update warehouse_stock set warehouse_stock_quantity={$new_quantity} WHERE product_id ={$data['product_id']} AND WHERE warehouse_stock_warehouse_id ={$r_warehouse_id}";
+				$update_debitstock = "Update warehouse_stock set warehouse_stock_quantity={$new_quantity} WHERE warehouse_stock_product_id ={$data['product_id']} AND warehouse_stock_warehouse_id ={$r_warehouse_id}";
 				$this->db->query($update_debitstock);
 				
 				endif;
@@ -121,7 +121,7 @@
 				endforeach;
 				
 				$new_quantity = $old_quantity - $qty;
-				$update_debitstock = "Update warehouse_stock set warehouse_stock_quantity={$new_quantity} WHERE product_id ={$data['product_id']} AND WHERE warehouse_stock_warehouse_id ={$r_warehouse_id}";
+				$update_debitstock = "Update warehouse_stock set warehouse_stock_quantity={$new_quantity} WHERE warehouse_stock_product_id ={$data['product_id']} AND warehouse_stock_warehouse_id ={$s_warehouse_id}";
 				$this->db->query($update_debitstock);
 				
 				$r_stores = $this->web->GetOne('store_stock_store_id', 'store_stock', $r_store_id);
@@ -134,7 +134,7 @@
 				endforeach;
 				
 				$new_quantity = $old_quantity + $qty;
-				$update_debitstock = "Update store_stock set store_stock_quantity={$new_quantity} WHERE product_id ={$data['product_id']} AND WHERE store_stock_store_id ={$s_store_id}";
+				$update_debitstock = "Update store_stock set store_stock_quantity={$new_quantity} WHERE store_stock_product_id ={$data['product_id']} AND store_stock_store_id ={$r_store_id}";
 				$this->db->query($update_debitstock);
 				
 				
@@ -178,7 +178,7 @@
 				endforeach;
 				
 				$new_quantity = $old_quantity - $qty;
-				$update_debitstock = "Update warehouse_stock set warehouse_stock_quantity={$new_quantity} WHERE product_id ={$data['product_id']} AND WHERE warehouse_stock_warehouse_id ={$r_warehouse_id}";
+				$update_debitstock = "Update warehouse_stock set warehouse_stock_quantity={$new_quantity} WHERE warehouse_stock_product_id ={$data['product_id']} AND  warehouse_stock_warehouse_id ={$s_warehouse_id}";
 				$this->db->query($update_debitstock);
 				
 				
@@ -192,7 +192,7 @@
 				endforeach;
 				
 				$new_quantity = $old_quantity + $qty;
-				$update_debitstock = "Update warehouse_stock set warehouse_stock_quantity={$new_quantity} WHERE product_id ={$data['product_id']} AND WHERE warehouse_stock_warehouse_id ={$r_warehouse_id}";
+				$update_debitstock = "Update warehouse_stock set warehouse_stock_quantity={$new_quantity} WHERE warehouse_stock_product_id ={$data['product_id']} AND warehouse_stock_warehouse_id ={$r_warehouse_id}";
 				$this->db->query($update_debitstock);
 			
 			endif;
@@ -233,7 +233,7 @@
 				endforeach;
 				
 				$new_quantity = $old_quantity - $qty;
-				$update_debitstock = "Update store_stock set store_stock_quantity={$new_quantity} WHERE product_id ={$data['product_id']} AND WHERE store_stock_store_id ={$s_store_id}";
+				$update_debitstock = "Update store_stock set store_stock_quantity={$new_quantity} WHERE store_stock_product_id ={$data['product_id']} AND store_stock_store_id ={$s_store_id}";
 				$this->db->query($update_debitstock);
 				
 				
@@ -247,13 +247,13 @@
 				endforeach;
 				
 				$new_quantity = $old_quantity + $qty;
-				$update_debitstock = "Update store_stock set store_stock_quantity={$new_quantity} WHERE product_id ={$data['product_id']} AND WHERE store_stock_store_id ={$s_store_id}";
+				$update_debitstock = "Update store_stock set store_stock_quantity={$new_quantity} WHERE store_stock_product_id ={$data['product_id']} AND store_stock_store_id ={$r_store_id}";
 				$this->db->query($update_debitstock);
 				
 				
 			
 			endif;
 			
-			//print_r($_POST);
+			redirect("product_transfer", "refresh");
 		}
 	}

@@ -636,7 +636,7 @@
 									</div>
 								</form>
 								
-								<form method="post" action="<?= base_url() ?>product_transfer/add" id="wsAdd" class="form-horizontal bordered-row" onsubmit="return ConfirmAdd();">
+								<form method="post" action="<?= base_url() ?>product_transfer/add" id="wsAdd" class="form-horizontal bordered-row">
 									
 									<div class="form-group">
 										<label class="col-sm-3 control-label">Date</label>
@@ -771,7 +771,7 @@
 										<div class="col-sm-6">
 											<div class="input-group" id="div_qty1">
 												
-												<input type="number" name="debit_qty" onkeyup="Validation()" id="ww_quantity" class="form-control" placeholder="Debit Quantity">
+												<input type="number" name="qty"  id="ww_quantity" class="form-control" placeholder=" Quantity">
 												<span class="input-group-addon">Unit</span>
 											</div>
 										</div>
@@ -855,7 +855,7 @@
 										<div class="col-sm-6">
 											<div class="input-group" id="div_qty1">
 												
-												<input type="number" name="qty" onkeyup="Validation()" id="ss_quantity" class="form-control" placeholder="Debit Quantity">
+												<input type="number" name="qty"  id="ss_quantity" class="form-control" placeholder="Debit Quantity">
 												<span class="input-group-addon">Unit</span>
 											</div>
 										</div>

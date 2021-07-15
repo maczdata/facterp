@@ -237,7 +237,7 @@
 				$this->db->query($update_debitstock);
 				
 				
-				$r_stores = $this->web->GetOne('store_stock_store_id', 'store_stock', $s_store_id);
+				$r_stores = $this->web->GetOne('store_stock_store_id', 'store_stock', $r_store_id);
 				foreach ($r_stores as $store):
 					if($store->store_stock_product_id == $data['product_id']):
 						$old_quantity = $store->store_stock_quantity;

@@ -19,10 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="validation on new product">
+    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="showing total products from all warehouse and store on products page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Products.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Products.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/products/all.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/products/all.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Product_transfer.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Product_transfer.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +47,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../kessayo" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ncs" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -65,7 +64,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1626015296257</updated>
-      <workItem from="1626015299102" duration="26991000" />
+      <workItem from="1626015299102" duration="28346000" />
     </task>
     <task id="LOCAL-00001" summary="new store and store listing completed">
       <created>1626018607669</created>
@@ -116,7 +115,14 @@
       <option name="project" value="LOCAL" />
       <updated>1626288012888</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="showing total products from all warehouse and store on products page">
+      <created>1626336890370</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1626336890370</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -140,13 +146,14 @@
     <MESSAGE value="toggle between transfer type" />
     <MESSAGE value="product transfer for store to warehouse, warehouse to store, store to store and warehouse to warehouse completed and reflecting in product ledger" />
     <MESSAGE value="validation on new product" />
-    <option name="LAST_COMMIT_MESSAGE" value="validation on new product" />
+    <MESSAGE value="showing total products from all warehouse and store on products page" />
+    <option name="LAST_COMMIT_MESSAGE" value="showing total products from all warehouse and store on products page" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1626254918748">
+    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1626339347297">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1626254918748" />
+    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1626339347297" />
     <state x="687" y="130" key="NewPhpClassDialog" timestamp="1626252248977">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -155,9 +162,9 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="519" y="282" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1626253633947" />
-    <state x="247" y="78" key="Vcs.Push.Dialog.v2" timestamp="1626288019147">
+    <state x="247" y="78" key="Vcs.Push.Dialog.v2" timestamp="1626336920715">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="247" y="78" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1626288019147" />
+    <state x="247" y="78" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1626336920715" />
   </component>
 </project>

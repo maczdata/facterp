@@ -537,7 +537,7 @@
                                                     <th>Sr#</th>
                                                     <th>ID</th>
                                                     <th>Name</th>
-<!--                                                    <th>In Stock</th>-->
+                                                    <th>In Stock</th>
                                                     <th>Unit</th>
                                                     <th>Description</th>
                                                     <th>Manage</th>
@@ -553,7 +553,7 @@
                                                             <td><?= $count ?></td>
                                                             <td><?= $product['product_id'] ?></td>
                                                             <td><?= $product['product_name'] ?></td>
-<!--                                                            <td>--><?//= $product['instock'] ?><!--</td>-->
+                                                            <td><?= $product['quantity'] ?></td>
                                                             <td><?= $product['unit_symbol'] ?></td>
                                                             <td><?= html_entity_decode($product['description']) ?></td>
 

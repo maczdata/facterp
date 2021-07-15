@@ -41,8 +41,34 @@ class Products extends MY_Controller {
             $this->ajax_pagination->initialize($config);
 
             //get the posts data
-            $this->data['products'] = $this->web->getRows(array('table1' => 'products', 'table2' => 'units', 'table2_primary_key' => 'unit_id', 'search_column_id' => 'products.product_id', 'search_column1' => 'products.product_name', 'search_column2' => 'products.instock', 'search_column3' => 'units.unit_symbol', 'limit' => $this->perPage));
-
+            $products = $this->web->getRows(array('table1' => 'products', 'table2' => 'units', 'table2_primary_key' => 'unit_id', 'search_column_id' => 'products.product_id', 'search_column1' => 'products.product_name', 'search_column2' => 'products.instock', 'search_column3' => 'units.unit_symbol', 'limit' => $this->perPage));
+	
+            $new_products = array();
+            $i = 0;
+            foreach ($products as $product):
+	           $products_stores = $this->web->GetOne('store_stock_product_id', 'store_stock', $product['product_id']);
+            
+                $products_warehouses = $this->web->GetOne('warehouse_stock_product_id', 'warehouse_stock', $product['product_id']);
+	            
+                $store_quantity =0;
+                $warehouse_quantity = 0;
+	                foreach($products_stores as $products_store):
+		                $store_quantity = $products_store->store_stock_quantity + $store_quantity;
+	                endforeach;
+		
+		            foreach($products_warehouses as $products_warehouse):
+			            $warehouse_quantity = $products_warehouse->warehouse_stock_quantity + $warehouse_quantity;
+		            endforeach;
+            
+		            $total_quantity = $store_quantity + $warehouse_quantity;
+		            
+		            $product['quantity'] = $total_quantity;
+              
+		            $new_products[$i] = $product;
+		            $i++;
+                endforeach;
+	        
+            $this->data['products'] = $new_products;
 
 
 //            $this->data['products'] = $this->web->GetAllWithInner("product_id", "products", "units", "unit_id", NULL, NULL);

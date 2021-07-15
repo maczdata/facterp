@@ -154,6 +154,39 @@ class Products extends MY_Controller {
 //        die();
         $this->load->view("products/edit", $this->data);
     }
+	
+	
+	function view_product($product_id) {
+		$product_id = $this->uri->segment(3);
+		$products_stores = $this->web->GetOne('store_stock_product_id', 'store_stock', $product_id);
+		
+		
+		$products_warehouses = $this->web->GetOne('warehouse_stock_product_id', 'warehouse_stock', $product_id);
+		
+		$i = 0;
+		$j = 0;
+		
+		$new_products_stores = array();
+		$new_products_warehouses = array();
+		
+		foreach($products_stores as $products_store):
+			$store = $this->web->GetOne('store_id', 'stores', $products_store->store_stock_store_id)[0];
+			$products_store->store_name = $store->store_name;
+			$new_products_stores[$i] = $products_store;
+			$i++;
+		endforeach;
+		
+		foreach($products_warehouses as $products_warehouse):
+			$warehouse = $this->web->GetOne('warehouse_id', 'warehouses', $products_warehouse->warehouse_stock_warehouse_id)[0];
+			$products_warehouse->warehouse_name = $warehouse->warehouse_name;
+			$new_products_warehouses[$j] = $products_warehouse;
+			$j++;
+		endforeach;
+		$this->data['product'] = $this->web->GetOne('product_id', 'products', $product_id)[0];
+		$this->data['new_products_warehouses'] = $new_products_warehouses;
+		$this->data['new_products_stores'] = $new_products_stores;
+		$this->load->view("products/view", $this->data);
+	}
 
     function edit() {
         $data = array();

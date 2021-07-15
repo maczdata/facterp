@@ -558,7 +558,9 @@
                                                             <td><?= html_entity_decode($product['description']) ?></td>
 
                                                             <td>
-
+																<a href="<?=site_url()."products/view_product/".$product['product_id']; ?>" title="View"  class="btn btn-round btn-success" >
+																	<i class="glyph-icon icon-eye"></i>
+																</a>
                                                             <?php if($this->session->userdata('user_group_id') == 1){ ?>
 
                                                                 <button class="btn btn-round btn-info" data-toggle="tooltip" data-placement="top" title="Edit" data-toggle="modal" data-target="#myModal" onclick="EditProduct('<?= $product['product_id'] ?>');">

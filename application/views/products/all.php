@@ -537,7 +537,7 @@
                                                     <th>Sr#</th>
                                                     <th>ID</th>
                                                     <th>Name</th>
-<!--                                                    <th>In Stock</th>-->
+                                                    <th>In Stock</th>
                                                     <th>Unit</th>
                                                     <th>Description</th>
                                                     <th>Manage</th>
@@ -553,12 +553,14 @@
                                                             <td><?= $count ?></td>
                                                             <td><?= $product['product_id'] ?></td>
                                                             <td><?= $product['product_name'] ?></td>
-<!--                                                            <td>--><?//= $product['instock'] ?><!--</td>-->
+                                                            <td><?= $product['quantity'] ?></td>
                                                             <td><?= $product['unit_symbol'] ?></td>
                                                             <td><?= html_entity_decode($product['description']) ?></td>
 
                                                             <td>
-
+																<a href="<?=site_url()."products/view_product/".$product['product_id']; ?>" title="View"  class="btn btn-round btn-success" >
+																	<i class="glyph-icon icon-eye"></i>
+																</a>
                                                             <?php if($this->session->userdata('user_group_id') == 1){ ?>
 
                                                                 <button class="btn btn-round btn-info" data-toggle="tooltip" data-placement="top" title="Edit" data-toggle="modal" data-target="#myModal" onclick="EditProduct('<?= $product['product_id'] ?>');">

@@ -484,7 +484,27 @@ class Sale extends MY_Controller {
             }
         }
         else {
-            $this->data['products'] = $this->web->GetAllWithInner("product_id", "products", "units", "unit_id", "product_categories", "product_category_id", "  AND products.instock > '0'");
+        	
+            $products = $this->web->GetAllWithInner("product_id", "products", "units", "unit_id", "product_categories", "product_category_id");
+	        
+            $store_id = $this->session->userdata('user_store_id');
+            $i= 0;
+            $new_product = array();
+            foreach ($products as $product):
+	            $products_stores = $this->web->GetOne('store_stock_product_id', 'store_stock', $product->product_id);
+	            foreach ($products_stores as $products_store):
+		            if($products_store->store_stock_store_id == $store_id):
+				            if($products_store->store_stock_quantity > 0):
+					            $product->quantity = $products_store->store_stock_quantity;
+				                $new_product[$i] = $product;
+					            $i++;
+				            endif;
+			            endif;
+		            endforeach;
+            endforeach;
+	
+	        $this->data['products'] = $new_product;
+            //print_r($this->data['products']);
             $this->data['products_suggestions'] = "<option value=''>Select or Type Product</option>";
             if ($this->data['products']) {
                 foreach ($this->data['products'] as $product) {

@@ -16,6 +16,8 @@ class Users extends MY_Controller {
 
     function view() {
         $user_id = $this->uri->segment(3);
+	    $this->data['warehouses'] = $this->web->GetAll("warehouse_id", "warehouses");
+	    $this->data['stores'] = $this->web->GetAll("store_id", "stores");
         $this->data['user'] = $this->web->GetOne("id", "users", $user_id);
         $this->load->view("users/edit", $this->data);
     }
@@ -30,6 +32,8 @@ class Users extends MY_Controller {
         }
         $status = $this->input->post("checkbox-example-1", true);
         $data['status'] = ($status == "on" ? 1 : 0);
+	    $data['user_warehouse_id'] = $this->input->post('warehouse_id');
+	    $data['user_store_id'] = $this->input->post('store_id');
         $id = $this->input->post("user_id", true);
         $this->web->Update("id", "users", $id, $data);
         redirect("users", "refresh");

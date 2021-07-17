@@ -651,6 +651,31 @@
                                                 </div>
                                             </div>
                                             <input type="hidden" name="user_id" value="<?= $user[0]->id ?>" />
+	
+											<div class="form-group">
+												<label class="col-sm-3 control-label">Select Store</label>
+												<div class="col-sm-6">
+													<select name="store_id" id="store" class="chosen-select">
+														<option>--Select Store -- </option>
+				                                        <?php foreach ($stores as $store) { ?>
+															<option value="<?= $store->store_id ?>" <?php if($user[0]->user_store_id == $store->store_id){ echo "selected" ;} ?>><?= $store->store_name ?></option>
+				                                        <?php } ?>
+													</select>
+												</div>
+											</div>
+	
+											<div class="form-group">
+												<label class="col-sm-3 control-label">Select Warehouse</label>
+												<div class="col-sm-6">
+													<select name="store_id" id="store" class="chosen-select">
+				                                       <option>--Select Warehouse -- </option>
+				                                        <?php foreach ($warehouses as $warehouse) { ?>
+															<option value="<?= $warehouse->warehouse_id ?>" <?php if($user[0]->user_warehouse_id == $warehouse->warehouse_id){ echo "selected" ;} ?>><?= $warehouse->warehouse_name ?></option>
+				                                        <?php } ?>
+													</select>
+												</div>
+											</div>
+                                           
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Status</label>
                                                 <div class="col-sm-6">

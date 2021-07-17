@@ -427,10 +427,10 @@ class Sale extends MY_Controller {
                         $insert_items .= "('" . $invoice[0]->invoice_id . "','" . $data_items['product_id'][$i] . "','" . $data_items['qty'][$i] . "','" . $data_items['discount'][$i] . "','" . $data_items['batch'][$i] . "','" . $data_items['sale_price'][$i] . "','" . $data_items['sub_total'][$i] . "'),";
                         $check_type = $this->web->GetOne("product_id", "products", "{$data_items['product_id'][$i]}");
                         if ($check_type[0]->type == 'raw') {
-                            $product_ledger .= "('" . $data_items['product_id'][$i] . "','" . $data_items['qty'][$i] . "','" . $invoice[0]->voucher_no . '<br>' . $invoice[0]->builty_no . '<br>' . $invoice[0]->description . '<br>' . "','" . $ref . "','" . 'SALES' . "','" . $invoice[0]->date_created . "','" . $invoice[0]->invoice_id . "'),";
+                            $product_ledger .= "('" . $data_items['product_id'][$i] . "','" . $data_items['qty'][$i] . "','" . $invoice[0]->voucher_no . '<br>' . $invoice[0]->builty_no . '<br>' . $invoice[0]->description . '<br>' . "','" . $ref . "','" . 'SALES' . "','" . $store_id . "','" . $invoice[0]->date_created . "','" . $invoice[0]->invoice_id . "'),";
                         }
                         if ($check_type[0]->type == 'production') {
-                            $product_ledger .= "('" . $data_items['product_id'][$i] . "','" . $data_items['qty'][$i] . "','" . $invoice[0]->voucher_no . '<br>' . $invoice[0]->builty_no . '<br>' . $invoice[0]->description . '<br>' . "','1','" . 'SALES' . "','" . $invoice[0]->date_created . "','" . $invoice[0]->invoice_id . "'),";
+                            $product_ledger .= "('" . $data_items['product_id'][$i] . "','" . $data_items['qty'][$i] . "','" . $invoice[0]->voucher_no . '<br>' . $invoice[0]->builty_no . '<br>' . $invoice[0]->description . '<br>' . "','".$ref."','" . 'SALES' . "','" . $store_id . "','". $invoice[0]->date_created . "','" . $invoice[0]->invoice_id . "'),";
                         }
 //                    $product_ledger .= "('" . $data_items['product_id'][$i] . "','" . $data_items['qty'][$i] . "','" . $invoice[0]->description . "','" . $invoice[0]->invoice_id . "','" . 'Invoice' . "'),";
                         $update_stock = "Update store_stock set store_stock_quantity=(store_stock_quantity-{$data_items['qty'][$i]}) where store_stock_product_id='{$data_items['product_id'][$i]}' and store_stock_store_id = '{$store_id}'";

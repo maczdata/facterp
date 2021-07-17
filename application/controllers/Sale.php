@@ -357,6 +357,7 @@ class Sale extends MY_Controller {
     function add() {
         if ($this->input->post()) {
             $data = array();
+	        $store_id = $this->session->userdata('user_store_id');
             $data_items = array();
             $data['account_id'] = $this->db->escape_str($this->input->post("account", true));
             $data['date_created'] = date("Y-m-d", strtotime(str_replace("-", "/", $this->input->post("date", true)))) . " " . date("H:i:s");
@@ -381,6 +382,7 @@ class Sale extends MY_Controller {
             $data['destination'] = $this->input->post("destination");
             $data['driver_name'] = $this->input->post("driver_name");
             $data['mobile_no'] = $this->input->post("mobile_no");
+            $data['invoice_store_id'] =  $store_id = $this->session->userdata('user_store_id');
 
             if (!($inv)) {
                 $data['invoice_no'] = 'S-00001';
@@ -395,7 +397,7 @@ class Sale extends MY_Controller {
             for ($j = 0; $j < $product_count; $j++) {
 
                 //$pro_res = $this->web->GetOne("product_id", "products", $data_items['product_id'][$j]);
-	            $store_id = $this->session->userdata('user_store_id');
+	           
                 $store_products = $this->web->GetOne('store_stock_store_id', 'store_stock', $store_id);
                 foreach ($store_products as $store_product):
 	                if($store_product->store_stock_product_id == $data_items['product_id'][$j] ):
@@ -416,21 +418,22 @@ class Sale extends MY_Controller {
 
             if ($stock_counter == 0) {
                 if ($this->web->Add("invoice", $data)) {
+                	$ref = time();
                     $invoice = $this->web->GetLastInsertedRow("invoice_id", "invoice");
                     $product_count = sizeof($data_items['product_id']);
                     $insert_items = "INSERT INTO invoice_items (invoice_id, product_id, qty, discount,batch, product_sale_price, invoice_subtotal) VALUES ";
-                    $product_ledger = "INSERT INTO product_ledger (product_id,debit_qty,description,ref_id,type,date_ledger,invoice_id) VALUES ";
+                    $product_ledger = "INSERT INTO product_ledger (product_id,debit_qty,description,ref_id,type,store_id,date_ledger,invoice_id) VALUES ";
                     for ($i = 0; $i < $product_count; $i++) {
                         $insert_items .= "('" . $invoice[0]->invoice_id . "','" . $data_items['product_id'][$i] . "','" . $data_items['qty'][$i] . "','" . $data_items['discount'][$i] . "','" . $data_items['batch'][$i] . "','" . $data_items['sale_price'][$i] . "','" . $data_items['sub_total'][$i] . "'),";
                         $check_type = $this->web->GetOne("product_id", "products", "{$data_items['product_id'][$i]}");
                         if ($check_type[0]->type == 'raw') {
-                            $product_ledger .= "('" . $data_items['product_id'][$i] . "','" . $data_items['qty'][$i] . "','" . $invoice[0]->voucher_no . '<br>' . $invoice[0]->builty_no . '<br>' . $invoice[0]->description . '<br>' . "','" . $check_type[0]->warehouse_id . "','" . 'WAREHOUSE' . "','" . $invoice[0]->date_created . "','" . $invoice[0]->invoice_id . "'),";
+                            $product_ledger .= "('" . $data_items['product_id'][$i] . "','" . $data_items['qty'][$i] . "','" . $invoice[0]->voucher_no . '<br>' . $invoice[0]->builty_no . '<br>' . $invoice[0]->description . '<br>' . "','" . $ref . "','" . 'SALES' . "','" . $invoice[0]->date_created . "','" . $invoice[0]->invoice_id . "'),";
                         }
                         if ($check_type[0]->type == 'production') {
-                            $product_ledger .= "('" . $data_items['product_id'][$i] . "','" . $data_items['qty'][$i] . "','" . $invoice[0]->voucher_no . '<br>' . $invoice[0]->builty_no . '<br>' . $invoice[0]->description . '<br>' . "','1','" . 'PRODUCTION' . "','" . $invoice[0]->date_created . "','" . $invoice[0]->invoice_id . "'),";
+                            $product_ledger .= "('" . $data_items['product_id'][$i] . "','" . $data_items['qty'][$i] . "','" . $invoice[0]->voucher_no . '<br>' . $invoice[0]->builty_no . '<br>' . $invoice[0]->description . '<br>' . "','1','" . 'SALES' . "','" . $invoice[0]->date_created . "','" . $invoice[0]->invoice_id . "'),";
                         }
 //                    $product_ledger .= "('" . $data_items['product_id'][$i] . "','" . $data_items['qty'][$i] . "','" . $invoice[0]->description . "','" . $invoice[0]->invoice_id . "','" . 'Invoice' . "'),";
-                        $update_stock = "Update products set instock=(instock-{$data_items['qty'][$i]}) where product_id='{$data_items['product_id'][$i]}'";
+                        $update_stock = "Update store_stock set store_stock_quantity=(store_stock_quantity-{$data_items['qty'][$i]}) where store_stock_product_id='{$data_items['product_id'][$i]}' and store_stock_store_id = '{$store_id}'";
                         $this->db->query($update_stock);
 
                         $data['ordr_id'] = $this->input->post("ordr_id", true);
@@ -456,8 +459,25 @@ class Sale extends MY_Controller {
                     }
                 }
             } else {
-                $this->data['products'] = $this->web->GetAllWithInner("product_id", "products", "units", "unit_id", "product_categories", "product_category_id", "  AND products.instock > '0'");
-                $this->data['products_suggestions'] = "<option value=''>Select or Type Product</option>";
+	            $products = $this->web->GetAllWithInner("product_id", "products", "units", "unit_id", "product_categories", "product_category_id");
+	
+	            $store_id = $this->session->userdata('user_store_id');
+	            $i= 0;
+	            $new_product = array();
+	            foreach ($products as $product):
+		            $products_stores = $this->web->GetOne('store_stock_product_id', 'store_stock', $product->product_id);
+		            foreach ($products_stores as $products_store):
+			            if($products_store->store_stock_store_id == $store_id):
+				            if($products_store->store_stock_quantity > 0):
+					            $product->quantity = $products_store->store_stock_quantity;
+					            $new_product[$i] = $product;
+					            $i++;
+				            endif;
+			            endif;
+		            endforeach;
+	            endforeach;
+	
+	            $this->data['products'] = $new_product;       $this->data['products_suggestions'] = "<option value=''>Select or Type Product</option>";
                 if ($this->data['products']) {
                     foreach ($this->data['products'] as $product) {
                         $product_suggestions[$product->product_category_name][] = $product;

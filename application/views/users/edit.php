@@ -667,7 +667,7 @@
 											<div class="form-group">
 												<label class="col-sm-3 control-label">Select Warehouse</label>
 												<div class="col-sm-6">
-													<select name="store_id" id="store" class="chosen-select">
+													<select name="warehouse_id" id="store" class="chosen-select">
 				                                       <option>--Select Warehouse -- </option>
 				                                        <?php foreach ($warehouses as $warehouse) { ?>
 															<option value="<?= $warehouse->warehouse_id ?>" <?php if($user[0]->user_warehouse_id == $warehouse->warehouse_id){ echo "selected" ;} ?>><?= $warehouse->warehouse_name ?></option>

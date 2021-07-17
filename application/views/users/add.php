@@ -565,7 +565,7 @@
 											<div class="form-group">
 												<label class="col-sm-3 control-label">Select Warehouse</label>
 												<div class="col-sm-6">
-													<select name="store_id" id="store" class="chosen-select">
+													<select name="warehouse_id" id="warehouse" class="chosen-select">
 				                                        <?php foreach ($warehouses as $warehouse) { ?>
 															<option value="<?= $warehouse->warehouse_id ?>"><?= $warehouse->warehouse_name ?></option>
 				                                        <?php } ?>

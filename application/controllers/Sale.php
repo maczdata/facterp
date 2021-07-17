@@ -394,13 +394,24 @@ class Sale extends MY_Controller {
             $product_count = sizeof($data_items['product_id']);
             for ($j = 0; $j < $product_count; $j++) {
 
-                $pro_res = $this->web->GetOne("product_id", "products", $data_items['product_id'][$j]);
+                //$pro_res = $this->web->GetOne("product_id", "products", $data_items['product_id'][$j]);
+	            $store_id = $this->session->userdata('user_store_id');
+                $store_products = $this->web->GetOne('store_stock_store_id', 'store_stock', $store_id);
+                foreach ($store_products as $store_product):
+	                if($store_product->store_stock_product_id == $data_items['product_id'][$j] ):
+		                if (($store_product->store_stock_quantity) < $data_items['qty'][$j]) {
+			
+			                $stock_counter ++;
+		                }
+		                endif;
+	                endforeach;
+                
+               
+//
+//
 //                print_r($pro_res[0]->instock);
 //                die();
-                if (($pro_res[0]->instock) < $data_items['qty'][$j]) {
-
-                    $stock_counter ++;
-                }
+            
             }
 
             if ($stock_counter == 0) {

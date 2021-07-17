@@ -550,6 +550,28 @@
                                                     </select>
                                                 </div>
                                             </div>
+	
+											<div class="form-group">
+												<label class="col-sm-3 control-label">Select Store</label>
+												<div class="col-sm-6">
+													<select name="store_id" id="store" class="chosen-select">
+				                                        <?php foreach ($stores as $store) { ?>
+															<option value="<?= $store->store_id ?>"><?= $store->store_name ?></option>
+				                                        <?php } ?>
+													</select>
+												</div>
+											</div>
+	
+											<div class="form-group">
+												<label class="col-sm-3 control-label">Select Warehouse</label>
+												<div class="col-sm-6">
+													<select name="warehouse_id" id="warehouse" class="chosen-select">
+				                                        <?php foreach ($warehouses as $warehouse) { ?>
+															<option value="<?= $warehouse->warehouse_id ?>"><?= $warehouse->warehouse_name ?></option>
+				                                        <?php } ?>
+													</select>
+												</div>
+											</div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Status</label>
                                                 <div class="col-sm-6">

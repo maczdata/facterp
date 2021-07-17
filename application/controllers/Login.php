@@ -36,6 +36,8 @@ class Login extends CI_Controller {
                 'company_name' => $general_setting[0]->company_name,
                 'currency_symbol' => $general_setting[0]->currency_symbol,
                 'company_address' => $general_setting[0]->company_address,
+                'user_store_id' => $confirmed[0]->user_store_id,
+                'user_warehouse_id' => $confirmed[0]->user_warehouse_id,
                 'logged_in' => TRUE,
                 'failed' => false
             );

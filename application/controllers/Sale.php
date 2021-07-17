@@ -153,6 +153,7 @@ class Sale extends MY_Controller {
         $this->data['invoice_items'] = $this->web->GetAll('invoice_id', 'invoice_items', ' WHERE invoice_id = "' . $invoice_id . '"');
         // print_r($this->data['invoice_items']); die();
         $this->data['products'] = $this->web->GetAllWithInner("product_id", "products", "units", "unit_id", "product_categories", "product_category_id", NULL);
+        
         $this->data['products_suggestions'] = "<option value=''>Select or Type Product</option>";
         foreach ($this->data['products'] as $product) {
             $this->data['product_suggestions'][$product->product_category_name][] = $product;
@@ -393,13 +394,24 @@ class Sale extends MY_Controller {
             $product_count = sizeof($data_items['product_id']);
             for ($j = 0; $j < $product_count; $j++) {
 
-                $pro_res = $this->web->GetOne("product_id", "products", $data_items['product_id'][$j]);
+                //$pro_res = $this->web->GetOne("product_id", "products", $data_items['product_id'][$j]);
+	            $store_id = $this->session->userdata('user_store_id');
+                $store_products = $this->web->GetOne('store_stock_store_id', 'store_stock', $store_id);
+                foreach ($store_products as $store_product):
+	                if($store_product->store_stock_product_id == $data_items['product_id'][$j] ):
+		                if (($store_product->store_stock_quantity) < $data_items['qty'][$j]) {
+			
+			                $stock_counter ++;
+		                }
+		                endif;
+	                endforeach;
+                
+               
+//
+//
 //                print_r($pro_res[0]->instock);
 //                die();
-                if (($pro_res[0]->instock) < $data_items['qty'][$j]) {
-
-                    $stock_counter ++;
-                }
+            
             }
 
             if ($stock_counter == 0) {
@@ -481,8 +493,29 @@ class Sale extends MY_Controller {
                 $this->session->set_flashdata('stock_error', 'Stock has not enough quantity for  your product/products');
                 $this->load->view("sale/add", $this->data);
             }
-        } else {
-            $this->data['products'] = $this->web->GetAllWithInner("product_id", "products", "units", "unit_id", "product_categories", "product_category_id", "  AND products.instock > '0'");
+        }
+        else {
+        	
+            $products = $this->web->GetAllWithInner("product_id", "products", "units", "unit_id", "product_categories", "product_category_id");
+	        
+            $store_id = $this->session->userdata('user_store_id');
+            $i= 0;
+            $new_product = array();
+            foreach ($products as $product):
+	            $products_stores = $this->web->GetOne('store_stock_product_id', 'store_stock', $product->product_id);
+	            foreach ($products_stores as $products_store):
+		            if($products_store->store_stock_store_id == $store_id):
+				            if($products_store->store_stock_quantity > 0):
+					            $product->quantity = $products_store->store_stock_quantity;
+				                $new_product[$i] = $product;
+					            $i++;
+				            endif;
+			            endif;
+		            endforeach;
+            endforeach;
+	
+	        $this->data['products'] = $new_product;
+            //print_r($this->data['products']);
             $this->data['products_suggestions'] = "<option value=''>Select or Type Product</option>";
             if ($this->data['products']) {
                 foreach ($this->data['products'] as $product) {

@@ -19,10 +19,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="add users based on store and warehouse started">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Users.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Users.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/users/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/users/edit.php" afterDir="false" />
+    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="edit users based on store and warehouse - fixed">
+      <change beforePath="$PROJECT_DIR$/application/controllers/Sale.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Sale.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +64,7 @@
       <option name="presentableId" value="Default" />
       <updated>1626015296257</updated>
       <workItem from="1626015299102" duration="30419000" />
-      <workItem from="1626537441360" duration="1505000" />
+      <workItem from="1626537441360" duration="1853000" />
     </task>
     <task id="LOCAL-00001" summary="new store and store listing completed">
       <created>1626018607669</created>
@@ -145,7 +143,21 @@
       <option name="project" value="LOCAL" />
       <updated>1626538576185</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="edit users based on store and warehouse">
+      <created>1626539142287</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1626539142287</updated>
+    </task>
+    <task id="LOCAL-00013" summary="edit users based on store and warehouse - fixed">
+      <created>1626539233587</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1626539233587</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -174,7 +186,9 @@
     <MESSAGE value="bug on product transfer (store to store) fixed" />
     <MESSAGE value="view stock on warehouse and store" />
     <MESSAGE value="add users based on store and warehouse started" />
-    <option name="LAST_COMMIT_MESSAGE" value="add users based on store and warehouse started" />
+    <MESSAGE value="edit users based on store and warehouse" />
+    <MESSAGE value="edit users based on store and warehouse - fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit users based on store and warehouse - fixed" />
   </component>
   <component name="WindowStateProjectService">
     <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1626339347297">
@@ -189,10 +203,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="519" y="282" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1626253633947" />
-    <state x="247" y="78" key="Vcs.Push.Dialog.v2" timestamp="1626538682436">
+    <state x="247" y="78" key="Vcs.Push.Dialog.v2" timestamp="1626539235388">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="247" y="78" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1626538682436" />
+    <state x="247" y="78" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1626539235388" />
     <state x="339" y="162" key="run.anything.popup" timestamp="1626342360556">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

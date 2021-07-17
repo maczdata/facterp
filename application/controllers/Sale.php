@@ -153,6 +153,7 @@ class Sale extends MY_Controller {
         $this->data['invoice_items'] = $this->web->GetAll('invoice_id', 'invoice_items', ' WHERE invoice_id = "' . $invoice_id . '"');
         // print_r($this->data['invoice_items']); die();
         $this->data['products'] = $this->web->GetAllWithInner("product_id", "products", "units", "unit_id", "product_categories", "product_category_id", NULL);
+        
         $this->data['products_suggestions'] = "<option value=''>Select or Type Product</option>";
         foreach ($this->data['products'] as $product) {
             $this->data['product_suggestions'][$product->product_category_name][] = $product;
@@ -481,7 +482,8 @@ class Sale extends MY_Controller {
                 $this->session->set_flashdata('stock_error', 'Stock has not enough quantity for  your product/products');
                 $this->load->view("sale/add", $this->data);
             }
-        } else {
+        }
+        else {
             $this->data['products'] = $this->web->GetAllWithInner("product_id", "products", "units", "unit_id", "product_categories", "product_category_id", "  AND products.instock > '0'");
             $this->data['products_suggestions'] = "<option value=''>Select or Type Product</option>";
             if ($this->data['products']) {

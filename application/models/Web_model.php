@@ -82,13 +82,22 @@ class Web_model extends MY_Model {
     }
 
     function GetAllSales($limit = NULL) {
-        $query = "SELECT invoice.*,invoice.date_created as invoice_date,accounts.* FROM invoice INNER JOIN accounts ON accounts.account_id = invoice.account_id WHERE type='sale' ORDER BY invoice_id DESC";
+        $query = "SELECT invoice.*,invoice.date_created as invoice_date,accounts.* FROM invoice INNER JOIN accounts ON accounts.account_id = invoice.account_id LEFT JOIN stores ON stores.store_id = invoice.invoice_store_id  WHERE type='sale' ORDER BY invoice_id DESC";
         if ($limit != NULL) {
             $query .= " limit $limit";
         }
         $query = $this->db->query($query);
         return $query->result_array();
     }
+	
+	function GetAllSalesStore($store_id, $limit = NULL) {
+		$query = "SELECT invoice.*,invoice.date_created as invoice_date,accounts.* FROM invoice INNER JOIN accounts ON accounts.account_id = invoice.account_id LEFT JOIN stores ON stores.store_id = invoice.invoice_store_id  WHERE type='sale' AND invoice_store_id ='{$store_id}' ORDER BY invoice_id DESC";
+		if ($limit != NULL) {
+			$query .= " limit $limit";
+		}
+		$query = $this->db->query($query);
+		return $query->result_array();
+	}
 
     function GetAllSales_filter($date_from, $date_to, $category, $product, $prod_type, $limit = NULL, $search = NULL) {
         $query = "SELECT invoice.*,invoice_items.*,invoice.date_created as invoice_date,accounts.* FROM invoice INNER JOIN invoice_items ON invoice_items.invoice_id = invoice.invoice_id INNER JOIN products ON invoice_items.product_id = products.product_id  INNER JOIN accounts ON accounts.account_id = invoice.account_id WHERE invoice.type='Sale'  ";
@@ -658,6 +667,13 @@ AND product_ledger.date_ledger > '" . $to_date . "' GROUP BY product_ledger.prod
         $query = $this->db->query($query);
         return $query->result();
     }
+		
+		function GetTotalSalesStore($store_id) {
+			$query = "SELECT SUM(invoice.invoice_total) as total_balnc FROM invoice INNER JOIN accounts ON accounts.account_id = invoice.account_id WHERE type='Sale' AND invoice.invoice_store_id = '{$store_id}' ";
+//        die($query);
+			$query = $this->db->query($query);
+			return $query->result();
+		}
 
     function GetTotalSales_filter($date_from, $date_to, $category, $product, $prod_type, $search = NULL) {
         // print_r($prod_type);die();

@@ -19,10 +19,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="change stock quantity on backend on sales">
+    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="sales completed. peding display">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/controllers/Sale.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Sale.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/sale/add.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale/add.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/Web_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Web_model.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/sale/all.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale/all.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +67,7 @@
       <option name="presentableId" value="Default" />
       <updated>1626015296257</updated>
       <workItem from="1626015299102" duration="30419000" />
-      <workItem from="1626537441360" duration="6825000" />
+      <workItem from="1626537441360" duration="10060000" />
     </task>
     <task id="LOCAL-00001" summary="new store and store listing completed">
       <created>1626018607669</created>
@@ -187,7 +188,14 @@
       <option name="project" value="LOCAL" />
       <updated>1626543893429</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="sales completed. peding display">
+      <created>1626544454477</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1626544454477</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -222,7 +230,8 @@
     <MESSAGE value="displaying product based on store id on sales page" />
     <MESSAGE value="checking quantity at backend on sales" />
     <MESSAGE value="change stock quantity on backend on sales" />
-    <option name="LAST_COMMIT_MESSAGE" value="change stock quantity on backend on sales" />
+    <MESSAGE value="sales completed. peding display" />
+    <option name="LAST_COMMIT_MESSAGE" value="sales completed. peding display" />
   </component>
   <component name="WindowStateProjectService">
     <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1626339347297">
@@ -237,13 +246,17 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="519" y="282" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1626253633947" />
-    <state x="247" y="78" key="Vcs.Push.Dialog.v2" timestamp="1626543922196">
+    <state x="247" y="78" key="Vcs.Push.Dialog.v2" timestamp="1626544459933">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="247" y="78" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1626543922196" />
-    <state x="339" y="162" key="run.anything.popup" timestamp="1626342360556">
+    <state x="247" y="78" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1626544459933" />
+    <state x="339" y="162" key="run.anything.popup" timestamp="1626599583922">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1626342360556" />
+    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1626599583922" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1626597808275">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1626597808275" />
   </component>
 </project>

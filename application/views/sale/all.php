@@ -599,6 +599,7 @@
                                                     <th>Account Name</th>
                                                     <th>Discount</th>
                                                     <th>Total</th>
+													<th> Store</th>
                                                     <th>Payment Method</th>
                                                     <th>Manage</th>
                                                 </tr>
@@ -615,6 +616,7 @@
                                                             <td><?= $sale['account_name'] ?></td>
                                                             <td><?= $sale['total_discount'] ?></td>
                                                             <td><?= $sale['invoice_total'] ?></td>
+															<td><?= $sale['store_name']; ?></td>
                                                             <td><?= $sale['payment_method'] ?></td>
 
                                                             <td>

@@ -14,6 +14,8 @@ class Sale extends MY_Controller {
     }
 
     function index() {
+	    $user_group_id = $this->session->userdata('user_group_id');
+	    $store_id = $this->session->userdata('user_store_id');
         $this->data['prod_cat'] = $this->web->GetAll("product_category_id", "product_categories");
         if (isset($_POST['filter'])) {
             $date_from = date("Y-m-d", strtotime(str_replace("-", "/", $this->input->post("from_date", true))));
@@ -39,17 +41,56 @@ class Sale extends MY_Controller {
             $this->data['date_to'] = $this->input->post("to_date", true);
             $this->load->view("sale/all", $this->data);
         } else {
-            $totalRec = count($this->web->GetAllSales());
+        	
+        	if($user_group_id == 1):
+                $totalRec = count($this->web->GetAllSales());
+		        $config['target'] = '#postList';
+		        $config['base_url'] = base_url() . 'sale/ajaxPaginationData';
+		        $config['total_rows'] = $totalRec;
+		        $config['per_page'] = $this->perPage;
+		        $this->ajax_pagination->initialize($config);
+		
+		        $sales = $this->web->GetAllSales("$this->perPage");
+		        $new_sales_array = array();
+		        $i = 0;
+		        foreach ($sales as $sale):
+			       $store = $this->web->GetOne('store_id', 'stores', $sale['invoice_store_id']);
+		            $sale['store_name'] = $store[0]->store_name;
+			         $new_sales_array[$i] = $sale;
+			         $i++;
+			    endforeach;
+		        $this->data['sales'] = $new_sales_array;
+		        $this->data['total_sales'] = $this->web->GetTotalSales();
+		       // $this->load->view("sale/all", $this->data);
+        	else:
+		        $totalRec = count($this->web->GetAllSalesStore($store_id));
+		        $config['target'] = '#postList';
+		        $config['base_url'] = base_url() . 'sale/ajaxPaginationData';
+		        $config['total_rows'] = $totalRec;
+		        $config['per_page'] = $this->perPage;
+		        $this->ajax_pagination->initialize($config);
+		
+		        $sales = $this->web->GetAllSalesStore($store_id, "$this->perPage");
+		
+		        $new_sales_array = array();
+		        $i = 0;
+		        foreach ($sales as $sale):
+			        $store = $this->web->GetOne('store_id', 'stores', $sale['invoice_store_id']);
+			        $sale['store_name'] = $store[0]->store_name;
+			        $new_sales_array[$i] = $sale;
+			        $i++;
+		        endforeach;
+		        $this->data['sales'] = $new_sales_array;
+		        $this->data['total_sales'] = $this->web->GetTotalSalesStore($store_id);
+		        
+		        
+		        endif;
+		        
+		        //print_r($this->data['sales']);
+	        $this->load->view("sale/all", $this->data);
+        	
             //pagination configuration
-            $config['target'] = '#postList';
-            $config['base_url'] = base_url() . 'sale/ajaxPaginationData';
-            $config['total_rows'] = $totalRec;
-            $config['per_page'] = $this->perPage;
-            $this->ajax_pagination->initialize($config);
-
-            $this->data['sales'] = $this->web->GetAllSales("$this->perPage");
-            $this->data['total_sales'] = $this->web->GetTotalSales();
-            $this->load->view("sale/all", $this->data);
+            
         }
     }
 
@@ -224,7 +265,7 @@ class Sale extends MY_Controller {
         $this->load->view("sale/print_invoice_with_ntn", $this->data);
     }
 
-        function print_inv_without_ntn() {
+    function print_inv_without_ntn() {
         $invoice_id = $this->uri->segment(3);
 //        $this->data['invoice'] = $this->web->GetOneWithInner('invoice_id', 'invoice', "accounts", "account_id", NULL, NULL, $invoice_id);
         $query = "SELECT invoice.*,accounts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice INNER JOIN accounts ON invoice.account_id = accounts.account_id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
@@ -382,7 +423,7 @@ class Sale extends MY_Controller {
             $data['destination'] = $this->input->post("destination");
             $data['driver_name'] = $this->input->post("driver_name");
             $data['mobile_no'] = $this->input->post("mobile_no");
-            $data['invoice_store_id'] =  $store_id = $this->session->userdata('user_store_id');
+            $data['invoice_store_id'] =  $store_id;
 
             if (!($inv)) {
                 $data['invoice_no'] = 'S-00001';

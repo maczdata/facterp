@@ -500,7 +500,8 @@
                                     </div>
                                     <div class="col-md-4">
                                         <h2 class="invoice-client mrg10T">Invoice Description:</h2>
-                                        <?= html_entity_decode($invoice[0]->voucher_no) ?>
+                                        <?= html_entity_decode($invoice[0]->voucher_no) ?> <br>
+	                                   Store: <?= html_entity_decode($invoice[0]->store_name) ?>
                                     </div>
                                 </div>
 
@@ -525,10 +526,10 @@
                                                 <td><?= $count ?></td>
                                                 <td><?= $inv_item->product_name ?></td>
                                                 <td class="text-center"><?= $inv_item->qty . " " . $inv_item->unit ?></td>
-												<td class="text-center"><?= $inv_item->product_sale_price ?> Rs</td>
+												<td class="text-center"><?= $inv_item->product_sale_price ?> NGN</td>
 												<td class="text-center"><?= $inv_item->batch ?></td>
-                                                <td><?= $inv_item->discount ?> Rs</td>
-                                                <td><?= $inv_item->invoice_subtotal ?> Rs</td>
+                                                <td><?= $inv_item->discount ?> NGN</td>
+                                                <td><?= $inv_item->invoice_subtotal ?> NGN</td>
                                             </tr>
                                             <?php
                                             $count++;
@@ -536,13 +537,13 @@
                                         ?>
                                     <tr class="font-bold font-black">
                                         <td colspan="5" class="text-right">Discount on Sub Total:</td>
-                                        <td colspan="2" class="font-red"><?= $invoice[0]->total_discount ?> Rs</td>
+                                        <td colspan="2" class="font-red"><?= $invoice[0]->total_discount ?> NGN</td>
                                     </tr>
                                     <tr class="font-bold font-black">
                                         <td colspan="1" class="text-right font-size-20">TOTAL:</td>
                                         <?php $amount_total = $invoice[0]->invoice_total; ?>
                                         <td colspan="5" class="font-blue font-size-18"><?= getPakistaniCurrency($amount_total) ?></td>
-                                        <td colspan="1" class="font-blue font-size-18"><?= $invoice[0]->invoice_total ?> Rs</td>
+                                        <td colspan="1" class="font-blue font-size-18"><?= $invoice[0]->invoice_total ?> NGN</td>
                                     </tr>
                                     </tbody>
                                 </table>

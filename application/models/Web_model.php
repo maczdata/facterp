@@ -127,6 +127,35 @@ class Web_model extends MY_Model {
         $query = $this->db->query($query);
         return $query->result_array();
     }
+	
+	function GetAllSalesStore_filter($store_id, $date_from, $date_to, $category, $product, $prod_type, $limit = NULL, $search = NULL) {
+		$query = "SELECT invoice.*,invoice_items.*,invoice.date_created as invoice_date,accounts.* FROM invoice INNER JOIN invoice_items ON invoice_items.invoice_id = invoice.invoice_id INNER JOIN products ON invoice_items.product_id = products.product_id  INNER JOIN accounts ON accounts.account_id = invoice.account_id WHERE invoice.type='Sale' AND invoice.invoice_store_id = '{$store_id}'  ";
+		if (!empty($date_from) && !empty($date_to)) {
+			$query .= " and (DATE(invoice.date_created) between '$date_from' and '$date_to') ";
+		}
+		if ($prod_type != NULL) {
+			$query .= " AND products.type = '$prod_type'";
+		}
+		if ($category != NULL) {
+			$query .= " AND  products.product_category_id=$category";
+		}
+		if ($product != NULL) {
+			$query .= "  AND products.product_id=$product ";
+		}
+		if (!empty($search)) {
+			$query .= " AND (invoice.invoice_id LIKE '%{$search}%' OR invoice.date_created LIKE '%{$search}%' OR accounts.account_name LIKE '%{$search}%' OR invoice.payment_method LIKE '%{$search}%' )";
+		}
+		
+		
+		$query .= " GROUP BY invoice.invoice_id ";
+		$query .= " ORDER BY invoice.invoice_id DESC ";
+		if ($limit != NULL) {
+			$query .= " limit $limit";
+		}
+//        die($query);
+		$query = $this->db->query($query);
+		return $query->result_array();
+	}
 
     function GetAllSalesOrder($limit = NULL) {
         $query = "SELECT ordr.*,ordr.date_created as ordr_date,accounts.* FROM ordr INNER JOIN accounts ON accounts.account_id = ordr.account_id WHERE type='sale' ORDER BY ordr_id DESC";
@@ -701,6 +730,33 @@ AND product_ledger.date_ledger > '" . $to_date . "' GROUP BY product_ledger.prod
         $query = $this->db->query($query);
         return $query->result();
     }
+		
+		function GetTotalSalesStore_filter($store_id, $date_from, $date_to, $category, $product, $prod_type, $search = NULL) {
+			// print_r($prod_type);die();
+			$query = "SELECT invoice.invoice_total as total_balnc FROM invoice INNER JOIN invoice_items ON invoice_items.invoice_id = invoice.invoice_id INNER JOIN products ON invoice_items.product_id = products.product_id  INNER JOIN accounts ON accounts.account_id = invoice.account_id WHERE invoice.type='Sale' AND invoice.invoice_store_id = '{$store_id}' ";
+			if (!empty($date_from) && !empty($date_to)) {
+				$query .= " and (DATE(invoice.date_created) between '$date_from' and '$date_to') ";
+			}
+			
+			if (!empty($prod_type)) {
+				$query .= " AND products.type = '$prod_type'";
+			}
+			if (!empty($category)) {
+				$query .= " AND  products.product_category_id=$category";
+			}
+			if (!empty($product)) {
+				$query .= "  AND products.product_id=$product ";
+			}
+			if (!empty($search)) {
+				$query .= " AND (invoice.invoice_id LIKE '%{$search}%' OR invoice.date_created LIKE '%{$search}%' OR accounts.account_name LIKE '%{$search}%' OR invoice.payment_method LIKE '%{$search}%' )";
+			}
+			
+			$query .= " GROUP BY invoice.invoice_id ";
+			$query .= " ORDER BY invoice.invoice_id DESC ";
+//        die($query);
+			$query = $this->db->query($query);
+			return $query->result();
+		}
 
     function GetTotalSalesOrder() {
         $query = "SELECT SUM(ordr.ordr_total) as total_balnc FROM ordr INNER JOIN accounts ON accounts.account_id = ordr.account_id WHERE type='Sale' ";

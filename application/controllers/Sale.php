@@ -18,28 +18,76 @@ class Sale extends MY_Controller {
 	    $store_id = $this->session->userdata('user_store_id');
         $this->data['prod_cat'] = $this->web->GetAll("product_category_id", "product_categories");
         if (isset($_POST['filter'])) {
-            $date_from = date("Y-m-d", strtotime(str_replace("-", "/", $this->input->post("from_date", true))));
-            $date_to = date("Y-m-d", strtotime(str_replace("-", "/", $this->input->post("to_date", true))));
-            $prod_type = $this->input->post("pro_type", true);
-            $category = $this->input->post("all_prod", true);
-            $product = $this->input->post("all_prod_name", true);
-
-            $totalRec = count($this->web->GetAllSales_filter($date_from, $date_to, $category, $product, $prod_type));
-            //pagination configuration
-            $config['target'] = '#postList';
-            $config['base_url'] = base_url() . 'sale/ajaxPaginationData';
-            $config['total_rows'] = $totalRec;
-            $config['per_page'] = $this->perPage;
-            $this->ajax_pagination->initialize($config);
-
-            $this->data['sales'] = $this->web->GetAllSales_filter($date_from, $date_to, $category, $product, $prod_type, "$this->perPage");
-            $this->data['total_sales'] = $this->web->GetTotalSales_filter($date_from, $date_to, $category, $product, $prod_type);
-            $this->data['pro'] = $prod_type;
-            $this->data['cate'] = $category;
-            $this->data['pro_name'] = $product;
-            $this->data['date_from'] = $this->input->post("from_date", true);
-            $this->data['date_to'] = $this->input->post("to_date", true);
-            $this->load->view("sale/all", $this->data);
+	        if($user_group_id == 1):
+	            $date_from = date("Y-m-d", strtotime(str_replace("-", "/", $this->input->post("from_date", true))));
+	            $date_to = date("Y-m-d", strtotime(str_replace("-", "/", $this->input->post("to_date", true))));
+	            $prod_type = $this->input->post("pro_type", true);
+	            $category = $this->input->post("all_prod", true);
+	            $product = $this->input->post("all_prod_name", true);
+	
+	            $totalRec = count($this->web->GetAllSales_filter($date_from, $date_to, $category, $product, $prod_type));
+	            //pagination configuration
+	            $config['target'] = '#postList';
+	            $config['base_url'] = base_url() . 'sale/ajaxPaginationData';
+	            $config['total_rows'] = $totalRec;
+	            $config['per_page'] = $this->perPage;
+	            $this->ajax_pagination->initialize($config);
+	
+	            $sales = $this->web->GetAllSales_filter($date_from, $date_to, $category, $product, $prod_type, "$this->perPage");
+		        $new_sales_array = array();
+		        $i = 0;
+		        foreach ($sales as $sale):
+			        $store = $this->web->GetOne('store_id', 'stores', $sale['invoice_store_id']);
+			        $sale['store_name'] = $store[0]->store_name;
+			        $new_sales_array[$i] = $sale;
+			        $i++;
+		        endforeach;
+		        $this->data['sales'] = $new_sales_array;
+	            $this->data['total_sales'] = $this->web->GetTotalSales_filter($date_from, $date_to, $category, $product, $prod_type);
+	            $this->data['pro'] = $prod_type;
+	            $this->data['cate'] = $category;
+	            $this->data['pro_name'] = $product;
+	            $this->data['date_from'] = $this->input->post("from_date", true);
+	            $this->data['date_to'] = $this->input->post("to_date", true);
+	            $this->load->view("sale/all", $this->data);
+          else:
+	
+	
+	          $date_from = date("Y-m-d", strtotime(str_replace("-", "/", $this->input->post("from_date", true))));
+	          $date_to = date("Y-m-d", strtotime(str_replace("-", "/", $this->input->post("to_date", true))));
+	          $prod_type = $this->input->post("pro_type", true);
+	          $category = $this->input->post("all_prod", true);
+	          $product = $this->input->post("all_prod_name", true);
+	
+	          $totalRec = count($this->web->GetAllSalesStore_filter($store_id, $date_from, $date_to, $category, $product, $prod_type));
+	          //pagination configuration
+	          $config['target'] = '#postList';
+	          $config['base_url'] = base_url() . 'sale/ajaxPaginationData';
+	          $config['total_rows'] = $totalRec;
+	          $config['per_page'] = $this->perPage;
+	          $this->ajax_pagination->initialize($config);
+	
+	          $sales = $this->web->GetAllSalesStore_filter($store_id, $date_from, $date_to, $category, $product, $prod_type, "$this->perPage");
+	          $new_sales_array = array();
+	          $i = 0;
+	          foreach ($sales as $sale):
+		          $store = $this->web->GetOne('store_id', 'stores', $sale['invoice_store_id']);
+		          $sale['store_name'] = $store[0]->store_name;
+		          $new_sales_array[$i] = $sale;
+		          $i++;
+	          endforeach;
+	          $this->data['sales'] = $new_sales_array;
+	          
+	          
+	          $this->data['total_sales'] = $this->web->GetTotalSalesStore_filter($store_id, $date_from, $date_to, $category, $product, $prod_type);
+	          $this->data['pro'] = $prod_type;
+	          $this->data['cate'] = $category;
+	          $this->data['pro_name'] = $product;
+	          $this->data['date_from'] = $this->input->post("from_date", true);
+	          $this->data['date_to'] = $this->input->post("to_date", true);
+	          $this->load->view("sale/all", $this->data);
+	        
+	        endif;
         } else {
         	
         	if($user_group_id == 1):
@@ -246,7 +294,13 @@ class Sale extends MY_Controller {
         $invoice_id = $this->uri->segment(3);
         $query = "SELECT invoice.*,accounts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice INNER JOIN accounts ON invoice.account_id = accounts.account_id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
         $query = $this->db->query($query);
-        $this->data['invoice'] = $query->result();
+        $invoice = $query->result();
+	
+	    $store = $this->web->GetOne('store_id', 'stores', $invoice[0]->invoice_store_id);
+	    $invoice[0]->store_name = $store[0]->store_name;
+	   
+	
+	    $this->data['invoice'] = $invoice;
 //        $this->data['invoice'] = $this->web->GetOneWithInner('invoice_id', 'invoice', "accounts", "account_id", NULL, NULL, $invoice_id);
 //        $this->data['invoice'] = $this->web->GetOneWithInner('invoice_id', 'invoice', "accounts", "account_id", NULL, NULL, $invoice_id);
 //        echo $this->db->last_query();

@@ -872,6 +872,13 @@ AND product_ledger.date_ledger > '" . $to_date . "' GROUP BY product_ledger.prod
         $result = $query->result();
         return $result;
     }
+		
+		function GetAllpayslips_month($month, $year) {
+			$query = "select e_l.*,e.emp_name as emp_name from employee_ledger e_l left join employees e on e.employee_id=e_l.employee_id where e_l.type='Salary' AND e_l.month='{$month}' AND e_l.year='{$year}'";
+			$query = $this->db->query($query);
+			$result = $query->result();
+			return $result;
+		}
 
     function GetAllIncrements() {
         $query = "SELECT   e.*,e_s.*,e.employee_id as employee_id  FROM employees e right JOIN ( ";

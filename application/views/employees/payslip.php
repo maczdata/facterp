@@ -450,14 +450,96 @@
 
                             <div class="panel">
                                 <div class="panel-body">
-                                    <div class="row ">
+									<div class="example-box-wrapper">
+		
+		<div class="row">
+		<div class="col-md-6 col-lg-offset-6">
+			<form class="form-horizontal pad15L pad15R bordered-row" method="post">
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Salary Month</label>
+					<div class="col-sm-6">
+						<select name="month"  id="month" class="chosen-select" >
+							<option value="">Select Month</option>
+							<option value="01">Jan</option>
+							<option value="02">Feb</option>
+							<option value="03">Mar</option>
+							<option value="04">Apr</option>
+							<option value="05">May</option>
+							<option value="06">Jun</option>
+							<option value="07">Jul</option>
+							<option value="08">Aug</option>
+							<option value="09">Sep</option>
+							<option value="10">Oct</option>
+							<option value="11">Nov</option>
+							<option value="12">Dec</option>
+						
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Salary Year</label>
+					<div class="col-sm-6">
+						<select name="year"  id="year" class="chosen-select" >
+							<option value="">Select Year</option>
+							<?php for ($i = 0; $i < 5; $i++) { ?>
+								<option value="<?= date("Y", strtotime('+' . $i . ' year')) ?>"  > <?= date("Y", strtotime('+' . $i . ' year')) ?></option>
+							<?php } ?>
+						</select>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<div class="col-md-3 col-sm-0"></div>
+					<button class="btn btn-alt btn-hover btn-blue-alt col-md-4">
+						<span>Filter Payslip</span>
+						<i class="glyph-icon icon-arrow-right"></i>
+					</button>
+				
+				</div>
+			</form>
+		</div>
+									
+									
+												
+									</div>
+	<br> <br>
+								<?php if($all == 1): ?>
+									<div class="row ">
                                         <a href="<?= base_url() ?>employees/payslip"><h3 class="title-hero col-md-9">
                                                 All Payslips
                                             </h3></a>
                                         <div class="col-md-3  pull-right form-group has-feedback "><i style="margin: 0px 15px auto;" class="glyph-icon icon-search form-control-feedback"></i><input class="form-control" type="text" id="search" name="search" placeholder="Search"/></div>
                                     </div>
-                                    <div class="example-box-wrapper">
-                                        <table  class="table table-striped table-bordered responsive no-wrap" cellspacing="0" width="100%">
+                                  <?php endif; ?>
+										
+								<?php if($all == 2):
+									$month_array = array(
+											'01' => 'January',
+											'02' => 'February',
+											'03' => 'March',
+											'04' => 'April',
+											'05' => 'May',
+											'06'=> 'June',
+											'07' => 'July',
+											'08'=> 'August',
+											'09' => 'September',
+											'10' => 'October',
+											'11' => 'November',
+											'12' => 'December'
+									)
+									?>
+									
+									<div class="row ">
+										<a href="<?= base_url() ?>employees/payslip"><h3 class="title-hero col-md-9">
+												All Payslips For <?php echo $month_array[$month].", ".$year ?>
+											</h3></a>
+										<div class="col-md-3  pull-right form-group has-feedback "><i style="margin: 0px 15px auto;" class="glyph-icon icon-search form-control-feedback"></i><input class="form-control" type="text" id="search" name="search" placeholder="Search"/></div>
+									</div>
+										<?php endif; ?>
+	
+	
+									<table  class="table table-striped table-bordered responsive no-wrap" cellspacing="0" width="100%">
                                             <tbody class="post-list" id="postList">
                                                 <tr>
                                                     <th >Sr#</th>

@@ -14,13 +14,7 @@
 			$this->data['store_products'] = $this->web->GetProductsStore();
 			$this->data['stores'] = $this->web->GetAll("store_id", "stores");
 			$this->data['warehouses'] = $this->web->GetAll("warehouse_id", "warehouses");
-			
-//			print_r($this->web->GetProductsWarehouse());
-//
-//			echo "<br>";
-//
-//			print_r($this->web->GetProductsStore());
-		
+
 			$this->load->view("product_transfer/new", $this->data);
 			
 		
@@ -44,6 +38,7 @@
 				$data['description'] = "Product Transfer";
 				$data['store_id'] = $_POST['s_store'];
 				$data['type']='STORE';
+				$data['user_id'] = $this->session->userdata('user_id');
 				$this->web->Add("product_ledger", $data);
 				
 				$data = array();
@@ -54,6 +49,7 @@
 				$data['description'] = "Product Transfer";
 				$data['warehouse_id'] = $_POST['r_warehouse'];
 				$data['type']='WAREHOUSE';
+				$data['user_id'] = $this->session->userdata('user_id');
 				$this->web->Add("product_ledger", $data);
 				
 				$sending_stores = $this->web->GetOne('store_stock_store_id', 'store_stock', $s_store_id);
@@ -99,6 +95,7 @@
 				$data['description'] = "Product Transfer";
 				$data['warehouse_id'] = $_POST['s_warehouse'];
 				$data['type']='WAREHOUSE';
+				$data['user_id'] = $this->session->userdata('user_id');
 				$this->web->Add("product_ledger", $data);
 				
 				$data = array();
@@ -109,6 +106,7 @@
 				$data['description'] = "Product Transfer";
 				$data['store_id'] = $_POST['r_store'];
 				$data['type']='STORE';
+				$data['user_id'] = $this->session->userdata('user_id');
 				$this->web->Add("product_ledger", $data);
 				
 				$s_warehouses = $this->web->GetOne('warehouse_stock_warehouse_id', 'warehouse_stock', $s_warehouse_id);
@@ -156,6 +154,7 @@
 				$data['description'] = "Product Transfer";
 				$data['store_id'] = $_POST['s_warehouse'];
 				$data['type']='WAREHOUSE';
+				$data['user_id'] = $this->session->userdata('user_id');
 				$this->web->Add("product_ledger", $data);
 				
 				$data = array();
@@ -166,6 +165,7 @@
 				$data['description'] = "Product Transfer";
 				$data['warehouse_id'] = $_POST['r_warehouse'];
 				$data['type']='WAREHOUSE';
+				$data['user_id'] = $this->session->userdata('user_id');
 				$this->web->Add("product_ledger", $data);
 				
 				$s_warehouses = $this->web->GetOne('warehouse_stock_warehouse_id', 'warehouse_stock', $s_warehouse_id);
@@ -211,6 +211,7 @@
 				$data['description'] = "Product Transfer";
 				$data['store_id'] = $_POST['s_store'];
 				$data['type']='STORE';
+				$data['user_id'] = $this->session->userdata('user_id');
 				$this->web->Add("product_ledger", $data);
 				
 				$data = array();
@@ -221,6 +222,7 @@
 				$data['description'] = "Product Transfer";
 				$data['warehouse_id'] = $_POST['r_store'];
 				$data['type']='STORE';
+				$data['user_id'] = $this->session->userdata('user_id');
 				$this->web->Add("product_ledger", $data);
 				
 				$sending_stores = $this->web->GetOne('store_stock_store_id', 'store_stock', $s_store_id);

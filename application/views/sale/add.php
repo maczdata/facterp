@@ -541,7 +541,7 @@
                                                 <label class="col-sm-2 control-label">Select Account</label>
                                                 <div class="col-sm-4">
                                                     <select name="account" onchange=" Validation()" id="account" class="chosen-select">
-                                                        <option value="">Select Option</option>
+                                                        <option value="1">Select Option</option>
                                                         <?php foreach ($accounts as $account) { ?>
                                                             <option value="<?= $account->account_id ?>"><?= $account->account_name ?></option>
                                                         <?php } ?>

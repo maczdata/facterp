@@ -149,8 +149,21 @@ class Employees extends MY_Controller {
     }
 
     function payslip() {
-        $this->data['payslips'] = $this->web->GetAllpayslips();
-        $this->load->view("employees/payslip", $this->data);
+    	if($_POST):
+		    $month = $_POST['month'];
+    	    $year = $_POST['year'];
+		    $this->data['all'] = 2;
+		    $this->data['month'] = $month;
+		    $this->data['year'] = $year;
+		    $this->data['payslips'] = $this->web->GetAllpayslips_month($month, $year);
+		    $this->load->view("employees/payslip", $this->data);
+	    
+	    else:
+	        $this->data['all'] = 1;
+	        $this->data['payslips'] = $this->web->GetAllpayslips();
+	        $this->load->view("employees/payslip", $this->data);
+        
+        endif;
     }
 
     function add_payslip() {
@@ -328,6 +341,8 @@ class Employees extends MY_Controller {
         $data['emp_dob'] = date("Y-m-d", strtotime(str_replace("-", "/", $this->input->post("emp_dob", true))));
         $data['emp_doj'] = date("Y-m-d", strtotime(str_replace("-", "/", $this->input->post("emp_doj", true))));
         $data['emp_desc'] = $this->db->escape_str($this->input->post("emp_desc", true));
+	    $data['emp_bank'] = $this->db->escape_str($this->input->post("emp_bank", true));
+	    $data['emp_nuban'] = $this->db->escape_str($this->input->post("emp_nuban", true));
         $data_salary['salary'] = $this->db->escape_str($this->input->post("salary", true));
 
         $data['emp_status'] = $this->db->escape_str($this->input->post("emp_status", true));
@@ -478,6 +493,8 @@ class Employees extends MY_Controller {
             $data['emp_dob'] = date("Y-m-d", strtotime(str_replace("-", "/", $this->input->post("emp_dob", true))));
             $data['emp_doj'] = date("Y-m-d", strtotime(str_replace("-", "/", $this->input->post("emp_doj", true))));
             $data['emp_desc'] = $this->db->escape_str($this->input->post("emp_desc", true));
+            $data['emp_bank'] = $this->db->escape_str($this->input->post("emp_bank", true));
+	        $data['emp_nuban'] = $this->db->escape_str($this->input->post("emp_nuban", true));
             $data_salary['salary'] = $this->db->escape_str($this->input->post("salary", true));
 
             $data['emp_status'] = $this->db->escape_str($this->input->post("emp_status", true));

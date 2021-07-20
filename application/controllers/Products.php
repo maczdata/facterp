@@ -246,7 +246,8 @@ class Products extends MY_Controller {
 				        'credit_qty' => $quantity,
 				        'description' => 'Initial Stocking',
 				        'type' => 'WAREHOUSE',
-				        'warehouse_id' => $warehouse_id
+				        'warehouse_id' => $warehouse_id,
+				        'user_id' => $this->session->userdata('user_id'),
 			        );
 	        		
 	        		$this->web->Add('product_ledger', $ledger);
@@ -278,7 +279,8 @@ class Products extends MY_Controller {
 				        'credit_qty' => $quantity,
 				        'description' => 'Initial Stocking',
 				        'type' => 'STORE',
-				        'store_id' => $store_id
+				        'store_id' => $store_id,
+				        'user_id' => $this->session->userdata('user_id'),
 			        );
 			
 			        $this->web->Add('product_ledger', $ledger);

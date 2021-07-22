@@ -509,7 +509,7 @@ class Sale extends MY_Controller {
     function add() {
         if ($this->input->post()) {
             $data = array();
-	        $store_id = $this->session->userdata('user_store_id');
+	        $store_id = $this->input->post("store_id");
             $data_items = array();
             $data['account_id'] = $this->db->escape_str($this->input->post("account", true));
             $data['date_created'] = date("Y-m-d", strtotime(str_replace("-", "/", $this->input->post("date", true)))) . " " . date("H:i:s");
@@ -722,6 +722,7 @@ class Sale extends MY_Controller {
             } else {
                 $this->data['last_sale_no'] = 'S-V # 00001';
             }
+            $this->data['store_id'] = $store_id;
             $this->load->view("sale/add", $this->data);
         }
     }

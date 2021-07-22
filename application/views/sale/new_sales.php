@@ -11,7 +11,7 @@
 
         <meta charset="UTF-8">
         <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
-        <title> Facteezo: Production </title>
+        <title> Facteezo: Sales </title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
@@ -30,8 +30,7 @@
         <!-- JS Core -->
 
         <script type="text/javascript" src="<?= base_url() ?>assets-minified/js-core.js"></script>
-        <script type="text/javascript" src="<?= base_url() ?>assets/widgets/chosen/chosen.js"></script>
-        <script type="text/javascript" src="<?= base_url() ?>assets/widgets/chosen/chosen-demo.js"></script>
+
 
 
 
@@ -422,7 +421,12 @@
                             <script type="text/javascript" src="<?= base_url() ?>assets/widgets/datatable/datatable.js"></script>
                             <script type="text/javascript" src="<?= base_url() ?>assets/widgets/datatable/datatable-bootstrap.js"></script>
                             <script type="text/javascript" src="<?= base_url() ?>assets/widgets/datatable/datatable-responsive.js"></script>
+                            <script type="text/javascript" src="<?= base_url() ?>assets/widgets/datepicker/datepicker.js"></script>
+                            <!-- Chosen -->
 
+                            <!--<link rel="stylesheet" type="text/css" href="../../assets/widgets/chosen/chosen.css">-->
+                            <script type="text/javascript" src="<?= base_url() ?>assets/widgets/chosen/chosen.js"></script>
+                            <script type="text/javascript" src="<?= base_url() ?>assets/widgets/chosen/chosen-demo.js"></script>
                             <script type="text/javascript">
 
             /* Datatables responsive */
@@ -438,157 +442,71 @@
             });
 
                             </script>
+                            <script type="text/javascript">
+                                /* Datepicker bootstrap */
 
+                                $(function () {
+                                    "use strict";
+                                    $('.bootstrap-datepicker').bsdatepicker({
+                                        format: 'mm-dd-yyyy'
+                                    });
+                                });
+                            </script>
                             <div id="page-title" style="overflow: hidden;">
                                 <div class="col-md-8">
-                                    <h2>Production Slips</h2>
-                                    <p>Add, Edit or Delete Production Slips</p>
+                                    <h2>Sales</h2>
+                                    <p>New Sale</p>
                                 </div>
                                 <div class="col-md-2 panel-group" id="accordion">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">
                                         <i class="glyph-icon icon-calendar" style="font-size: 200%;padding-left: 140px;"></i>
                                     </a>
                                 </div>
-                                <div class="col-md-2">
-                                    <button class="btn btn-blue-alt pull-right" onclick="AddProduction();"><span style="margin-right: 5px;" class="glyph-icon icon-plus"></span>Add New Slip</button>
-                                </div>
+                               
                             </div>
                             <div id="collapseOne" class="panel-collapse collapse" aria-expanded="false">
                                 <div class="panel-body">
                                     <div class="row" class="select_date">
-                                        <form name="AccountForm" method="post" id="AccountForm" action="<?= base_url() ?>production/" class="form-horizontal">
-                                            <div class="form-group">
-
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="" class="col-sm-3 control-label">From Date</label>
-                                                <div class="col-sm-6">
-                                                    <div class="input-prepend input-group">
-                                                        <span class="add-on input-group-addon">
-                                                            <i class="glyph-icon icon-calendar"></i>
-                                                        </span>
-                                                        <input id="from_date" name="from_date" type="text" class="bootstrap-datepicker form-control" value="<?php echo date("m-d-Y") ?>" data-date-format="mm/dd/yy">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="" class="col-sm-3 control-label">To Date</label>
-                                                <div class="col-sm-6">
-                                                    <div class="input-prepend input-group">
-                                                        <span class="add-on input-group-addon">
-                                                            <i class="glyph-icon icon-calendar"></i>
-                                                        </span>
-                                                        <input id="to_date" name="to_date" type="text" class="bootstrap-datepicker form-control" value="<?php echo date("m-d-Y") ?>" data-date-format="mm/dd/yy">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-3 control-label">Select Product</label>
-                                                <div class="col-sm-6" id="product_div">
-                                                    <select name="product" id="product" class="chosen-select">
-                                                        <option id="option_after" value="">Select Option</option>
-                                                        <?php foreach ($products as $product) { ?>
-                                                            <option value="<?= $product->product_id ?>"><?= $product->product_name ?></option>
-
-
-                                                        <?php } ?>
-                                                    </select>
-
-                                                </div>
-
-                                            </div>
-
-                                            <div class="col-sm-4 pull-right">
-                                                <input class="btn btn-success" type="submit" value="Filter" name="filter"/>
-                                            </div>
-                                        </form>
+                                    
                                     </div>
                                 </div>
                             </div>
                             <div class="panel">
                                 <div class="panel-body">
+                            
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="col-md-8">
-                                                <h3 class="title-hero">
-                                                    <a href="<?= base_url() ?>production"> <h3 class="title-hero">
-                                                            All Production Slips
-                                                        </h3></a>
-                                                </h3>
+                                            <div class="col-md-3">
+												<form name="AccountForm" method="get" id="AccountForm" action="<?= base_url() ?>sale/add" class="form-horizontal">
+													<div class="form-group">
+		
+													</div>
+													<div class="form-group">
+														<label for="" class="col-sm-3 control-label">Select Store</label>
+														<select name="store_id" id="pro_type" class="chosen-select" style=" z-index: -21;" >
+															<option value="">Select Store</option>
+															
+															<?php foreach ($stores as $store): ?>
+															<option value="<?=$store->store_id ?>" > <?=$store->store_name; ?></option>
+															
+															<?php endforeach; ?>
+														
+														</select>
+													</div>
+												
+													<div class="col-md-3 ">
+													
+													</div>
+												
+													<div class="col-sm-3 pull-right">
+														<input class="btn btn-success" type="submit" value="Proceed"/>
+													</div>
+												</form>
                                             </div>
-                                            <div class="col-md-4  pull-right form-group has-feedback "><i style="margin: 0px 15px auto;" class="glyph-icon icon-search form-control-feedback"></i><input class="form-control" type="text" id="search" name="search" placeholder="Search"/></div>
-                                        </div></div>
-                                    <div class="example-box-wrapper">
-                                        <table  class="table table-striped table-bordered responsive no-wrap" cellspacing="0" width="100%">
-                                            <tbody class="post-list" id="postList">
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>Date</th>
-                                                    <th>Warehouse</th>
-                                                    <th>Manage</th>
-                                                </tr>
-
-
-
-                                                <?php
-                                                if (!empty($productions)): $count = 1;
-                                                    foreach ($productions as $production):
-                                                        ?>
-                                                        <tr>
-                                                            <td><?= $production->issue_id ?></td>
-                                                            <td><?= $production->date ?></td>
-                                                            <td><?= $production->warehouse_name ?></td>
-
-                                                            <td>
-
-                                                                <?php if ($this->session->userdata('user_group_id') == 1) { ?>
-                                                                    <button class="btn btn-round btn-info" data-toggle="modal" data-target="#myModal" data-toggle="tooltip" data-placement="top" title="Edit" onclick="EditProduction('<?= $production->issue_id ?>');">
-                                                                        <i class="glyph-icon icon-pencil"></i>
-                                                                    </button>
-                                                                    <button class="btn btn-round btn-danger" data-toggle="tooltip" data-placement="top" title="Delete" onclick="DeleteProduction('<?= $production->issue_id ?>');">
-                                                                        <i class="glyph-icon icon-trash"></i>
-                                                                    </button>
-                                                                <?php } ?>
-
-                                                                <button class="btn btn-round btn-success" data-toggle="tooltip" data-placement="top" title="View" onclick="ViewIssue('<?= $production->issue_id ?>');">
-                                                                    <i class="glyph-icon icon-file-text-o"></i>
-                                                                </button>
-                                                            </td>
-                                                        </tr>
-                                                        <?php
-                                                        $count++;
-                                                    endforeach;
-                                                else:
-                                                    ?>
-                                                <p>Production(s) not available.</p>
-                                            <?php endif; ?>
-                                            <?php
-                                            if (isset($search)) {
-                                                echo $this->ajax_pagination->create_links(NULL, NULL, $search);
-                                            }
-                                            if (isset($pro) && isset($date_from) && isset($date_to)) {
-
-                                                if (empty($pro)) {
-                                                    $pro = NULL;
-                                                }
-                                                if (empty($date_from)) {
-                                                    $date_from = NULL;
-                                                }
-                                                if (empty($date_to)) {
-                                                    $date_to = NULL;
-                                                }
-
-                                                echo $this->ajax_pagination->create_links($date_from, $date_to, NULL, NULL, NULL, $pro);
-                                            } if (!isset($search) && !isset($date_from) && !isset($date_to) && !isset($pro)) {
-                                                echo $this->ajax_pagination->create_links();
-                                            }
-                                            ?>
-
-
-
-                                            </tbody>
-                                        </table>
+                                                    </div>
                                     </div>
+
+
                                 </div>
                             </div>
 
@@ -605,52 +523,52 @@
             <script type="text/javascript" src="<?= base_url() ?>assets-minified/admin-all-demo.js"></script>
 
             <script>
-                                                                    function EditProduction(issue_id) {
-                                                                        window.location.href = "<?= base_url() ?>production/view/" + issue_id;
-                                                                        //        $.post("<?//= base_url() ?>users/edit", {id: user_id})
-                                                                        //            .done(function (data) {
-                                                                        //                if ($.trim(data) == 'done') {
-                                                                        //                    window.location.href = "<?= base_url() ?>dashboard";
-                                                                        //                }
-                                                                        //                if ($.trim(data) == 'failed') {
-                                                                        ////                                                            alert('here');
-                                                                        //                    window.location.href = "<?= base_url() ?>";
-                                                                        //
-                                                                        //                }
-                                                                        //            });
-                                                                    }
+                                                            function EditSale(invoice_id) {
+                                                                window.location.href = "<?= base_url() ?>sale/view/" + invoice_id;
+                                                            }
 
-                                                                    function DeleteProduction(issue_id) {
-                                                                        var cnfirm = confirm("Are You Sure?");
-                                                                        if (cnfirm) {
-                                                                            $.post("<?= base_url() ?>production/delete", {id: issue_id})
-                                                                                    .done(function (data) {
+                                                            function DeleteSale(invoice_id) {
+                                                                var cnfirm = confirm("Are You Sure?");
+                                                                if (cnfirm) {
+                                                                    $.post("<?= base_url() ?>sale/delete", {id: invoice_id})
+                                                                            .done(function (data) {
 //                                                                                    alert(data);
-                                                                                        if ($.trim(data) == 'done') {
-                                                                                            location.reload(true);
-                                                                                        }
-                                                                                    });
-                                                                        }
-                                                                    }
-                                                                    function ViewIssue(issue_id) {
-                                                                        window.location.href = "<?= base_url() ?>production/view_slip/" + issue_id;
-                                                                    }
+                                                                                if ($.trim(data) == 'done') {
+                                                                                    location.reload(true);
+                                                                                }
+                                                                            });
+                                                                }
+                                                            }
 
-                                                                    function AddProduction() {
-                                                                        window.location.href = "<?= base_url() ?>production/new_production";
-                                                                    }
 
-            </script>
-            <script type="text/javascript" src="<?= base_url() ?>assets/widgets/datepicker/datepicker.js"></script>
-            <script type="text/javascript">
-                                                                    /* Datepicker bootstrap */
 
-                                                                     // $(function () {
-                                                                     //     "use strict";
-                                                                     //     $('.bootstrap-datepicker').bsdatepicker({
-                                                                     //         format: 'mm-dd-yyyy'
-                                                                     //     });
-                                                                     // });
+                                                            function SaleReturn(invoice_id) {
+                                                                window.location.href = "<?= base_url() ?>sale/view_return/" + invoice_id;
+                                                            }
+                                                            function AddSale() {
+                                                                window.location.href = "<?= base_url() ?>sale/new_sales";
+                                                            }
+                                                            function ViewSale(invoice_id) {
+                                                                window.location.href = "<?= base_url() ?>sale/view_invoice/" + invoice_id;
+                                                            }
+                                                            function GetProducts(cat_id) {
+                                                                var pro_type = $("#pro_type").val();
+
+                                                                var base_url = "<?= base_url() ?>";
+                                                                $("#all_pro_outer select").html("<option value=''>Select Option</option>");
+                                                                $.post(base_url + "sale/GetProducts", {cat_id: cat_id, pro_type: pro_type})
+                                                                        .done(function (data) {
+                                                                            console.log(data);
+                                                                            var obj = JSON.parse(data);
+                                                                            $.each(obj, function (k, v) {
+                                                                                $("#all_pro_outer select").append("<option value='" + v['product_id'] + "'>" + v['product_name'] + "</option>");
+
+                                                                            });
+                                                                            $(".ppp").trigger("chosen:updated");
+                                                                        });
+
+                                                            }
+
             </script>
             <script>
                 $("#search").keyup(function (event) {
@@ -660,9 +578,8 @@
                         if (rtngPtId == "") {
                             $("#search").attr("placeholder", "Enter Valid Input");
                         } else {
-                            $.post("<?= base_url() ?>production/search", {id: rtngPtId})
+                            $.post("<?= base_url() ?>sale/search", {id: rtngPtId})
                                     .done(function (data) {
-                                        console.log(data);
 
                                         if ($.trim(data) == 'no') {
                                             $("#search")
@@ -681,20 +598,19 @@
                 });
             </script>
 
-
-             <script type="text/javascript">
-                 $(document).ready(function(){
+            <script type="text/javascript">
+                $(document).ready(function () {
                     $("#from_date").bsdatepicker({
-                         format: 'mm-dd-yyyy',
+                        format: 'mm-dd-yyyy',
                     });
-                     $("#to_date").bsdatepicker({
-                         format: 'mm-dd-yyyy',
+                    $("#to_date").bsdatepicker({
+                        format: 'mm-dd-yyyy',
                     });
-                     $('#from_date').on('changeDate', function(ev){
-                         $(this).bsdatepicker('hide');
+                    $('#from_date').on('changeDate', function (ev) {
+                        $(this).bsdatepicker('hide');
                     });
-                      $('#to_date').on('changeDate', function(ev){
-                         $(this).bsdatepicker('hide');
+                    $('#to_date').on('changeDate', function (ev) {
+                        $(this).bsdatepicker('hide');
                     });
                 });
             </script>

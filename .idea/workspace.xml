@@ -19,13 +19,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="tracking employee activities">
+    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="run production routine to credit product and debit raw materials">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Employees.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Employees.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Web_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Web_model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/employees/add.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/employees/add.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/employees/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/employees/edit.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/employees/payslip.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/employees/payslip.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Production.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Production.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/core/MY_Model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/core/MY_Model.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/production/all.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/production/all.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,11 +49,13 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ncs" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/application/views/production" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\facterp\application\views\production" />
+      <recent name="C:\xampp\htdocs\facterp\application\views\sale" />
       <recent name="C:\xampp\htdocs\facterp\application\controllers" />
       <recent name="C:\xampp\htdocs\facterp\application\views\stores" />
     </key>
@@ -69,7 +69,7 @@
       <option name="presentableId" value="Default" />
       <updated>1626015296257</updated>
       <workItem from="1626015299102" duration="30419000" />
-      <workItem from="1626537441360" duration="17320000" />
+      <workItem from="1626537441360" duration="32896000" />
     </task>
     <task id="LOCAL-00001" summary="new store and store listing completed">
       <created>1626018607669</created>
@@ -218,7 +218,42 @@
       <option name="project" value="LOCAL" />
       <updated>1626721874920</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="print payslip by month and year, add bank details on new employee page">
+      <created>1626725211757</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1626725211757</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Add Users to multiple stores and warehouses">
+      <created>1626958634899</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1626958634899</updated>
+    </task>
+    <task id="LOCAL-00024" summary="route sales based on stores attached to">
+      <created>1626960779034</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1626960779034</updated>
+    </task>
+    <task id="LOCAL-00025" summary="sales completed based on second brief">
+      <created>1626961242078</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1626961242078</updated>
+    </task>
+    <task id="LOCAL-00026" summary="run production routine to credit product and debit raw materials">
+      <created>1626966871951</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1626966871951</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -257,7 +292,12 @@
     <MESSAGE value="sales display completed showing originating store" />
     <MESSAGE value="sales completed with report displaying" />
     <MESSAGE value="tracking employee activities" />
-    <option name="LAST_COMMIT_MESSAGE" value="tracking employee activities" />
+    <MESSAGE value="print payslip by month and year, add bank details on new employee page" />
+    <MESSAGE value="Add Users to multiple stores and warehouses" />
+    <MESSAGE value="route sales based on stores attached to" />
+    <MESSAGE value="sales completed based on second brief" />
+    <MESSAGE value="run production routine to credit product and debit raw materials" />
+    <option name="LAST_COMMIT_MESSAGE" value="run production routine to credit product and debit raw materials" />
   </component>
   <component name="WindowStateProjectService">
     <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1626339347297">
@@ -272,17 +312,17 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="519" y="282" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1626253633947" />
-    <state x="247" y="78" key="Vcs.Push.Dialog.v2" timestamp="1626721878247">
+    <state x="247" y="78" key="Vcs.Push.Dialog.v2" timestamp="1626966876122">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="247" y="78" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1626721878247" />
+    <state x="247" y="78" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1626966876122" />
     <state x="339" y="162" key="run.anything.popup" timestamp="1626599583922">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1626599583922" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1626597808275">
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1626969433924">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1626597808275" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1626969433924" />
   </component>
 </project>

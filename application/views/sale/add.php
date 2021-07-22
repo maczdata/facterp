@@ -548,6 +548,7 @@
                                                     </select>
                                                 </div>
                                             </div>
+											<input type="hidden" name="store_id" value="<?=$store_id; ?>"/>
                                             <input type="hidden" id="product_suggestions" value="<?= $products_suggestions ?>" />
                                             <input type="hidden" id="batch_suggestions" value="<?= $batch_suggestions ?>" />
                                             <div class="form-group">

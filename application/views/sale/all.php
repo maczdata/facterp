@@ -716,7 +716,7 @@
                                                                 window.location.href = "<?= base_url() ?>sale/view_return/" + invoice_id;
                                                             }
                                                             function AddSale() {
-                                                                window.location.href = "<?= base_url() ?>sale/add";
+                                                                window.location.href = "<?= base_url() ?>sale/new_sales";
                                                             }
                                                             function ViewSale(invoice_id) {
                                                                 window.location.href = "<?= base_url() ?>sale/view_invoice/" + invoice_id;

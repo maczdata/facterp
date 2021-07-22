@@ -528,7 +528,8 @@
                                     <div class="example-box-wrapper">
                                         <form method="post" action="<?= base_url() ?>sale/add" id="SubmitAdd" class="form-horizontal bordered-row">
                                             <input type="hidden" name="ordr_id" value="<?= $ordr[0]->ordr_id ?>"/>
-                                            <div class="form-group">
+                                            <input type="hidden" name="store_id" value="<?=$ordr[0]->ordr_store_id ?>">
+											<div class="form-group">
                                                 <label for="" class="col-sm-2 control-label">Date</label>
                                                 <div class="col-sm-4">
                                                     <div class="input-prepend input-group">

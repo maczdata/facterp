@@ -32,8 +32,8 @@ class Users extends MY_Controller {
         }
         $status = $this->input->post("checkbox-example-1", true);
         $data['status'] = ($status == "on" ? 1 : 0);
-	    $data['user_warehouse_id'] = $this->input->post('warehouse_id');
-	    $data['user_store_id'] = $this->input->post('store_id');
+	    $data['user_warehouse_id'] = json_encode($this->input->post('warehouse_id'));
+	    $data['user_store_id'] = json_encode($this->input->post('store_id'));
         $id = $this->input->post("user_id", true);
         $this->web->Update("id", "users", $id, $data);
         redirect("users", "refresh");
@@ -58,8 +58,8 @@ class Users extends MY_Controller {
             $status = $this->input->post("checkbox-example-1", true);
             $data['status'] = ($status == "on" ? 1 : 0);
             $data['user_group_id'] = $this->input->post("user_group", true);
-            $data['user_warehouse_id'] = $this->input->post('warehouse_id');
-            $data['user_store_id'] = $this->input->post('store_id');
+            $data['user_warehouse_id'] = json_encode($this->input->post('warehouse_id'));
+            $data['user_store_id'] = json_encode($this->input->post('store_id'));
 //            print_r($data);
 //            die();
             if ($this->web->Add("users", $data)) {

@@ -501,7 +501,7 @@
                                                 <tr>
                                                     <th>ID</th>
                                                     <th>Date</th>
-                                                    <th>Section</th>
+<!--                                                    <th>Section</th>-->
                                                     <th>Manage</th>
                                                 </tr>
                                             </thead>
@@ -514,7 +514,7 @@
                                                     <tr>
                                                         <td><?= $process->issue_id ?></td>
                                                         <td><?= $process->date ?></td>
-                                                        <td><?= $process->section_name ?></td>
+<!--                                                        <td>--><?//= $process->section_name ?><!--</td>-->
 
                                                         <td>
                                                          <?php if($this->session->userdata('user_group_id') == 1){ ?>

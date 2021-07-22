@@ -455,228 +455,58 @@
                             <div id="page-title" style="overflow: hidden;">
                                 <div class="col-md-8">
                                     <h2>Sales</h2>
-                                    <p>Add, Edit or Delete Sale</p>
+                                    <p>New Sale</p>
                                 </div>
                                 <div class="col-md-2 panel-group" id="accordion">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">
                                         <i class="glyph-icon icon-calendar" style="font-size: 200%;padding-left: 140px;"></i>
                                     </a>
                                 </div>
-                                <div class="col-md-2">
-                                    <button class="btn btn-blue-alt pull-right" onclick="AddSale();"><span style="margin-right: 5px;" class="glyph-icon icon-plus"></span>New Sale</button>
-                                </div>
+                               
                             </div>
                             <div id="collapseOne" class="panel-collapse collapse" aria-expanded="false">
                                 <div class="panel-body">
                                     <div class="row" class="select_date">
-                                        <form name="AccountForm" method="post" id="AccountForm" action="<?= base_url() ?>sale/" class="form-horizontal">
-                                            <div class="form-group">
-
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="" class="col-sm-3 control-label">From Date</label>
-                                                <div class="col-sm-6">
-                                                    <div class="input-prepend input-group">
-                                                        <span class="add-on input-group-addon">
-                                                            <i class="glyph-icon icon-calendar"></i>
-                                                        </span>
-                                                        <input id="from_date" name="from_date" type="text" class="bootstrap-datepicker form-control" value="<?php
-                                                        if (isset($date_from)) {
-                                                            echo $date_from;
-                                                        } else {
-                                                            echo date("m-d-Y");
-                                                        }
-                                                        ?>" data-date-format="mm/dd/yy">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="" class="col-sm-3 control-label">To Date</label>
-                                                <div class="col-sm-6">
-                                                    <div class="input-prepend input-group">
-                                                        <span class="add-on input-group-addon">
-                                                            <i class="glyph-icon icon-calendar"></i>
-                                                        </span>
-                                                        <input id="to_date" name="to_date" type="text" class="bootstrap-datepicker form-control" value="<?php
-                                                        if (isset($date_to)) {
-                                                            echo $date_to;
-                                                        } else {
-                                                            echo date("m-d-Y");
-                                                        }
-                                                        ?>" data-date-format="mm/dd/yy">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3 ">
-                                                <select name="pro_type" id="pro_type" class="chosen-select" style=" z-index: -21;" >
-                                                    <option value="">Select Product Type</option>
-                                                    <option
-                                                    <?php
-                                                    if (isset($pro)) {
-                                                        if ($pro == "raw") {
-                                                            echo 'selected';
-                                                        }
-                                                    }
-                                                    ?>
-                                                        value="raw">Raw</option>
-                                                    <option
-                                                    <?php
-                                                    if (isset($pro)) {
-                                                        if ($pro == "production") {
-                                                            echo 'selected';
-                                                        }
-                                                    }
-                                                    ?>
-                                                        value="production">Product</option>
-
-                                                </select>
-                                            </div>
-                                            <div class="col-md-3 ">
-                                                <select onchange="GetProducts(this.value);" name="all_prod" id="all_prod" class="chosen-select" style=" z-index: -21;" >
-                                                    <option value="">Select Product Category</option>
-                                                    <?php foreach ($prod_cat as $pro_Cat) { ?>
-                                                        <option
-                                                        <?php
-                                                        if (isset($cate)) {
-                                                            if ($cate == $pro_Cat->product_category_id) {
-                                                                echo 'selected';
-                                                            }
-                                                        }
-                                                        ?>
-                                                            value="<?= $pro_Cat->product_category_id ?>"><?= $pro_Cat->product_category_name ?></option>
-                                                        <?php } ?>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-3 " id="all_pro_outer">
-                                                <select  name="all_prod_name" id="all_prod_name" class="chosen-select ppp">
-                                                    <option value="">Select Products</option>
-
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-3 pull-right">
-                                                <input class="btn btn-success" type="submit" value="Filter" name="filter"/>
-                                            </div>
-                                        </form>
+                                    
                                     </div>
                                 </div>
                             </div>
                             <div class="panel">
                                 <div class="panel-body">
-                                    <?php
-                                    $total_balnc = 0;
-                                    foreach ($total_sales as $balnc) {
-
-                                        $total_balnc = $total_balnc + $balnc->total_balnc;
-                                        ?>
-                                    <?php } ?>
+                            
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="col-md-3">
-                                                <a href="<?= base_url() ?>Sale"> <h3 class="title-hero">
-                                                        All Sales
-                                                    </h3></a>
+												<form name="AccountForm" method="get" id="AccountForm" action="<?= base_url() ?>sale/add" class="form-horizontal">
+													<div class="form-group">
+		
+													</div>
+													<div class="form-group">
+														<label for="" class="col-sm-3 control-label">Select Store</label>
+														<select name="store_id" id="pro_type" class="chosen-select" style=" z-index: -21;" >
+															<option value="">Select Store</option>
+															
+															<?php foreach ($stores as $store): ?>
+															<option value="<?=$store->store_id ?>" > <?=$store->store_name; ?></option>
+															
+															<?php endforeach; ?>
+														
+														</select>
+													</div>
+												
+													<div class="col-md-3 ">
+													
+													</div>
+												
+													<div class="col-sm-3 pull-right">
+														<input class="btn btn-success" type="submit" value="Proceed"/>
+													</div>
+												</form>
                                             </div>
-                                            <div class="col-md-7">
-                                                <div class="col-md-7" style="font-weight:bold; font-size: 20px; font-style: italic;">Total Sales <span style="font-size: 13px;">(Selected)</span></div>
-                                                <div class="col-md-5" style="font-weight:bold; font-size: 20px;"><?php
-                                                    print_r($total_balnc);
-                                                    echo " ₦/-";
-                                                    ?></div>
-                                            </div>
-                                            <div class="col-md-2  pull-right form-group has-feedback "><i style="margin: 0px 15px auto;" class="glyph-icon icon-search form-control-feedback"></i><input class="form-control" type="text" id="search" name="search" placeholder="Search"/></div>
-                                        </div>
+                                                    </div>
                                     </div>
 
 
-
-                                    <div class="example-box-wrapper">
-                                        <table class="table  table-bordered responsive no-wrap" cellspacing="0" width="100%">
-                                            <tbody class="post-list" id="postList">
-                                                <tr>
-                                                    <th>Sr#</th>
-                                                    <th>ID</th>
-                                                    <th>Date</th>
-                                                    <th>Account Name</th>
-                                                    <th>Discount</th>
-                                                    <th>Total</th>
-													<th> Store</th>
-                                                    <th>Payment Method</th>
-                                                    <th>Manage</th>
-                                                </tr>
-
-
-                                                <?php
-                                                if (!empty($sales)): $count = 1;
-                                                    foreach ($sales as $sale):
-                                                        ?>
-                                                        <tr <?= $sale['return_invoice_id'] != NULL ? "style='background:#ffe5e5 !important;'" : "" ?>>
-                                                            <td><?= $count ?></td>
-                                                            <td><?= $sale['invoice_id'] ?></td>
-                                                            <td><?= $sale['invoice_date'] ?></td>
-                                                            <td><?= $sale['account_name'] ?></td>
-                                                            <td><?= $sale['total_discount'] ?></td>
-                                                            <td><?= $sale['invoice_total'] ?></td>
-															<td><?= $sale['store_name']; ?></td>
-                                                            <td><?= $sale['payment_method'] ?></td>
-
-                                                            <td>
-                                                                <?php if ($this->session->userdata('user_group_id') == 1 && ($sale['return_invoice_id'] == NULL)) { ?>
-
-                                                                    <button class="btn btn-round btn-info" data-toggle="tooltip" data-placement="top" title="Edit" data-toggle="modal" data-target="#myModal" onclick="EditSale('<?= $sale['invoice_id'] ?>');">
-                                                                        <i class="glyph-icon icon-pencil"></i>
-                                                                    </button>
-                                                                    <button class="btn btn-round btn-danger" data-toggle="tooltip" data-placement="top" title="Delete" onclick="DeleteSale('<?= $sale['invoice_id'] ?>');">
-                                                                        <i class="glyph-icon icon-trash"></i>
-                                                                    </button>
-                                                                    <button class="btn btn-round btn-black" data-toggle="tooltip" data-placement="top" title="Return" data-toggle="modal" data-target="#myModal" onclick="SaleReturn('<?= $sale['invoice_id'] ?>');">
-                                                                        <i class="glyph-icon icon-refresh"></i>
-                                                                    </button>
-                                                                <?php } ?>
-                                                                <button class="btn btn-round btn-success" data-toggle="tooltip" data-placement="top" title="View" onclick="ViewSale('<?= $sale['invoice_id'] ?>');">
-                                                                    <i class="glyph-icon icon-file-text-o"></i>
-                                                                </button>
-
-                                                            </td>
-                                                        </tr>
-                                                        <?php
-                                                        $count++;
-                                                    endforeach;
-                                                else:
-                                                    ?>
-                                                <p>Sale(s) not available.</p>
-                                            <?php endif; ?>
-                                            <?php
-                                            if (isset($search)) {
-                                                echo $this->ajax_pagination->create_links(NULL, NULL, $search);
-                                            }
-                                            if (isset($cate) && isset($pro_name) && isset($pro) && isset($date_from) && isset($date_to)) {
-                                                if (empty($cat)) {
-                                                    $cat = NULL;
-                                                }
-                                                if (empty($pro_name)) {
-                                                    $pro_name = NULL;
-                                                }
-                                                if (empty($pro)) {
-                                                    $pro = NULL;
-                                                }
-                                                if (empty($date_from)) {
-                                                    $date_from = NULL;
-                                                }
-                                                if (empty($date_to)) {
-                                                    $date_to = NULL;
-                                                }
-
-                                                echo $this->ajax_pagination->create_links($date_from, $date_to, NULL, $cate, $pro_name, $pro);
-                                            } if (!isset($search) && !isset($date_from) && !isset($date_to) && !isset($cate) && !isset($pro_name) && !isset($pro)) {
-                                                echo $this->ajax_pagination->create_links();
-                                            }
-                                            ?>
-
-
-
-                                            </tbody>
-                                        </table>
-                                    </div>
                                 </div>
                             </div>
 

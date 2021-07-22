@@ -19,10 +19,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="route sales based on stores attached to">
+    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="sales completed based on second brief">
+      <change afterPath="$PROJECT_DIR$/application/views/production/new_production.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Sale.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Sale.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/sale/add.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale/add.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Production.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Production.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/production/add.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/production/add.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/production/all.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/production/all.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,11 +50,12 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/application/views/sale" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/application/views/production" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\facterp\application\views\production" />
       <recent name="C:\xampp\htdocs\facterp\application\views\sale" />
       <recent name="C:\xampp\htdocs\facterp\application\controllers" />
       <recent name="C:\xampp\htdocs\facterp\application\views\stores" />
@@ -67,7 +70,7 @@
       <option name="presentableId" value="Default" />
       <updated>1626015296257</updated>
       <workItem from="1626015299102" duration="30419000" />
-      <workItem from="1626537441360" duration="22312000" />
+      <workItem from="1626537441360" duration="26431000" />
     </task>
     <task id="LOCAL-00001" summary="new store and store listing completed">
       <created>1626018607669</created>
@@ -237,7 +240,14 @@
       <option name="project" value="LOCAL" />
       <updated>1626960779034</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="sales completed based on second brief">
+      <created>1626961242078</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1626961242078</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -279,7 +289,8 @@
     <MESSAGE value="print payslip by month and year, add bank details on new employee page" />
     <MESSAGE value="Add Users to multiple stores and warehouses" />
     <MESSAGE value="route sales based on stores attached to" />
-    <option name="LAST_COMMIT_MESSAGE" value="route sales based on stores attached to" />
+    <MESSAGE value="sales completed based on second brief" />
+    <option name="LAST_COMMIT_MESSAGE" value="sales completed based on second brief" />
   </component>
   <component name="WindowStateProjectService">
     <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1626339347297">
@@ -294,10 +305,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="519" y="282" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1626253633947" />
-    <state x="247" y="78" key="Vcs.Push.Dialog.v2" timestamp="1626960780566">
+    <state x="247" y="78" key="Vcs.Push.Dialog.v2" timestamp="1626961243411">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="247" y="78" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1626960780566" />
+    <state x="247" y="78" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1626961243411" />
     <state x="339" y="162" key="run.anything.popup" timestamp="1626599583922">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

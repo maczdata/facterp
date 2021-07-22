@@ -9,44 +9,163 @@ class Production extends MY_Controller {
     }
 
     function index() {
+	    $user_group_id = $this->session->userdata('user_group_id');
+	    $store_id = json_decode($this->session->userdata('user_store_id'));
+	    $warehouse_id = json_decode($this->session->userdata('user_warehouse_id'));
+       
         if (isset($_POST['filter'])) {
-            $date_from = date("Y-m-d", strtotime(str_replace("-", "/", $this->input->post("from_date", true))));
-            $date_to = date("Y-m-d", strtotime(str_replace("-", "/", $this->input->post("to_date", true))));
-            $pro = $this->input->post("product", true);
-            $this->data['pro'] = $pro;
-            $this->data['date_from'] = $date_from;
-            $this->data['date_to'] = $date_to;
-            $and_where = "";
-            if (!empty($pro)) {
-                $and_where = " AND product_ledger.product_id={$pro}";
-            }
-            $totalRec = count((array) $this->web->GetAllWithInner("issue_id", "issue", "sections", "section_id", "product_ledger", "issue_id", " WHERE issue.production IS NOT NULL AND  (DATE(issue.date) between '{$date_from}' and '{$date_to}')" . $and_where . " group by issue.issue_id"));
-            //pagination configuration
-            $config['target'] = '#postList';
-            $config['base_url'] = base_url() . 'production/ajaxPaginationData';
-            $config['total_rows'] = $totalRec;
-            $config['per_page'] = $this->perPage;
-            $this->ajax_pagination->initialize($config);
-            $this->data['productions'] = $this->web->GetAllWithInner("issue_id", "issue", "sections", "section_id", "product_ledger", "issue_id", " WHERE issue.production IS NOT NULL AND  (DATE(issue.date) between '{$date_from}' and '{$date_to}')" . $and_where . " group by issue.issue_id", "{$this->perPage}");
-            $this->data['products'] = $this->web->GetAll("product_id", "products", " WHERE products.type = 'production'");
-            $this->load->view("production/all", $this->data);
+	      
+        	if($user_group_id == 1):
+		            $date_from = date("Y-m-d", strtotime(str_replace("-", "/", $this->input->post("from_date", true))));
+		            $date_to = date("Y-m-d", strtotime(str_replace("-", "/", $this->input->post("to_date", true))));
+		            $pro = $this->input->post("product", true);
+		            $this->data['pro'] = $pro;
+		            $this->data['date_from'] = $date_from;
+		            $this->data['date_to'] = $date_to;
+		            $and_where = "";
+		            if (!empty($pro)) {
+		                $and_where = " AND product_ledger.product_id={$pro}";
+		            }
+		            $totalRec = count((array) $this->web->GetAllWithInner("issue_id", "issue", "sections", "section_id", "product_ledger", "issue_id", " WHERE issue.production IS NOT NULL AND  (DATE(issue.date) between '{$date_from}' and '{$date_to}')" . $and_where . " group by issue.issue_id"));
+		            //pagination configuration
+		            $config['target'] = '#postList';
+		            $config['base_url'] = base_url() . 'production/ajaxPaginationData';
+		            $config['total_rows'] = $totalRec;
+		            $config['per_page'] = $this->perPage;
+		            $this->ajax_pagination->initialize($config);
+		
+		
+		        $productions = $this->web->GetAllWithInner("issue_id", "issue", "sections", "section_id", "product_ledger", "issue_id", " WHERE issue.production IS NOT NULL AND  (DATE(issue.date) between '{$date_from}' and '{$date_to}')" . $and_where . " group by issue.issue_id", NULL, NULL, ", issue.warehouse_id as w_id", "{$this->perPage}");
+		        $new_production = array();
+		            $i = 0;
+		            foreach ($productions as $production):
+			            $warehouse = $this->web->GetOne('warehouse_id', 'warehouses', $production->w_id);
+			            $production->warehouse_name = $warehouse[0]->warehouse_name;
+			            $new_production[$i] = $production;
+			            $i++;
+			            
+			            endforeach;
+			            $this->data['productions'] = $new_production;
+		            $this->data['products'] = $this->web->GetAll("product_id", "products", " WHERE products.type = 'production'");
+		            $this->load->view("production/all", $this->data);
+        else:
+	
+	        $date_from = date("Y-m-d", strtotime(str_replace("-", "/", $this->input->post("from_date", true))));
+	        $date_to = date("Y-m-d", strtotime(str_replace("-", "/", $this->input->post("to_date", true))));
+	        $pro = $this->input->post("product", true);
+	        $this->data['pro'] = $pro;
+	        $this->data['date_from'] = $date_from;
+	        $this->data['date_to'] = $date_to;
+	        $and_where = "";
+	        if (!empty($pro)) {
+		        $and_where = " AND product_ledger.product_id={$pro}";
+	        }
+	        $totalRec = 0;
+	        
+	        foreach ($warehouse_id as $warehouse):
+		        $totalRec = count((array) $this->web->GetAllWithInner("issue_id", "issue", "sections", "section_id", "product_ledger", "issue_id", " WHERE issue.production IS NOT NULL AND issue.warehouse_id = {$warehouse} AND  (DATE(issue.date) between '{$date_from}' and '{$date_to}')" . $and_where . " group by issue.issue_id")) + $totalRec;
+	
+	        endforeach;
+	         //pagination configuration
+	        $config['target'] = '#postList';
+	        $config['base_url'] = base_url() . 'production/ajaxPaginationData';
+	        $config['total_rows'] = $totalRec;
+	        $config['per_page'] = $this->perPage;
+	        $this->ajax_pagination->initialize($config);
+				$productions = array();
+	        foreach ($warehouse_id as $warehouse):
+		       
+		        $_productions = $this->web->GetAllWithInner("issue_id", "issue", "sections", "section_id", "product_ledger", "issue_id", " WHERE issue.production IS NOT NULL AND issue.warehouse_id = {$warehouse} AND  (DATE(issue.date) between '{$date_from}' and '{$date_to}')" . $and_where . " group by issue.issue_id", NULL, NULL, ", issue.warehouse_id as w_id", "{$this->perPage}");
+				$productions = array_merge($_productions, $productions);
+	        endforeach;
+	          $new_production = array();
+	        $i = 0;
+	        foreach ($productions as $production):
+		        $warehouse = $this->web->GetOne('warehouse_id', 'warehouses', $production->w_id);
+		        $production->warehouse_name = $warehouse[0]->warehouse_name;
+		        $new_production[$i] = $production;
+		        $i++;
+	
+	        endforeach;
+	        $this->data['productions'] = $new_production;
+	        $this->data['products'] = $this->web->GetAll("product_id", "products", " WHERE products.type = 'production'");
+	        $this->load->view("production/all", $this->data);
+	        endif;
+        
         } else {
-            $totalRec = count((array) $this->web->GetAllWithInner("issue_id", "issue", "sections", "section_id", NULL, NULL, " WHERE issue.production IS NOT NULL"));
-            //pagination configuration
-            $config['target'] = '#postList';
-            $config['base_url'] = base_url() . 'production/ajaxPaginationData';
-            $config['total_rows'] = $totalRec;
-            $config['per_page'] = $this->perPage;
-            $this->ajax_pagination->initialize($config);
-
-
-
-
-            $this->data['productions'] = $this->web->GetAllWithInner("issue_id", "issue", "sections", "section_id", NULL, NULL, " WHERE issue.production IS NOT NULL", "{$this->perPage}");
-//        print_r($this->data['issues']);
-//        die();
-            $this->data['products'] = $this->web->GetAll("product_id", "products", " WHERE products.type = 'production'");
-            $this->load->view("production/all", $this->data);
+	
+	        if($user_group_id == 1):
+	            $totalRec = count((array) $this->web->GetAllWithInner("issue_id", "issue", "sections", "section_id", NULL, NULL, " WHERE issue.production IS NOT NULL"));
+	            //pagination configuration
+	            $config['target'] = '#postList';
+	            $config['base_url'] = base_url() . 'production/ajaxPaginationData';
+	            $config['total_rows'] = $totalRec;
+	            $config['per_page'] = $this->perPage;
+	            $this->ajax_pagination->initialize($config);
+	
+	
+	
+	
+	            $productions = $this->web->GetAllWithInner("issue_id", "issue", "sections", "section_id", NULL, NULL, " WHERE issue.production IS NOT NULL GROUP BY issue.issue_id", NULL, NULL, ", issue.warehouse_id as w_id", "{$this->perPage}");
+		        $new_production = array();
+		        $i = 0;
+		        foreach ($productions as $production):
+			        $warehouse = $this->web->GetOne('warehouse_id', 'warehouses', $production->w_id);
+			        $production->warehouse_name = $warehouse[0]->warehouse_name;
+			        $new_production[$i] = $production;
+			        $i++;
+		
+		        endforeach;
+		        
+		        $this->data['productions'] = $new_production;
+	            
+	            //        print_r($this->data['issues']);
+	//        die();
+	            $this->data['products'] = $this->web->GetAll("product_id", "products", " WHERE products.type = 'production'");
+	            $this->load->view("production/all", $this->data);
+	         else:
+		         $totalRec = 0;
+		
+		         foreach ($warehouse_id as $warehouse):
+			         $totalRec = count((array) $this->web->GetAllWithInner("issue_id", "issue", "sections", "section_id", "product_ledger", "issue_id", " WHERE issue.production IS NOT NULL AND issue.warehouse_id = {$warehouse} GROUP BY issue.issue_id")) + $totalRec;
+			         
+		         endforeach;
+		            //pagination configuration
+		         $config['target'] = '#postList';
+		         $config['base_url'] = base_url() . 'production/ajaxPaginationData';
+		         $config['total_rows'] = $totalRec;
+		         $config['per_page'] = $this->perPage;
+		         $this->ajax_pagination->initialize($config);
+		
+		         $productions = array();
+		         foreach ($warehouse_id as $warehouse):
+			         $_productions = $this->web->GetAllWithInner("issue_id", "issue", "sections", "section_id", "product_ledger", "issue_id", " WHERE issue.production IS NOT NULL AND issue.warehouse_id = {$warehouse} GROUP BY issue.issue_id",NULL, NULL, ", issue.warehouse_id as w_id", "{$this->perPage}");
+			         $productions = array_merge($_productions, $productions);
+		         endforeach;
+		       
+		         $new_production = array();
+		         $i = 0;
+		         
+		         //print_r($productions);
+		         foreach ($productions as $production):
+			         $warehouse = $this->web->GetOne('warehouse_id', 'warehouses', $production->w_id);
+			      
+			         $production->warehouse_name = $warehouse[0]->warehouse_name;
+			         $new_production[$i] = $production;
+			         $i++;
+		
+		         endforeach;
+		
+		
+		         $this->data['productions'] = $new_production;
+		         //        print_r($this->data['issues']);
+		         //        die();
+		         $this->data['products'] = $this->web->GetAll("product_id", "products", " WHERE products.type = 'production'");
+		        
+		        //print_r($productions);
+		         $this->load->view("production/all", $this->data);
+		      
+		      endif;
         }
     }
 
@@ -295,7 +414,7 @@ class Production extends MY_Controller {
             $data_items['mode_hidden'] = $this->input->post("mode_hidden", true);
             $data_items['qty_raw'] = $this->input->post("qty_raw", true);
 //            $type = "Added";
-            $data['section_id'] = $this->db->escape_str($this->input->post("section", true));
+            $data['section_id'] = 1;
             $data['production'] = 1;
             $data['description'] = htmlentities($this->input->post("desc", true));
             $data['warehouse_id'] = $warehouse_id;

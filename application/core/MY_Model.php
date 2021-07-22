@@ -130,8 +130,8 @@ class MY_Model extends CI_Model {
 		}
 	}
 
-    function GetAllWithInner($primary, $table1, $table2, $join_key, $table3, $join_key2, $where = NULL, $limit = NULL, $search = NULL) {
-        $query = "SELECT " . $table1 . ".*," . $table2 . ".*";
+    function GetAllWithInner($primary, $table1, $table2, $join_key, $table3, $join_key2, $where = NULL, $limit = NULL, $search = NULL, $optional = NULL) {
+        $query = "SELECT " . $table1 . ".*," . $table2 . ".*".$optional;
         if ($table3 !== NULL) {
             $query .= ", " . $table3 . ".*";
         }

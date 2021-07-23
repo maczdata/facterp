@@ -538,15 +538,7 @@
                                                         <input id="date" name="date" type="text" class="bootstrap-datepicker form-control" value="<?php echo date("m-d-Y") ?>" data-date-format="mm/dd/yy">
                                                     </div>
                                                 </div>
-                                                <label class="col-sm-2 control-label">Select Section</label>
-                                                <div class="col-sm-4">
-                                                    <select onchange="GetProductsWithSection(this.value, 'append_section'),Revertvalidation()" name="section" id="section" class="chosen-select">
-                                                        <option value="">Select Option</option>
-                                                        <?php foreach ($sections as $section) { ?>
-                                                            <option value="<?= $section->section_id ?>"><?= $section->section_name ?></option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </div>
+                                                
                                             </div>
                                             <input type="hidden" id="product_suggestions" value="<?= $products_suggestions ?>" />
                                             <input type="hidden" id="product_suggestions_raw" value="<?= $products_suggestions_raw ?>" />
@@ -647,7 +639,7 @@
 
                                                     var html = '<div class="col-sm-12 prod" id="prod' + id + '"><div class="col-sm-6">';
                                                     html += '<div class="input-group"><select onchange=' + 'add_units(this.id,this.options[this.selectedIndex].getAttribute("unit_symbol"))' + '  name="product_name[]" id="product_name' + id + '" class="chosen-select">' + $("#product_suggestions").val() + '</select></div>';
-                                                    html += '</div><div class="col-sm-5"><div id="div_qty' + id + '" class="input-group"><input type="text" onkeydown="checkTabPress(event);" name="qty[]" step=".00001" id="qty' + id + '" class="form-control" placeholder="Qty"></div></div>';
+                                                    html += '</div><div class="col-sm-5"><div id="div_qty' + id + '" class="input-group"><input type="text"  name="qty[]" step=".00001" id="qty' + id + '" class="form-control" placeholder="Qty"></div></div>';
                                                     html += '<div class="col-sm-1"><div class="input-group"><button type="button"  onclick="DelProd(' + id + ')" class="btn btn-danger cross" onkeydown="checkTabPress(event);">X</button></div></div> </div>';
                                                     //                                                    alert(html);
                                                     $("#add_product").append(html);
@@ -681,9 +673,9 @@
 
                                                     var html = '<div class="col-sm-12 prod_raw" id="raw' + id + '"><div class="col-sm-4">';
                                                     html += '<div class="input-group"><select onchange=' + 'add_units_raw(this.id,this.options[this.selectedIndex].getAttribute("unit_symbol"));GetTotalIssue(this.value,this.id);' + '  name="product_name_raw[]" id="product_name_raw' + id + '" class="chosen-select">' + append_section + '</select></div>';
-                                                    html += '</div><div class="col-sm-3"><div id="div_qty_raw' + id + '" class="input-group"><input type="number" onkeydown="checkTabPress(event);" onkeyup="calculate_issue(this.value,this.id);" name="qty_raw[]" step=".00001" id="qty_raw' + id + '" class="form-control" placeholder="Qty"></div></div>';
-                                                    html += '<div class="col-sm-2"><div id="div_issue' + id + '" class="input-group"><input type="number"  onkeyup="checkMax(this.value,this.id);" name="issue[]" id="issue' + id + '" class="form-control" placeholder="Total Issue Quantity" readonly></div></div>';
-                                                    html += '<div class="col-sm-2"><div id="div_remaining_issue' + id + '" class="input-group"><input type="number"  onkeyup="checkMax(this.value,this.id);" name="remaining_issue[]" id="remaining_issue' + id + '" class="form-control" placeholder="Remaining Issue Quantity" readonly></div></div>';
+                                                    html += '</div><div class="col-sm-3"><div id="div_qty_raw' + id + '" class="input-group"><input type="number"   name="qty_raw[]" step=".00001" id="qty_raw' + id + '" class="form-control" placeholder="Qty"></div></div>';
+                                                    html += '<div class="col-sm-2"><div id="div_issue' + id + '" class="input-group"><input type="number"   name="issue[]" id="issue' + id + '" class="form-control" placeholder="Total Issue Quantity" readonly></div></div>';
+                                                    html += '<div class="col-sm-2"><div id="div_remaining_issue' + id + '" class="input-group"><input type="number"   name="remaining_issue[]" id="remaining_issue' + id + '" class="form-control" placeholder="Remaining Issue Quantity" readonly></div></div>';
 
                                                     html += '<div class="col-sm-1"><div class="input-group"><button type="button"  onclick="DelRaw(' + id + ')" class="btn btn-danger cross" onkeydown="checkTabPress(event);">X</button></div></div> </div>';
                                                     //                                                    alert(html);
@@ -740,19 +732,19 @@
                                                             $("#qty_raw" + j).css("border", "1px solid red");
                                                             error = true;
                                                         }
-                                                        if (remaining_issue < 0) {
-                                                            $("#qty_raw" + j).css("border", "1px solid red");
-                                                            $("#error_msg").append("Entered quantity exceeded from section instock<br>");
-                                                            error = true;
-                                                        }
+                                                        // if (remaining_issue < 0) {
+                                                        //     $("#qty_raw" + j).css("border", "1px solid red");
+                                                        //     $("#error_msg").append("Entered quantity exceeded from section instock<br>");
+                                                        //     error = true;
+                                                        // }
 
 
                                                     }
-                                                    if (error == true) {
-                                                        return false;
-                                                    } else {
-                                                        return true;
-                                                    }
+                                                    // if (error == true) {
+                                                    //     return false;
+                                                    // } else {
+                                                    //     return true;
+                                                    // }
 
                                                 }
 
@@ -769,10 +761,10 @@
                                                         $("#error_msg").html("");
                                                         error = true;
                                                     }
-                                                    if (section !== null & section !== 0) {
-                                                        $("#section_chosen").css("border", "1px solid #dfe8f1");
-                                                        error = true;
-                                                    }
+                                                    // if (section !== null & section !== 0) {
+                                                    //     $("#section_chosen").css("border", "1px solid #dfe8f1");
+                                                    //     error = true;
+                                                    // }
                                                     for (var i = 0; i < product_count; i++) {
                                                         var p_name = $("#product_name" + i).val();
                                                         var qty = $("#qty" + i).val();
@@ -799,11 +791,11 @@
                                                             $("#qty_raw" + j).css("border", "1px solid #dfe8f1");
                                                             error = true;
                                                         }
-                                                        if (remaining_issue < 0) {
-                                                            $("#qty_raw" + j).css("border", "1px solid #dfe8f1");
-                                                            $("#error_msg").append("Entered quantity exceeded from section instock<br>");
-                                                            error = true;
-                                                        }
+                                                        // if (remaining_issue < 0) {
+                                                        //     $("#qty_raw" + j).css("border", "1px solid #dfe8f1");
+                                                        //     $("#error_msg").append("Entered quantity exceeded from section instock<br>");
+                                                        //     error = true;
+                                                        // }
 
 
                                                     }

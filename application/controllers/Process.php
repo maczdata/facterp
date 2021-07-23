@@ -182,7 +182,7 @@ class Process extends MY_Controller {
             $data_items['product_id_raw'] = $this->input->post("product_name_raw", true);
             $data_items['qty_raw'] = $this->input->post("qty_raw", true);
 //            $type = "Added";
-            $data['section_id'] = $this->db->escape_str($this->input->post("section", true));
+            $data['section_id'] = 1;
             $data['description'] = htmlentities($this->input->post("desc", true));
             $update_stock = "";
             if ($this->web->Add("issue", $data)) {
@@ -198,7 +198,7 @@ class Process extends MY_Controller {
                     $insert_items_credit .= "('" . $issue[0]->issue_id . "','" . $data_items['product_id'][$j] . "','" . $data_items['qty'][$j] . "','SECTION','" . 'PROCESS-' . $data['description'] . "','1','" . $data['date'] . "'),";
 
                     $update_stock = "update products set instock=instock+{$data_items['qty'][$j]} where product_id={$data_items['product_id'][$j]}";
-                    $this->db->query($update_stock);
+                    //$this->db->query($update_stock);
                 }
                 //print_r($insert_items_credit);
 //                print_r($update_stock);
@@ -209,6 +209,7 @@ class Process extends MY_Controller {
 //                echo $insert_items_credit . "<br>";
 //                echo $insert_items_debit;
                 if (($this->db->query($insert_items_debit)) && ($this->db->query($insert_items_credit))) {
+//	            if (1) {
                     redirect("process", "refresh");
                 }
             }

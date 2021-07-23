@@ -538,18 +538,12 @@
                                                         <input id="date" name="date" type="text" class="bootstrap-datepicker form-control" value="<?php echo date("m-d-Y") ?>" data-date-format="mm/dd/yy">
                                                     </div>
                                                 </div>
-                                                <label class="col-sm-2 control-label">Select Section</label>
-                                                <div class="col-sm-4">
-                                                    <select onchange="GetProductsWithSection(this.value, 'append_section'), RevertValidation()" name="section" id="section" class="chosen-select">
-                                                        <option value="">Select Option</option>
-                                                        <?php foreach ($sections as $section) { ?>
-                                                            <option value="<?= $section->section_id ?>"><?= $section->section_name ?></option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </div>
+                                              
                                             </div>
                                             <input type="hidden" id="product_suggestions" value="<?= $products_suggestions ?>" />
                                             <input type="hidden" id="product_suggestions_raw" value="<?= $products_suggestions_raw ?>" />
+											<input type="hidden" name="warehouse_id" value="<?=$warehouse_id; ?>">
+											<input type="hidden" name="store_id" value="<?=$store_id; ?>">
                                             <input type="hidden" id="append_section" value="" />
                                             <div class="form-group">
                                                 <label class="col-sm-8">Products</label>
@@ -682,7 +676,7 @@
                                                     html += '</div><div class="col-sm-3"><div id="div_qty_raw' + id + '" class="input-group"><input type="number" onkeydown="checkTabPress(event);" onkeyup="calculate_issue(this.value,this.id);" name="qty_raw[]" step=".00001" id="qty_raw' + id + '" class="form-control" placeholder="Qty"></div></div>';
                                                     html += '<div class="col-sm-2"><div id="div_issue' + id + '" class="input-group"><input type="number"  onkeyup="checkMax(this.value,this.id);" name="issue[]" id="issue' + id + '" class="form-control" placeholder="Total Issue Quantity" readonly></div></div>';
                                                     html += '<div class="col-sm-2"><div id="div_remaining_issue' + id + '" class="input-group"><input type="number"  onkeyup="checkMax(this.value,this.id);" name="remaining_issue[]" id="remaining_issue' + id + '" class="form-control" placeholder="Remaining Issue Quantity" readonly></div></div>';
-                                                    html += '<input type="hidden" id="mode_hidden' + id + '" name=mode_hidden[] value="no"/><div class="col-sm-1"><div id="div_mode' + id + '" class="input-group"><select disabled onchange="set_mode_hidden(this.value,this.id);"  name="mode[]" id="mode' + id + '" class="form-control"><option value="no"> Select Mode</option>';
+                                                    html += '<input type="hidden" id="mode_hidden' + id + '" name=mode_hidden[] value="no"/><div class="col-sm-1"><div id="div_mode' + id + '" class="input-group">';
                                                     <?php
                                                     $m_opt = '';
                                                     foreach ($modes as $m) {
@@ -708,7 +702,7 @@
 //                                                    var ch_mode = $(".ch_mode").length;
                                                     //alert(product_count);
                                                     var raw_count = $(".prod_raw").length;
-                                                    var section = $("#section").val();
+                                                    // var section = $("#section").val();
 //                                                    alert(section);
                                                     var error = false;
                                                     //     alert(product_count);
@@ -716,10 +710,10 @@
                                                         $("#error_msg").html("Please Enter atleast one Produced Raw Material and one raw material<br>");
                                                         error = true;
                                                     }
-                                                    if (section == null || section == 0) {
-                                                        $("#section_chosen").css("border", "1px solid red");
-                                                        error = true;
-                                                    }
+                                                    // if (section == null || section == 0) {
+                                                    //     $("#section_chosen").css("border", "1px solid red");
+                                                    //     error = true;
+                                                    // }
                                                     for (var i = 0; i < product_count; i++) {
                                                         var p_name = $("#product_name" + i).val();
                                                         var qty = $("#qty" + i).val();
@@ -733,35 +727,36 @@
                                                         }
 
                                                     }
-                                                    if ($(".ch_mode").val() == ""  || $(".ch_mode").val() == "no") {
-                                                        $(".ch_mode").css("border", "1px solid red");
-                                                        error = true;
-                                                    }
-                                                    if ($(".ch_mode").val() == "" && $(".ch_mode").val() == null && $(".ch_mode").val() == "no") {
-                                                        
-                                                        for (var j = 0; j < raw_count; j++) {
-
-                                                            var p_name_raw = $("#product_name_raw" + j).val();
-                                                            var qty_raw = $("#qty_raw" + j).val();
-                                                            var remaining_issue = $("#remaining_issue" + j).val();
-                                                            
-                                                            if (p_name_raw == null || p_name_raw == 0) {
-                                                                $("#product_name_raw" + j + "_chosen").css("border", "1px solid red");
-                                                                error = true;
-                                                            }
-                                                            if (qty_raw == null || qty_raw == 0) {
-                                                                $("#qty_raw" + j).css("border", "1px solid red");
-                                                                error = true;
-                                                            }
-                                                            if (remaining_issue < 0) {
-                                                                $("#qty_raw" + j).css("border", "1px solid red");
-                                                                $("#error_msg").append("Entered quantity exceeded from section instock<br>");
-                                                                error = true;
-                                                            }
-
-
-                                                        }
-                                                    }
+                                                    // if ($(".ch_mode").val() == ""  || $(".ch_mode").val() == "no") {
+                                                    //     $(".ch_mode").css("border", "1px solid red");
+                                                    //     error = true;
+                                                    // }
+                                                    // if ($(".ch_mode").val() == "" && $(".ch_mode").val() == null && $(".ch_mode").val() == "no") {
+                                                    //
+                                                    //     for (var j = 0; j < raw_count; j++) {
+													//
+                                                    //         var p_name_raw = $("#product_name_raw" + j).val();
+                                                    //         var qty_raw = $("#qty_raw" + j).val();
+                                                    //         var remaining_issue = $("#remaining_issue" + j).val();
+                                                    //
+                                                    //         if (p_name_raw == null || p_name_raw == 0) {
+                                                    //             $("#product_name_raw" + j + "_chosen").css("border", "1px solid red");
+                                                    //             error = true;
+                                                    //         }
+                                                    //         if (qty_raw == null || qty_raw == 0) {
+                                                    //             $("#qty_raw" + j).css("border", "1px solid red");
+                                                    //             error = true;
+                                                    //         }
+                                                    //         if (remaining_issue < 0) {
+                                                    //             $("#qty_raw" + j).css("border", "1px solid red");
+                                                    //             $("#error_msg").append("Entered quantity exceeded from section instock<br>");
+                                                    //             error = true;
+                                                    //         }
+													//
+													//
+                                                    //     }
+                                                    // }
+                                                  
                                                     if (error == true) {
                                                         return false;
                                                     } else {
@@ -801,33 +796,33 @@
                                                         }
 
                                                     }
-                                                    if ($(".ch_mode").val() == ""  || $(".ch_mode").val() == "no") {
-                                                        $(".ch_mode").css("border", "1px solid #dfe8f1");
-                                                        error = true;
-                                                    }
-                                                    if ($(".ch_mode").val() == "" && $(".ch_mode").val() == null && $(".ch_mode").val() == "no") {
-                                                        for (var j = 0; j < raw_count; j++) {
-
-                                                            var p_name_raw = $("#product_name_raw" + j).val();
-                                                            var qty_raw = $("#qty_raw" + j).val();
-                                                            var remaining_issue = $("#remaining_issue" + j).val();
-                                                            if (p_name_raw !== null & p_name_raw !== 0) {
-                                                                $("#product_name_raw" + j + "_chosen").css("border", "1px solid #dfe8f1");
-                                                                error = true;
-                                                            }
-                                                            if (qty_raw !== null & qty_raw !== 0) {
-                                                                $("#qty_raw" + j).css("border", "1px solid #dfe8f1");
-                                                                error = true;
-                                                            }
-                                                            if (remaining_issue < 0) {
-                                                                $("#qty_raw" + j).css("border", "1px solid red");
-                                                                $("#error_msg").append("Entered quantity exceeded from section instock<br>");
-                                                                error = true;
-                                                            }
-
-
-                                                        }
-                                                    }
+                                                    // if ($(".ch_mode").val() == ""  || $(".ch_mode").val() == "no") {
+                                                    //     $(".ch_mode").css("border", "1px solid #dfe8f1");
+                                                    //     error = true;
+                                                    // }
+                                                    // if ($(".ch_mode").val() == "" && $(".ch_mode").val() == null && $(".ch_mode").val() == "no") {
+                                                    //     for (var j = 0; j < raw_count; j++) {
+													//
+                                                    //         var p_name_raw = $("#product_name_raw" + j).val();
+                                                    //         var qty_raw = $("#qty_raw" + j).val();
+                                                    //         var remaining_issue = $("#remaining_issue" + j).val();
+                                                    //         if (p_name_raw !== null & p_name_raw !== 0) {
+                                                    //             $("#product_name_raw" + j + "_chosen").css("border", "1px solid #dfe8f1");
+                                                    //             error = true;
+                                                    //         }
+                                                    //         if (qty_raw !== null & qty_raw !== 0) {
+                                                    //             $("#qty_raw" + j).css("border", "1px solid #dfe8f1");
+                                                    //             error = true;
+                                                    //         }
+                                                    //         if (remaining_issue < 0) {
+                                                    //             $("#qty_raw" + j).css("border", "1px solid red");
+                                                    //             $("#error_msg").append("Entered quantity exceeded from section instock<br>");
+                                                    //             error = true;
+                                                    //         }
+													//
+													//
+                                                    //     }
+                                                    // }
                                                     
 
                                                 }

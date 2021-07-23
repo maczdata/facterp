@@ -655,10 +655,12 @@
 											<div class="form-group">
 												<label class="col-sm-3 control-label">Select Store</label>
 												<div class="col-sm-6">
-													<select name="store_id" id="store" class="chosen-select">
+													<select name="store_id[]" id="store" class="chosen-select" multiple>
 														<option>--Select Store -- </option>
-				                                        <?php foreach ($stores as $store) { ?>
-															<option value="<?= $store->store_id ?>" <?php if($user[0]->user_store_id == $store->store_id){ echo "selected" ;} ?>><?= $store->store_name ?></option>
+				                                        <?php
+															$store_array = json_decode($user[0]->user_store_id);
+															foreach ($stores as $store) { ?>
+															<option value="<?= $store->store_id ?>" <?php if(@in_array($store->store_id, $store_array)){ echo "selected" ;} ?>><?= $store->store_name ?></option>
 				                                        <?php } ?>
 													</select>
 												</div>
@@ -667,10 +669,12 @@
 											<div class="form-group">
 												<label class="col-sm-3 control-label">Select Warehouse</label>
 												<div class="col-sm-6">
-													<select name="warehouse_id" id="store" class="chosen-select">
+													<select name="warehouse_id[]" id="store" class="chosen-select" multiple>
 				                                       <option>--Select Warehouse -- </option>
-				                                        <?php foreach ($warehouses as $warehouse) { ?>
-															<option value="<?= $warehouse->warehouse_id ?>" <?php if($user[0]->user_warehouse_id == $warehouse->warehouse_id){ echo "selected" ;} ?>><?= $warehouse->warehouse_name ?></option>
+				                                        <?php
+															$warehouse_array = json_decode($user[0]->user_warehouse_id);
+															foreach ($warehouses as $warehouse) { ?>
+															<option value="<?= $warehouse->warehouse_id ?>" <?php if(@in_array($warehouse->warehouse_id, $warehouse_array)){ echo "selected" ;} ?>><?= $warehouse->warehouse_name ?></option>
 				                                        <?php } ?>
 													</select>
 												</div>

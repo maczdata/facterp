@@ -15,7 +15,8 @@ class Sale extends MY_Controller {
 
     function index() {
 	    $user_group_id = $this->session->userdata('user_group_id');
-	    $store_id = $this->session->userdata('user_store_id');
+	    $store_id = json_decode($this->session->userdata('user_store_id'));
+	    
         $this->data['prod_cat'] = $this->web->GetAll("product_category_id", "product_categories");
         if (isset($_POST['filter'])) {
 	        if($user_group_id == 1):
@@ -58,16 +59,28 @@ class Sale extends MY_Controller {
 	          $prod_type = $this->input->post("pro_type", true);
 	          $category = $this->input->post("all_prod", true);
 	          $product = $this->input->post("all_prod_name", true);
-	
-	          $totalRec = count($this->web->GetAllSalesStore_filter($store_id, $date_from, $date_to, $category, $product, $prod_type));
+			$totalRec = 0;
+	         foreach ($store_id as $store):
+		        
+		         $totalRec = count($this->web->GetAllSalesStore_filter($store, $date_from, $date_to, $category, $product, $prod_type)) + $totalRec;
+		         
+		      endforeach;
+	         
 	          //pagination configuration
 	          $config['target'] = '#postList';
 	          $config['base_url'] = base_url() . 'sale/ajaxPaginationData';
 	          $config['total_rows'] = $totalRec;
 	          $config['per_page'] = $this->perPage;
 	          $this->ajax_pagination->initialize($config);
-	
-	          $sales = $this->web->GetAllSalesStore_filter($store_id, $date_from, $date_to, $category, $product, $prod_type, "$this->perPage");
+				$sales = array();
+	          foreach ($store_id as $store):
+		
+		          $_sales = $this->web->GetAllSalesStore_filter($store, $date_from, $date_to, $category, $product, $prod_type, "$this->perPage");
+	                $sales = array_merge($sales, $_sales);
+	          endforeach;
+	          
+	          
+	          
 	          $new_sales_array = array();
 	          $i = 0;
 	          foreach ($sales as $sale):
@@ -77,9 +90,16 @@ class Sale extends MY_Controller {
 		          $i++;
 	          endforeach;
 	          $this->data['sales'] = $new_sales_array;
-	          
-	          
-	          $this->data['total_sales'] = $this->web->GetTotalSalesStore_filter($store_id, $date_from, $date_to, $category, $product, $prod_type);
+	
+	
+	          $total_sales = array();
+	          foreach ($store_id as $store):
+		
+		          $_total_sales = $this->web->GetTotalSalesStore_filter($store, $date_from, $date_to, $category, $product, $prod_type);
+		          $total_sales = array_merge($total_sales, $_total_sales);
+	          endforeach;
+	          $this->data['total_sales'] = $total_sales;
+	         
 	          $this->data['pro'] = $prod_type;
 	          $this->data['cate'] = $category;
 	          $this->data['pro_name'] = $product;
@@ -111,14 +131,26 @@ class Sale extends MY_Controller {
 		        $this->data['total_sales'] = $this->web->GetTotalSales();
 		       // $this->load->view("sale/all", $this->data);
         	else:
-		        $totalRec = count($this->web->GetAllSalesStore($store_id));
+		
+		        $totalRec = 0;
+		        foreach ($store_id as $store):
+			
+			        $totalRec = count($this->web->GetAllSalesStore($store)) + $totalRec;
+		
+		        endforeach;
+		       
 		        $config['target'] = '#postList';
 		        $config['base_url'] = base_url() . 'sale/ajaxPaginationData';
 		        $config['total_rows'] = $totalRec;
 		        $config['per_page'] = $this->perPage;
 		        $this->ajax_pagination->initialize($config);
-		
-		        $sales = $this->web->GetAllSalesStore($store_id, "$this->perPage");
+				$sales = array();
+		        foreach ($store_id as $store):
+			
+			        $_sales = $this->web->GetAllSalesStore($store, "$this->perPage");
+			        $sales = array_merge($sales, $_sales);
+		        endforeach;
+		     
 		
 		        $new_sales_array = array();
 		        $i = 0;
@@ -129,7 +161,13 @@ class Sale extends MY_Controller {
 			        $i++;
 		        endforeach;
 		        $this->data['sales'] = $new_sales_array;
-		        $this->data['total_sales'] = $this->web->GetTotalSalesStore($store_id);
+				$total_sales = array();
+		        foreach ($store_id as $store):
+			
+			        $_total_sales = $this->web->GetTotalSalesStore($store);
+			        $total_sales = array_merge($total_sales, $_total_sales);
+		        endforeach;
+		        $this->data['total_sales'] = $total_sales;
 		        
 		        
 		        endif;
@@ -448,11 +486,30 @@ class Sale extends MY_Controller {
             echo "done";
         }
     }
-
+	
+	function new_sales(){
+		
+		
+		$store_id = json_decode($this->session->userdata('user_store_id'));
+		
+		$stores = array();
+		foreach ($store_id as $store):
+			$_stores = $this->web->GetOne('store_id', 'stores', $store);
+			$stores = array_merge($stores, $_stores);
+			
+	
+		endforeach;
+		
+	
+		$this->data['stores'] = $stores;
+	
+		$this->load->view("sale/new_sales", $this->data);
+	}
+    
     function add() {
         if ($this->input->post()) {
             $data = array();
-	        $store_id = $this->session->userdata('user_store_id');
+	        $store_id = $this->input->post("store_id");
             $data_items = array();
             $data['account_id'] = $this->db->escape_str($this->input->post("account", true));
             $data['date_created'] = date("Y-m-d", strtotime(str_replace("-", "/", $this->input->post("date", true)))) . " " . date("H:i:s");
@@ -613,7 +670,7 @@ class Sale extends MY_Controller {
         	
             $products = $this->web->GetAllWithInner("product_id", "products", "units", "unit_id", "product_categories", "product_category_id");
 	        
-            $store_id = $this->session->userdata('user_store_id');
+            $store_id = $_GET['store_id'];
             $i= 0;
             $new_product = array();
             foreach ($products as $product):
@@ -665,6 +722,7 @@ class Sale extends MY_Controller {
             } else {
                 $this->data['last_sale_no'] = 'S-V # 00001';
             }
+            $this->data['store_id'] = $store_id;
             $this->load->view("sale/add", $this->data);
         }
     }

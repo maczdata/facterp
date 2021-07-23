@@ -722,7 +722,7 @@
                                                             function AddSale() {
 
 
-                                                                window.location.href = "<?= base_url() ?>sale_order/add";
+                                                                window.location.href = "<?= base_url() ?>sale_order/new_sales";
 //                                                                        alert("hello");
                                                             }
                                                             function ViewSaleOrder(ordr_id) {

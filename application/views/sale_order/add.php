@@ -710,6 +710,7 @@
                                                     <textarea name="desc" id="desc"></textarea>
                                                 </div>
                                             </div>
+											<input type="hidden" name="store_id" value="<?=$store_id; ?>">
                                             <div class="form-group">
                                                 <div class="col-md-4 col-sm-0"></div>
                                                 <button id="confrm_btn" class="btn btn-alt btn-hover btn-blue-alt col-md-4" onclick="return ConfirmAdd();">

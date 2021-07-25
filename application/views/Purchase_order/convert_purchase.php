@@ -775,6 +775,17 @@
                                                 <div class="col-md-4 col-sm-0"></div>
                                             </div>
                                             <input type="hidden" name="ordr_id" value="<?=$ordr_id?>">
+											<?php if($ordr[0]->ordr_warehouse_id): ?>
+											<input type="hidden" name="warehouse_id" value="<?=$ordr[0]->ordr_warehouse_id; ?>">
+												<input type="hidden" name="target" value="1">
+											
+											<?php endif; ?>
+	
+	                                        <?php if($ordr[0]->ordr_store_id): ?>
+												<input type="hidden" name="store_id" value="<?=$ordr[0]->ordr_store_id; ?>">
+												<input type="hidden" name="target" value="2">
+	
+	                                        <?php endif; ?>
                                         </form>
                                     </div>
                                 </div>

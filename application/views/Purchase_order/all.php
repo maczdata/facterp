@@ -720,7 +720,7 @@
                                                             function AddPurchase() {
 
 
-                                                                window.location.href = "<?= base_url() ?>Purchase_order/add";
+                                                                window.location.href = "<?= base_url() ?>Purchase_order/new_purchase";
 //                                                                        alert("hello");
                                                             }
                                                             function ViewPurchaseOrder(ordr_id) {

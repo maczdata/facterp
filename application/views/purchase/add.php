@@ -692,7 +692,14 @@
                                                 </div>
                                             </div>
 
-
+											<input type="hidden" name="target" value="<?=$target; ?>">
+												<?php if($target == 1): ?>
+												<input type="hidden" name="warehouse_id" value="<?=$warehouse_id; ?>">
+											<?php endif; ?>
+	
+	                                        <?php if($target == 2): ?>
+												<input type="hidden" name="store_id" value="<?=$store_id; ?>">
+	                                        <?php endif; ?>
                                             <div class="form-group">
                                                 <label class="col-sm-12">Description</label>
                                                 <div class="col-sm-12">

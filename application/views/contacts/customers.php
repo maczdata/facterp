@@ -516,7 +516,9 @@
 															<?=$contact->contact_company; ?>
 														</td>
 														<td>
-															<a class="btn btn-outline-primary waves-effect waves-light" href="<?=site_url('contacts/edit_customer/'.$contact->contact_id);?>"> Edit</a>
+															<a class="btn btn-blue-alt" href="<?=site_url('contacts/edit_customer/'.$contact->contact_id);?>"> Edit</a>
+															<a class="btn btn-blue-alt" href="<?=site_url('contacts/all_invoices/'.$contact->contact_id);?>"> View Invoices</a>
+														
 														</td>
 													</tr>
 												<?php  endforeach; endif; ?>

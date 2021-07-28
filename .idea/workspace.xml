@@ -19,12 +19,15 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="added vendor and customer to all kinds of invoice (purchase and sales)">
+    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="contact details showing on invoices">
+      <change afterPath="$PROJECT_DIR$/application/views/contacts/all_invoices.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/views/contacts/view_invoice.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Purchase.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Purchase.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Sale.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Sale.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/purchase/view_invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/purchase/view_invoice.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/sale/view_invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale/view_invoice.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Contacts.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Contacts.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Users.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Users.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/Web_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Web_model.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/contacts/customers.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/contacts/customers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/contacts/vendors.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/contacts/vendors.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +76,7 @@
       <updated>1626015296257</updated>
       <workItem from="1626015299102" duration="30419000" />
       <workItem from="1626537441360" duration="42978000" />
-      <workItem from="1627476448674" duration="9701000" />
+      <workItem from="1627476448674" duration="17147000" />
     </task>
     <task id="LOCAL-00001" summary="new store and store listing completed">
       <created>1626018607669</created>
@@ -292,7 +295,14 @@
       <option name="project" value="LOCAL" />
       <updated>1627487445573</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="contact details showing on invoices">
+      <created>1627488094523</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1627488094523</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -311,7 +321,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="validation on new product" />
     <MESSAGE value="showing total products from all warehouse and store on products page" />
     <MESSAGE value="bug on product transfer (store to store) fixed" />
     <MESSAGE value="view stock on warehouse and store" />
@@ -336,7 +345,8 @@
     <MESSAGE value="purchase and purchase orders completed, converting purchase order to purchases" />
     <MESSAGE value="product ledger showing from inception" />
     <MESSAGE value="added vendor and customer to all kinds of invoice (purchase and sales)" />
-    <option name="LAST_COMMIT_MESSAGE" value="added vendor and customer to all kinds of invoice (purchase and sales)" />
+    <MESSAGE value="contact details showing on invoices" />
+    <option name="LAST_COMMIT_MESSAGE" value="contact details showing on invoices" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

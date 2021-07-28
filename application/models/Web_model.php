@@ -98,6 +98,15 @@ class Web_model extends MY_Model {
 		$query = $this->db->query($query);
 		return $query->result_array();
 	}
+	
+	function GetAllSalesContact($contact_id, $limit = NULL) {
+		$query = "SELECT invoice.*,invoice.date_created as invoice_date,accounts.* FROM invoice INNER JOIN accounts ON accounts.account_id = invoice.account_id LEFT JOIN stores ON stores.store_id = invoice.invoice_store_id  WHERE  invoice_contact_id ='{$contact_id}' ORDER BY invoice_id DESC";
+		if ($limit != NULL) {
+			$query .= " limit $limit";
+		}
+		$query = $this->db->query($query);
+		return $query->result_array();
+	}
 
     function GetAllSales_filter($date_from, $date_to, $category, $product, $prod_type, $limit = NULL, $search = NULL) {
         $query = "SELECT invoice.*,invoice_items.*,invoice.date_created as invoice_date,accounts.* FROM invoice INNER JOIN invoice_items ON invoice_items.invoice_id = invoice.invoice_id INNER JOIN products ON invoice_items.product_id = products.product_id  INNER JOIN accounts ON accounts.account_id = invoice.account_id WHERE invoice.type='Sale'  ";

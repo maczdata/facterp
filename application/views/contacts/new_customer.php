@@ -1,7 +1,9 @@
+<script>
+    var curr_date = "<?= date("Y-m-d") ?>";
+</script>
 <!DOCTYPE html>
 <html  lang="en">
 
-    <!-- Mirrored from agileui.com/demo/monarch/demo/admin-template/invoice.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 02 Mar 2017 12:12:30 GMT -->
     <head>
 
         <style>
@@ -12,7 +14,7 @@
 
         <meta charset="UTF-8">
         <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
-        <title> Facteezo: Purchase </title>
+          <title> Facteezo: Product </title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
@@ -31,17 +33,19 @@
         <!-- JS Core -->
 
         <script type="text/javascript" src="<?= base_url() ?>assets-minified/js-core.js"></script>
+        <script type="text/javascript" src="<?= base_url() ?>assets/widgets/chosen/chosen.js"></script>
+        <script type="text/javascript" src="<?= base_url() ?>assets/widgets/chosen/chosen-demo.js"></script>
 
 
 
 
 
         <script type="text/javascript">
-            $(window).load(function () {
-                setTimeout(function () {
-                    $('#loading').fadeOut(400, "linear");
-                }, 300);
-            });
+    $(window).load(function () {
+        setTimeout(function () {
+            $('#loading').fadeOut(400, "linear");
+        }, 300);
+    });
         </script>
 
 
@@ -409,133 +413,145 @@
 
             <div id="page-wrapper">
                 <?php $this->load->view("components/header") ?>
-                <div class="hidden-print">
-                    <?php $this->load->view("components/sidebar") ?>
-                </div>
+                <?php $this->load->view("components/sidebar") ?>
                 <div id="page-content-wrapper">
                     <div id="page-content">
 
                         <div class="container">
 
 
-                            <div id="page-title">
-                                <h2>Purchase Invoice</h2>
-                                <p>Please check Invoice</p>
+                            <!-- Data tables -->
 
+<!--<link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/widgets/datatable/datatable.css">-->
+                            <script type="text/javascript" src="<?= base_url() ?>assets/widgets/datatable/datatable.js"></script>
+                            <script type="text/javascript" src="<?= base_url() ?>assets/widgets/datatable/datatable-bootstrap.js"></script>
+                            <script type="text/javascript" src="<?= base_url() ?>assets/widgets/datatable/datatable-responsive.js"></script>
+
+                            <script type="text/javascript">
+
+    /* Datatables responsive */
+
+    $(document).ready(function () {
+//        $('#datatable-responsive').DataTable({
+//            responsive: true
+//        });
+    });
+
+    $(document).ready(function () {
+//        $('.dataTables_filter input').attr("placeholder", "Search...");
+    });
+
+                            </script>
+
+                            <div id="page-title" >
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <div class="col-md-2">
+                                            <h2>Customers</h2>
+                                            <p>Add, Edit a Customer</p>
+                                        </div>
+
+                                   
+
+                                        <div class="col-md-2 col-lg-offset-8">
+                                            <button class="btn btn-blue-alt pull-right" onclick="AddUser();"><span style="margin-right: 5px;" class="glyph-icon icon-plus"></span>Add Customer</button>
+											
+										</div>
+
+                                    </div>
+
+
+
+
+                                </div>
                             </div>
 
-                            <script>
-                                function printInvoice() {
-                                    window.location.href = "<?= base_url() ?>purchase/print_inv/<?= $invoice[0]->invoice_id ?>";
-//                                    window.print();
-                                        }
-                                        function printGatepass() {
-                                            window.location.href = "<?= base_url() ?>purchase/print_gatepass/<?= $invoice[0]->invoice_id ?>";
-//                                    window.print();
-                                                }
-                                                function cancelInvoice() {
-                                                    window.location.href = "<?= base_url() ?>purchase";
-//                                    window.print();
-                                                }
-                            </script>
-                            <div class="content-box pad25A">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="">
-                                            <img src="<?= base_url() ?>/images/Kohinoor_logo.png" />
-                                        </div>
-                                        <address class="invoice-address">
-                                            160/B,Small Industries Estate,Sahiwal - Pakistan. 
-                                            <br>
-                                            Tel: +92-40-4502650-51
-                                        </address>
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <div class="row ">
+                                        <a href="<?= base_url() ?>Products"><h3 class="title-hero">
+                                                New Customer
+                                            </h3></a>
+                                        <div class="col-md-3  pull-right form-group has-feedback "><i style="margin: 0px 15px auto;" class="glyph-icon icon-search form-control-feedback"></i><input class="form-control" type="text" id="search" name="search" placeholder="Search"/></div>
                                     </div>
-                                    <div class="col-sm-8 float-right text-right">
-                                        <h4 class="invoice-title">Invoice</h4>
-                                        No. <b>#<?= $invoice[0]->invoice_id ?></b>
-                                        <div class="divider"></div>
-                                        <div class="invoice-date mrg20B"><?= date("j F Y", strtotime($invoice[0]->date_created)) ?></div>
-                                        <button onclick="printGatepass()" class="btn btn-alt btn-hover btn-success">
-                                            <span>Print Gate Pass</span>
-                                            <i class="glyph-icon icon-print"></i>
-                                        </button>
-                                        <button onclick="printInvoice()" class="btn btn-alt btn-hover btn-info">
-                                            <span>Print Invoice</span>
-                                            <i class="glyph-icon icon-print"></i>
-                                        </button>
-                                        <button onclick="cancelInvoice()" class="btn btn-alt btn-hover btn-danger">
-                                            <span>Cancel Invoice</span>
-                                            <i class="glyph-icon icon-trash"></i>
-                                        </button>
+
+                                    <div class="example-box-wrapper">
+										<form method="post"  action="">
+											<div class="row">
+												<div class="col-md-4">
+													<div class="mb-3">
+														<label for="validationCustom03" class="form-label">Contact Company Name:</label>
+														<input type="text" class="form-control" id="validationCustom05"
+															   placeholder="company name"  name="contact_company" required>
+														
+				
+													</div>
+												</div>
+		
+											</div>
+		
+											<div class="row">
+												<div class="col-md-4">
+													<div class="mb-3">
+														<label for="validationCustom01" class="form-label">Contact Name:</label>
+														<input type="text" class="form-control" id="validationCustom01"
+															   placeholder="contact Name"  name="contact_name" required>
+														
+														<input type="hidden" name="type" value="1">
+														<input type="hidden" name="contact_customer" value="1">
+				
+				
+													</div>
+												</div>
+		
+											</div>
+											<br>
+											
+		
+											<div class="row">
+												<div class="col-md-4">
+													<div class="mb-3">
+														<label for="validationCustom02" class="form-label">Contact Phone:</label>
+														<input type="text" class="form-control" id="validationCustom02"
+															   placeholder="contact Phone" name="contact_phone" required>
+														
+				
+													</div>
+												</div>
+		
+											</div>
+											<br>
+											<div class="row">
+												<div class="col-md-4">
+													<div class="mb-3">
+														<label for="validationCustom03" class="form-label">Contact E-Mail:</label>
+														<input type="email" class="form-control" id="validationCustom03"
+															   placeholder="contact e-mail" name="contact_email">
+														
+				
+													</div>
+												</div>
+		
+											</div>
+											<br>
+											<div class="row">
+												<div class="col-md-4">
+													<div class="mb-3">
+														<label for="validationCustom03" class="form-label">Contact Address:</label>
+														<input type="text" class="form-control" id="validationCustom04"
+															   placeholder="contact address" name="contact_address">
+														
+												</div>
+		
+											</div>
+												<br>
+											
+												<button class="btn btn-primary" type="submit">Submit form</button>
+											
+										</form>
                                     </div>
                                 </div>
-
-                                <div class="divider"></div>
-
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <h2 class="invoice-client mrg10T">Client information:</h2>
-                                        <h5><?= $invoice[0]->contact_name ?></h5>
-                                        <address class="invoice-address">
-                                            <?= html_entity_decode($invoice[0]->account_desc) ?>
-                                            <?= $invoice[0]->contact_phone ?>
-                                        </address>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h2 class="invoice-client mrg10T">Invoice Info:</h2>
-                                        <ul class="reset-ul">
-                                            <li><b>Date:</b><?= date("F j, Y", strtotime($invoice[0]->date_created)) ?></li>
-                                            <li><b>Status:</b> <?= $invoice[0]->payment_status == 'Pending' ? '<span class="bs-label label-warning">Pending</span>' : '<span class="bs-label label-success">Confirmed</span>' ?></li>
-                                            <li><b>Id:</b> #<?= $invoice[0]->invoice_id ?></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h2 class="invoice-client mrg10T">Invoice Details:</h2>
-                                        <?= html_entity_decode($invoice[0]->voucher_no) ?>
-                                    </div>
-                                </div>
-
-                                <table class="table  table-hover" style="width: 100%;">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Product Name</th>
-                                            <th class="text-center">Quantity</th>
-                                            <th>Rate</th>
-                                            <th>Discount</th>
-                                            <th>Price</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $counter = 1;
-                                        foreach ($invoice_items as $inv_item) {
-                                            ?>
-                                            <tr>
-                                                <td><?= $counter ?></td>
-                                                <td><?= $inv_item->product_name ?></td>
-                                                <td class="text-center"><?= $inv_item->qty . " " . $inv_item->unit ?></td>
-                                                <td><?= $inv_item->product_purchase_price ?> Rs</td>
-                                                <td><?= $inv_item->discount ?> Rs</td>
-                                                <td><?= $inv_item->invoice_subtotal ?> Rs</td>
-                                            </tr>
-                                            <?php
-                                            $counter++;
-                                        }
-                                        ?>
-                                        <tr class="font-bold font-black">
-                                            <td colspan="4" class="text-right">Discount on Sub Total:</td>
-                                            <td colspan="2" class="font-red"><?= $invoice[0]->total_discount ?> Rs</td>
-                                        </tr>
-                                        <tr class="font-bold font-black">
-                                            <td colspan="1" class="text-right font-size-20">TOTAL:</td>
-                                            <?php $amount_total = $invoice[0]->invoice_total; ?>
-                                            <td colspan="4" class="font-blue font-size-18"><?= getPakistaniCurrency($amount_total) ?></td>
-                                            <td colspan="1" class="font-blue font-size-18"><?= $invoice[0]->invoice_total ?> Rs</td>
-                                        </tr>
-                                   </tbody>
-                                </table>
-
                             </div>
 
                         </div>
@@ -545,14 +561,103 @@
                     </div>
                 </div>
             </div>
-
-
-            <!-- JS Demo -->
+	
+		
+			<!-- JS Demo -->
             <script type="text/javascript" src="<?= base_url() ?>assets-minified/admin-all-demo.js"></script>
 
+            <script>
+                                                            function EditProduct(product_id) {
+                                                                window.location.href = "<?= base_url() ?>products/view/" + product_id;
+                                                                //        $.post("<?//= base_url() ?>users/edit", {id: user_id})
+                                                                //            .done(function (data) {
+                                                                //                if ($.trim(data) == 'done') {
+                                                                //                    window.location.href = "<?= base_url() ?>dashboard";
+                                                                //                }
+                                                                //                if ($.trim(data) == 'failed') {
+                                                                ////                                                            alert('here');
+                                                                //                    window.location.href = "<?= base_url() ?>";
+                                                                //
+                                                                //                }
+                                                                //            });
+                                                            }
+                                                            function DeleteProduct(product_id) {
+                                                                var cnfirm = confirm("Are You Sure?");
+                                                                if (cnfirm) {
+                                                                    $.post("<?= base_url() ?>products/delete", {id: product_id})
+                                                                            .done(function (data) {
+                                                                                //                                                                                    alert(data);
+                                                                                if ($.trim(data) == 'done') {
+                                                                                    location.reload(true);
+                                                                                }
+                                                                            });
+                                                                }
+                                                            }
+                                                            function AddUser() {
+                                                                window.location.href = "<?= base_url() ?>contacts/new_customer";
+                                                            }
 
+                                                            function GoLedger(product_id) {
+//                                                                alert(curr_date);
+                                                                $.post("<?= base_url() ?>" + "reports/product_statement", {product: product_id, from_date: curr_date, to_date: curr_date})
+                                                                        .done(function (data) {
+//                                                                            console.log(data);
+//                                                                            return false;
+                                                                            var newDoc = document.open("text/html", "replace");
+                                                                            newDoc.write(data);
+                                                                            newDoc.close();
+                                                                        });
+                                                            }
+
+
+
+            </script>
+            <script>
+                $("#search").keyup(function (event) {
+                    var keycode = (event.keyCode ? event.keyCode : event.which);
+                    if (keycode == '13') {
+                        var rtngPtId = $("#search").val();
+                        if (rtngPtId == "") {
+                            $("#search").attr("placeholder", "Enter Valid Input");
+                        } else {
+                            $.post("<?= base_url() ?>products/search", {id: rtngPtId})
+                                    .done(function (data) {
+//                                        console.log(data);
+
+                                        if ($.trim(data) == 'no') {
+                                            $("#search")
+                                                    .attr('data-original-title', "N0 Data Found")
+                                                    .tooltip('fixTitle')
+                                                    .tooltip('show');
+                                        } else {
+                                            var newDoc = document.open("text/html", "replace");
+                                            newDoc.write(data);
+                                            newDoc.close();
+                                        }
+                                    });
+                        }
+                    }
+
+                });
+            </script>
         </div>
+        <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                            <h4 class="modal-title">Edit User</h4>
+                                        </div>
+                                        <div class="modal-body">
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
     </body>
 
-    <!-- Mirrored from agileui.com/demo/monarch/demo/admin-template/invoice.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 02 Mar 2017 12:12:30 GMT -->
 </html>

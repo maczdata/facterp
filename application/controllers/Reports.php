@@ -665,7 +665,7 @@ class Reports extends MY_Controller {
             $this->data['prev_balnc'] = $this->web->GetProductsLedger($this->data['balance_to_date'], $this->data['product_id']);
             // print_r($this->data['prev_balnc']);
             // die;
-            $this->data['products_report'] = $this->web->GetReportforProducts($this->data['from_date'], $this->data['to_date'], $this->data['product_id']);
+            $this->data['products_report'] = $this->web->GetReportforProductsToDate($this->data['to_date'], $this->data['product_id']);
             // print_r($this->data['products_report']);
             // die();
             $this->data['modal'] = FALSE;

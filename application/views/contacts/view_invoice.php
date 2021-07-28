@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html  lang="en">
 
+<!-- Mirrored from agileui.com/demo/monarch/demo/admin-template/invoice.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 02 Mar 2017 12:12:30 GMT -->
 <head>
 	
 	<style>
@@ -11,7 +12,7 @@
 	
 	<meta charset="UTF-8">
 	<!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
-	<title> Facteezo: Purchases </title>
+	<title> Facteezo: Sales</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	
@@ -408,126 +409,179 @@
 	
 	<div id="page-wrapper">
 		<?php $this->load->view("components/header") ?>
-		<?php $this->load->view("components/sidebar") ?>
+		<div class="hidden-print">
+			<?php $this->load->view("components/sidebar") ?>
+		</div>
 		<div id="page-content-wrapper">
 			<div id="page-content">
 				
 				<div class="container">
 					
 					
-					<!-- Data tables -->
-					
-					<!--<link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/widgets/datatable/datatable.css">-->
-					<script type="text/javascript" src="<?= base_url() ?>assets/widgets/datatable/datatable.js"></script>
-					<script type="text/javascript" src="<?= base_url() ?>assets/widgets/datatable/datatable-bootstrap.js"></script>
-					<script type="text/javascript" src="<?= base_url() ?>assets/widgets/datatable/datatable-responsive.js"></script>
-					<script type="text/javascript" src="<?= base_url() ?>assets/widgets/datepicker/datepicker.js"></script>
-					<!-- Chosen -->
-					
-					<!--<link rel="stylesheet" type="text/css" href="../../assets/widgets/chosen/chosen.css">-->
-					<script type="text/javascript" src="<?= base_url() ?>assets/widgets/chosen/chosen.js"></script>
-					<script type="text/javascript" src="<?= base_url() ?>assets/widgets/chosen/chosen-demo.js"></script>
-					<script type="text/javascript">
-
-                        /* Datatables responsive */
-
-                        $(document).ready(function () {
-                            $('#datatable-responsive').DataTable({
-                                responsive: true
-                            });
-                        });
-
-                        $(document).ready(function () {
-                            $('.dataTables_filter input').attr("placeholder", "Search...");
-                        });
-					
-					</script>
-					<script type="text/javascript">
-                        /* Datepicker bootstrap */
-
-                        $(function () {
-                            "use strict";
-                            $('.bootstrap-datepicker').bsdatepicker({
-                                format: 'mm-dd-yyyy'
-                            });
-                        });
-					</script>
-					<div id="page-title" style="overflow: hidden;">
-						<div class="col-md-8">
-							<h2>Purchases</h2>
-							<p>New Purchase</p>
-						</div>
-						<div class="col-md-2 panel-group" id="accordion">
-							<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">
-								<i class="glyph-icon icon-calendar" style="font-size: 200%;padding-left: 140px;"></i>
-							</a>
-						</div>
+					<div id="page-title">
+						<h2>Sale Invoice</h2>
+						<p>Please check Invoice</p>
 					
 					</div>
-					<div id="collapseOne" class="panel-collapse collapse" aria-expanded="false">
-						<div class="panel-body">
-							<div class="row" class="select_date">
-							
+					
+					
+					<script>
+                        function printInvoiceWithNtn() {
+                            window.location.href = "<?= base_url() ?>sale/print_inv_with_ntn/<?= $invoice[0]->invoice_id ?>";
+//                                    window.print();
+                        }
+                        function printInvoiceWithoutNtn() {
+                            window.location.href = "<?= base_url() ?>sale/print_inv_without_ntn/<?= $invoice[0]->invoice_id ?>";
+//                                    window.print();
+                        }
+                        function printGatepass() {
+                            window.location.href = "<?= base_url() ?>sale/print_gatepass/<?= $invoice[0]->invoice_id ?>";
+//                                    window.print();
+                        }
+                        function cancelInvoice() {
+                            window.location.href = "<?= base_url() ?>sale";
+//                                    window.print();
+                        }
+					</script>
+					<div class="content-box pad25A">
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="">
+									<img src="<?= base_url() ?>/images/Kohinoor_logo.png" />
+								</div>
+								<!-- <address class="invoice-address">
+								  160/B,Small Industries Estate,Sahiwal - Pakistan.
+									 <br>
+								Tel: +92-40-4502650-51
+								</address> -->
+							</div>
+							<div class="col-sm-10 float-right text-right">
+								<h4 class="invoice-title">Invoice</h4>
+								No. <b>#<?= $invoice[0]->invoice_id ?></b>
+								<div class="divider"></div>
+								<div class="invoice-date mrg20B"><?= date("j F Y", strtotime($invoice[0]->date_created)) ?></div>
+								
 							</div>
 						</div>
-					</div>
-					<div class="panel">
-						<div class="panel-body">
+						
+						<div class="divider"></div>
+						
+						<div class="row">
+							<div class="col-md-4">
+								
+								<h2 class="invoice-client mrg10T">Client information:</h2>
+								<h5><?= $invoice[0]->contact_name ?></h5>
+								<address class="invoice-address">
+									<?= html_entity_decode($invoice[0]->account_desc) ?>
+									<?= $invoice[0]->contact_phone ?>
+								</address>
+							</div>
+							<div class="col-md-4">
+								<h2 class="invoice-client mrg10T">Invoice Info:</h2>
+								<ul class="reset-ul">
+									<li><b>Date:</b><?= date("F j, Y", strtotime($invoice[0]->date_created)) ?></li>
+									<li><b>Status:</b> <?= $invoice[0]->payment_status == 'Pending' ? '<span class="bs-label label-warning">Pending</span>' : '<span class="bs-label label-success">Confirmed</span>' ?></li>
+									<li><b>Id:</b> #<?= $invoice[0]->invoice_id ?></li>
+								</ul>
+							</div>
+							<div class="col-md-4">
+								<h2 class="invoice-client mrg10T">Invoice Description:</h2>
+								<?= html_entity_decode($invoice[0]->voucher_no) ?> <br>
+								Target: <?= html_entity_decode($invoice[0]->target_name) ?>
+							</div>
+						</div>
+						
+						<table class="table mrg20T table-hover">
+							<thead>
+							<tr>
+								<th>#</th>
+								<th>Product Name</th>
+								<th class="text-center">Qty</th>
+								<th class="text-center">Rate</th>
+								<th class="text-center">Batch</th>
+								<th>Discount</th>
+								<th>Price</th>
+							</tr>
+							</thead>
+							<tbody>
+							<?php
+								$count = 1;
+								foreach ($invoice_items as $inv_item) {
+									?>
+									<tr>
+										<td><?= $count ?></td>
+										<td><?= $inv_item->product_name ?></td>
+										<td class="text-center"><?= $inv_item->qty . " " . $inv_item->unit ?></td>
+										<td class="text-center"><?= $inv_item->product_sale_price ?> NGN</td>
+										<td class="text-center"><?= $inv_item->batch ?></td>
+										<td><?= $inv_item->discount ?> NGN</td>
+										<td><?= $inv_item->invoice_subtotal ?> NGN</td>
+									</tr>
+									<?php
+									$count++;
+								}
+							?>
+							<tr class="font-bold font-black">
+								<td colspan="5" class="text-right">Discount on Sub Total:</td>
+								<td colspan="2" class="font-red"><?= $invoice[0]->total_discount ?> NGN</td>
+							</tr>
+							<?php $amount_total = $invoice[0]->invoice_total; ?>
+							<?php $total_paid = 0;
+								if(empty($receipts)):
+									$total_paid = 0;
+								else:
+								foreach ($receipts as $receipt):
+								$total_paid = $total_paid+ $receipt->r_amount;
+								endforeach;
+								
+								endif;
+								
+								$balance = $amount_total - ($total_paid + $invoice[0]->total_discount);
+							?>
 							
+							<tr class="font-bold font-black">
+								<td colspan="1" class="text-right font-size-20">TOTAL PAID:</td>
+								
+								<td colspan="5" class="font-blue font-size-18"> </td>
+								<td colspan="1" class="font-blue font-size-18"><?= $total_paid ?> NGN</td>
+							</tr>
+							<tr class="font-bold font-black">
+								<td colspan="1" class="text-right font-size-20">BALANCE:</td>
+								
+								<td colspan="5" class="font-blue font-size-18"><?= getPakistaniCurrency($balance) ?> </td>
+								
+								<td colspan="1" class="font-blue font-size-18"><?= $balance ?> NGN</td>
+							</tr>
+							</tbody>
+						</table>
+					<?php
+					if($balance > 0): ?>
+						<form method="post"  action="">
 							<div class="row">
-								<div class="col-md-12">
-									<div class="col-md-3">
-										<form name="AccountForm" method="get" id="AccountForm" action="<?= base_url() ?>purchase_order/add" class="form-horizontal">
-											<div class="form-group">
-												<label for="" class="col-sm-6 control-label">Target Location</label>
-												<select name="target" id="pro_type" class="chosen-select">
-													<option value="">Select Target</option>
-													
-													<option value="1"> Warehouse </option>
-													<option value="2">Store</option>
-												
-												</select>
-											</div>
-											
-											<div class="form-group" id="warehouse">
-												<label for="" class="col-sm-6 control-label">Warehouse</label>
-												<select name="warehouse_id" id="pro_type" class="chosen-select" >
-													<option value="">Warehouse</option>
-													
-													<?php foreach ($warehouses as $warehouse): ?>
-														<option value="<?=$warehouse->warehouse_id ?>" > <?=$warehouse->warehouse_name; ?></option>
-													
-													<?php endforeach; ?>
-												
-												</select>
-											</div>
-											<div class="form-group" id="store">
-												<label for="" class="col-sm-3 control-label">Store</label>
-												<select name="store_id" id="pro_type" class="chosen-select" >
-													<option value="">Select Store</option>
-													
-													<?php foreach ($stores as $store): ?>
-														<option value="<?=$store->store_id ?>" > <?=$store->store_name; ?></option>
-													
-													<?php endforeach; ?>
-												
-												</select>
-											</div>
-											
-											<div class="col-md-3 ">
-											
-											</div>
-											
-											<div class="col-sm-3 pull-right">
-												<input class="btn btn-success" type="submit" value="Proceed"/>
-											</div>
-										</form>
+								<p>Receive Payment</p>
+								<div class="col-md-4">
+									<div class="mb-3">
+										<label for="validationCustom03" class="form-label">Amount:</label>
+										<input type="number" step="any" class="form-control" id="validationCustom05"
+										       placeholder="amount" min="1"  name="r_amount" max="<?=$balance ?>" required>
+									
+									
 									</div>
 								</div>
+							
 							</div>
+							
+							
+							<br>
+							
+				
+								
+								<button class="btn btn-primary" type="submit">Process</button>
 						
+						</form>
 						
-						</div>
+			<?php			endif;
+					?>
 					</div>
 				
 				</div>
@@ -541,133 +595,10 @@
 	
 	<!-- JS Demo -->
 	<script type="text/javascript" src="<?= base_url() ?>assets-minified/admin-all-demo.js"></script>
-	
-	<script>
-        function EditSale(invoice_id) {
-            window.location.href = "<?= base_url() ?>sale/view/" + invoice_id;
-        }
-
-        function DeleteSale(invoice_id) {
-            var cnfirm = confirm("Are You Sure?");
-            if (cnfirm) {
-                $.post("<?= base_url() ?>sale/delete", {id: invoice_id})
-                    .done(function (data) {
-//                                                                                    alert(data);
-                        if ($.trim(data) == 'done') {
-                            location.reload(true);
-                        }
-                    });
-            }
-        }
 
 
-
-        function SaleReturn(invoice_id) {
-            window.location.href = "<?= base_url() ?>sale/view_return/" + invoice_id;
-        }
-        function AddSale() {
-            window.location.href = "<?= base_url() ?>sale/new_sales";
-        }
-        function ViewSale(invoice_id) {
-            window.location.href = "<?= base_url() ?>sale/view_invoice/" + invoice_id;
-        }
-        function GetProducts(cat_id) {
-            var pro_type = $("#pro_type").val();
-
-            var base_url = "<?= base_url() ?>";
-            $("#all_pro_outer select").html("<option value=''>Select Option</option>");
-            $.post(base_url + "sale/GetProducts", {cat_id: cat_id, pro_type: pro_type})
-                .done(function (data) {
-                    console.log(data);
-                    var obj = JSON.parse(data);
-                    $.each(obj, function (k, v) {
-                        $("#all_pro_outer select").append("<option value='" + v['product_id'] + "'>" + v['product_name'] + "</option>");
-
-                    });
-                    $(".ppp").trigger("chosen:updated");
-                });
-
-        }
-	
-	</script>
-	<script>
-		$("#pro_type").change(function(event){
-		    var type = $("#pro_type").val();
-            $("#store").hide();
-            $("#warehouse").hide();
-		    if(type == 1){
-			    $("#warehouse").show();
-			    $("#store").hide();
-		    }
-            if(type == 2){
-                $("#store").show();
-                $("#warehouse").hide();
-            }
-		    
-		})
-        $("#search").keyup(function (event) {
-            var keycode = (event.keyCode ? event.keyCode : event.which);
-            if (keycode == '13') {
-                var rtngPtId = $("#search").val();
-                if (rtngPtId == "") {
-                    $("#search").attr("placeholder", "Enter Valid Input");
-                } else {
-                    $.post("<?= base_url() ?>sale/search", {id: rtngPtId})
-                        .done(function (data) {
-
-                            if ($.trim(data) == 'no') {
-                                $("#search")
-                                    .attr('data-original-title', "N0 Data Found")
-                                    .tooltip('fixTitle')
-                                    .tooltip('show');
-                            } else {
-                                var newDoc = document.open("text/html", "replace");
-                                newDoc.write(data);
-                                newDoc.close();
-                            }
-                        });
-                }
-            }
-
-        });
-	</script>
-	
-	<script type="text/javascript">
-        $(document).ready(function () {
-            $("#store").hide();
-            $("#warehouse").hide();
-            $("#from_date").bsdatepicker({
-                format: 'mm-dd-yyyy',
-            });
-            $("#to_date").bsdatepicker({
-                format: 'mm-dd-yyyy',
-            });
-            $('#from_date').on('changeDate', function (ev) {
-                $(this).bsdatepicker('hide');
-            });
-            $('#to_date').on('changeDate', function (ev) {
-                $(this).bsdatepicker('hide');
-            });
-        });
-	</script>
 </div>
-<!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-									<h4 class="modal-title">Edit User</h4>
-								</div>
-								<div class="modal-body">
-
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-									<button type="button" class="btn btn-primary">Save changes</button>
-								</div>
-							</div>
-						</div>
-					</div> -->
 </body>
 
+<!-- Mirrored from agileui.com/demo/monarch/demo/admin-template/invoice.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 02 Mar 2017 12:12:30 GMT -->
 </html>

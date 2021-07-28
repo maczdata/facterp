@@ -26,8 +26,9 @@ class Users extends MY_Controller {
         $data = array();
         $data['name'] = $this->db->escape_str($this->input->post("name", true));
         $data['email'] = $this->db->escape_str($this->input->post("email", true));
+        $password = $this->db->escape_str($this->input->post("password", true));
         $data['password'] = sha1($this->db->escape_str($this->input->post("password", true)));
-        if ($data['password'] == "") {
+        if (($password == "") || is_null($password) || empty($password)) {
             unset($data['password']);
         }
         $status = $this->input->post("checkbox-example-1", true);

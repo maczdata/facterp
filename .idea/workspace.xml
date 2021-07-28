@@ -19,17 +19,15 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="sales order converting to sales successfully">
-      <change afterPath="$PROJECT_DIR$/application/views/Purchase_order/new_purchase.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/views/purchase/new_purchase.php" afterDir="false" />
+    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="contact details showing on invoices">
+      <change afterPath="$PROJECT_DIR$/application/views/contacts/all_invoices.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/views/contacts/view_invoice.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Purchase.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Purchase.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Purchase_order.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Purchase_order.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/Purchase_order/add.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/Purchase_order/add.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/Purchase_order/all.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/Purchase_order/all.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/Purchase_order/convert_purchase.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/Purchase_order/convert_purchase.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/purchase/add.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/purchase/add.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/purchase/all.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/purchase/all.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Contacts.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Contacts.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Users.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Users.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/Web_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Web_model.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/contacts/customers.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/contacts/customers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/contacts/vendors.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/contacts/vendors.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,17 +52,18 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/application/views/Purchase_order" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/application/views/contacts" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\facterp\application\views\contacts" />
       <recent name="C:\xampp\htdocs\facterp\application\views\Purchase_order" />
       <recent name="C:\xampp\htdocs\facterp\application\views\sale_order" />
       <recent name="C:\xampp\htdocs\facterp\application\views\production" />
       <recent name="C:\xampp\htdocs\facterp\application\views\sale" />
-      <recent name="C:\xampp\htdocs\facterp\application\controllers" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -76,7 +75,8 @@
       <option name="presentableId" value="Default" />
       <updated>1626015296257</updated>
       <workItem from="1626015299102" duration="30419000" />
-      <workItem from="1626537441360" duration="42368000" />
+      <workItem from="1626537441360" duration="42978000" />
+      <workItem from="1627476448674" duration="17147000" />
     </task>
     <task id="LOCAL-00001" summary="new store and store listing completed">
       <created>1626018607669</created>
@@ -274,7 +274,35 @@
       <option name="project" value="LOCAL" />
       <updated>1626985756319</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="purchase and purchase orders completed, converting purchase order to purchases">
+      <created>1627202808349</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1627202808350</updated>
+    </task>
+    <task id="LOCAL-00030" summary="product ledger showing from inception">
+      <created>1627480728428</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1627480728428</updated>
+    </task>
+    <task id="LOCAL-00031" summary="added vendor and customer to all kinds of invoice (purchase and sales)">
+      <created>1627487445573</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1627487445573</updated>
+    </task>
+    <task id="LOCAL-00032" summary="contact details showing on invoices">
+      <created>1627488094523</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1627488094523</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -293,10 +321,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="stock, log on warehouse and store adding completed" />
-    <MESSAGE value="toggle between transfer type" />
-    <MESSAGE value="product transfer for store to warehouse, warehouse to store, store to store and warehouse to warehouse completed and reflecting in product ledger" />
-    <MESSAGE value="validation on new product" />
     <MESSAGE value="showing total products from all warehouse and store on products page" />
     <MESSAGE value="bug on product transfer (store to store) fixed" />
     <MESSAGE value="view stock on warehouse and store" />
@@ -318,33 +342,11 @@
     <MESSAGE value="run production routine to credit product and debit raw materials" />
     <MESSAGE value="Added optional field to capture warehouse id alias for process function" />
     <MESSAGE value="sales order converting to sales successfully" />
-    <option name="LAST_COMMIT_MESSAGE" value="sales order converting to sales successfully" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1626339347297">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1626339347297" />
-    <state x="687" y="130" key="NewPhpClassDialog" timestamp="1626252248977">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="687" y="130" key="NewPhpClassDialog/0.0.1366.728@0.0.1366.728" timestamp="1626252248977" />
-    <state x="519" y="282" key="NewPhpFileDialog" timestamp="1627198308713">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="519" y="282" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1627198308713" />
-    <state x="247" y="78" key="Vcs.Push.Dialog.v2" timestamp="1626985758589">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="247" y="78" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1626985758589" />
-    <state x="339" y="162" key="run.anything.popup" timestamp="1626599583922">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1626599583922" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1627200810698">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1627200810698" />
+    <MESSAGE value="purchase and purchase orders completed, converting purchase order to purchases" />
+    <MESSAGE value="product ledger showing from inception" />
+    <MESSAGE value="added vendor and customer to all kinds of invoice (purchase and sales)" />
+    <MESSAGE value="contact details showing on invoices" />
+    <option name="LAST_COMMIT_MESSAGE" value="contact details showing on invoices" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

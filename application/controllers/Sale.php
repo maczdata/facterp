@@ -330,8 +330,11 @@ class Sale extends MY_Controller {
 
     function view_invoice() {
         $invoice_id = $this->uri->segment(3);
-        $query = "SELECT invoice.*,accounts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice INNER JOIN accounts ON invoice.account_id = accounts.account_id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
-        $query = $this->db->query($query);
+//        $query = "SELECT invoice.*,accounts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice INNER JOIN accounts ON invoice.account_id = accounts.account_id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
+	
+	    $query = "SELECT invoice.*,accounts.*, contacts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice LEFT JOIN accounts ON invoice.account_id = accounts.account_id LEFT JOIN contacts ON invoice.invoice_contact_id = contacts.contact_id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
+	
+	    $query = $this->db->query($query);
         $invoice = $query->result();
 	
 	    $store = $this->web->GetOne('store_id', 'stores', $invoice[0]->invoice_store_id);
@@ -535,6 +538,7 @@ class Sale extends MY_Controller {
             $data['driver_name'] = $this->input->post("driver_name");
             $data['mobile_no'] = $this->input->post("mobile_no");
             $data['invoice_store_id'] =  $store_id;
+	        $data['invoice_contact_id'] = $_POST['customer'];
 
             if (!($inv)) {
                 $data['invoice_no'] = 'S-00001';
@@ -662,6 +666,7 @@ class Sale extends MY_Controller {
                 } else {
                     $this->data['last_sale_no'] = 'S-V # 00001';
                 }
+	            $this->data['contacts'] = $this->web->GetAll('contact_id', 'contacts', ' where contacts.contact_customer = 1');
                 $this->session->set_flashdata('stock_error', 'Stock has not enough quantity for  your product/products');
                 $this->load->view("sale/add", $this->data);
             }
@@ -723,6 +728,7 @@ class Sale extends MY_Controller {
                 $this->data['last_sale_no'] = 'S-V # 00001';
             }
             $this->data['store_id'] = $store_id;
+	        $this->data['contacts'] = $this->web->GetAll('contact_id', 'contacts', ' where contacts.contact_customer = 1');
             $this->load->view("sale/add", $this->data);
         }
     }

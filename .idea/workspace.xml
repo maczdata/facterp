@@ -19,15 +19,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="contact details showing on invoices">
-      <change afterPath="$PROJECT_DIR$/application/views/contacts/all_invoices.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/views/contacts/view_invoice.php" afterDir="false" />
+    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="receiving payment for credit sales">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Contacts.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Contacts.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Users.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Users.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Web_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Web_model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/contacts/customers.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/contacts/customers.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/contacts/vendors.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/contacts/vendors.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Products.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Products.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/products/all.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/products/all.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/products/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/products/edit.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +72,7 @@
       <updated>1626015296257</updated>
       <workItem from="1626015299102" duration="30419000" />
       <workItem from="1626537441360" duration="42978000" />
-      <workItem from="1627476448674" duration="17147000" />
+      <workItem from="1627476448674" duration="17801000" />
     </task>
     <task id="LOCAL-00001" summary="new store and store listing completed">
       <created>1626018607669</created>
@@ -302,7 +298,14 @@
       <option name="project" value="LOCAL" />
       <updated>1627488094523</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="receiving payment for credit sales">
+      <created>1627505245191</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1627505245191</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -321,7 +324,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="showing total products from all warehouse and store on products page" />
     <MESSAGE value="bug on product transfer (store to store) fixed" />
     <MESSAGE value="view stock on warehouse and store" />
     <MESSAGE value="add users based on store and warehouse started" />
@@ -346,7 +348,8 @@
     <MESSAGE value="product ledger showing from inception" />
     <MESSAGE value="added vendor and customer to all kinds of invoice (purchase and sales)" />
     <MESSAGE value="contact details showing on invoices" />
-    <option name="LAST_COMMIT_MESSAGE" value="contact details showing on invoices" />
+    <MESSAGE value="receiving payment for credit sales" />
+    <option name="LAST_COMMIT_MESSAGE" value="receiving payment for credit sales" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

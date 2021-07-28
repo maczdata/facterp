@@ -350,6 +350,7 @@ class Purchase extends MY_Controller {
             $data['voucher_no'] = $this->db->escape_str($this->input->post("pv_no", true));
             $data['invoice_store_id'] = $store_id;
             $data['invoice_warehouse_id'] = $warehouse_id;
+            $data['invoice_contact_id'] = $_POST['vendor'];
 
             $data['description'] = htmlentities($this->input->post("desc", true));
             $inv = $this->web->GetLastInsertedRow("invoice_id", "invoice", " where type='Purchase'");
@@ -365,15 +366,15 @@ class Purchase extends MY_Controller {
                 $invoice = $this->web->GetLastInsertedRow("invoice_id", "invoice");
                 $product_count = sizeof($data_items['product_id']);
                 $insert_items = "INSERT INTO invoice_items (invoice_id, product_id, qty, discount, product_purchase_price, invoice_subtotal) VALUES ";
-                $product_ledger = "INSERT INTO product_ledger (product_id,credit_qty,description,ref_id,type,date_ledger,invoice_id) VALUES ";
+                $product_ledger = "INSERT INTO product_ledger (product_id,credit_qty,description,ref_id,type,date_ledger,warehouse_id,store_id,invoice_id) VALUES ";
                 for ($i = 0; $i < $product_count; $i++) {
                     $insert_items .= "('" . $invoice[0]->invoice_id . "','" . $data_items['product_id'][$i] . "','" . $data_items['qty'][$i] . "','" . $data_items['discount'][$i] . "','" . $data_items['purchase_price'][$i] . "','" . $data_items['sub_total'][$i] . "'),";
                     $check_type = $this->web->GetOne("product_id", "products", "{$data_items['product_id'][$i]}");
                     if ($check_type[0]->type == 'raw') {
-                        $product_ledger .= "('" . $data_items['product_id'][$i] . "','" . $data_items['qty'][$i] . "','" . $invoice[0]->voucher_no . '<br>' . $invoice[0]->builty_no . '<br>' . $invoice[0]->description . '<br>' . "','" . '1' . "','" . 'WAREHOUSE' . "','" . $invoice[0]->date_created . "','" . $invoice[0]->invoice_id . "'),";
+                        $product_ledger .= "('" . $data_items['product_id'][$i] . "','" . $data_items['qty'][$i] . "','" . $invoice[0]->voucher_no . '<br>' . $invoice[0]->builty_no . '<br>' . $invoice[0]->description . '<br>' . "','" . '1' . "','" . 'WAREHOUSE' . "','" . $invoice[0]->date_created . "','" . $warehouse_id . "','" . $store_id . "','" . $invoice[0]->invoice_id . "'),";
                     }
                     if ($check_type[0]->type == 'production') {
-                        $product_ledger .= "('" . $data_items['product_id'][$i] . "','" . $data_items['qty'][$i] . "','" . $invoice[0]->voucher_no . '<br>' . $invoice[0]->builty_no . '<br>' . $invoice[0]->description . '<br>' . "','" . '1' . "','" . 'PRODUCTION' . "','" . $invoice[0]->date_created . "','" . $invoice[0]->invoice_id . "'),";
+                        $product_ledger .= "('" . $data_items['product_id'][$i] . "','" . $data_items['qty'][$i] . "','" . $invoice[0]->voucher_no . '<br>' . $invoice[0]->builty_no . '<br>' . $invoice[0]->description . '<br>' . "','" . '1' . "','" . 'PRODUCTION' . "','" . $invoice[0]->date_created . "','"  . $warehouse_id . "','" . $store_id . "','". $invoice[0]->invoice_id . "'),";
                     }
 //                    $product_ledger .= "('" . $data_items['product_id'][$i] . "','" . $data_items['qty'][$i] . "','" . $invoice[0]->description . "','" . $invoice[0]->invoice_id . "','" . 'Invoice' . "'),";
                    if($store_id):
@@ -508,6 +509,7 @@ class Purchase extends MY_Controller {
 	        } else {
 		        $this->data['last_purchase_no'] = 'P-V # 00001';
 	        }
+	        $this->data['contacts'] = $this->web->GetAll('contact_id', 'contacts', ' where contacts.contact_supply = 1');
 	        $this->load->view("purchase/add", $this->data);
 
         }

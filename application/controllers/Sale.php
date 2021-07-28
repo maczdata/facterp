@@ -535,6 +535,7 @@ class Sale extends MY_Controller {
             $data['driver_name'] = $this->input->post("driver_name");
             $data['mobile_no'] = $this->input->post("mobile_no");
             $data['invoice_store_id'] =  $store_id;
+	        $data['invoice_contact_id'] = $_POST['customer'];
 
             if (!($inv)) {
                 $data['invoice_no'] = 'S-00001';
@@ -662,6 +663,7 @@ class Sale extends MY_Controller {
                 } else {
                     $this->data['last_sale_no'] = 'S-V # 00001';
                 }
+	            $this->data['contacts'] = $this->web->GetAll('contact_id', 'contacts', ' where contacts.contact_customer = 1');
                 $this->session->set_flashdata('stock_error', 'Stock has not enough quantity for  your product/products');
                 $this->load->view("sale/add", $this->data);
             }
@@ -723,6 +725,7 @@ class Sale extends MY_Controller {
                 $this->data['last_sale_no'] = 'S-V # 00001';
             }
             $this->data['store_id'] = $store_id;
+	        $this->data['contacts'] = $this->web->GetAll('contact_id', 'contacts', ' where contacts.contact_customer = 1');
             $this->load->view("sale/add", $this->data);
         }
     }

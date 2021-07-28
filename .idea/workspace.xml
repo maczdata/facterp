@@ -19,13 +19,19 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="purchase and purchase orders completed, converting purchase order to purchases">
-      <change afterPath="$PROJECT_DIR$/application/controllers/Contacts.php" afterDir="false" />
+    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="product ledger showing from inception">
+      <change afterPath="$PROJECT_DIR$/application/views/contacts/customers.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/views/contacts/edit_customer.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/views/contacts/edit_vendor.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/views/contacts/new_customer.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/views/contacts/new_vendor.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/views/contacts/vendors.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Reports.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Reports.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Web_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Web_model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/Purchase_order/new_purchase.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/Purchase_order/new_purchase.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/purchase/new_purchase.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/purchase/new_purchase.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Contacts.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Contacts.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Purchase.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Purchase.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Sale.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Sale.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/purchase/add.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/purchase/add.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/sale/add.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale/add.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,16 +58,16 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/application/views/contacts" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\facterp\application\views\contacts" />
       <recent name="C:\xampp\htdocs\facterp\application\views\Purchase_order" />
       <recent name="C:\xampp\htdocs\facterp\application\views\sale_order" />
       <recent name="C:\xampp\htdocs\facterp\application\views\production" />
       <recent name="C:\xampp\htdocs\facterp\application\views\sale" />
-      <recent name="C:\xampp\htdocs\facterp\application\controllers" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -74,7 +80,7 @@
       <updated>1626015296257</updated>
       <workItem from="1626015299102" duration="30419000" />
       <workItem from="1626537441360" duration="42978000" />
-      <workItem from="1627476448674" duration="2451000" />
+      <workItem from="1627476448674" duration="9056000" />
     </task>
     <task id="LOCAL-00001" summary="new store and store listing completed">
       <created>1626018607669</created>
@@ -279,7 +285,14 @@
       <option name="project" value="LOCAL" />
       <updated>1627202808350</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="product ledger showing from inception">
+      <created>1627480728428</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1627480728428</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -298,7 +311,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="toggle between transfer type" />
     <MESSAGE value="product transfer for store to warehouse, warehouse to store, store to store and warehouse to warehouse completed and reflecting in product ledger" />
     <MESSAGE value="validation on new product" />
     <MESSAGE value="showing total products from all warehouse and store on products page" />
@@ -323,33 +335,8 @@
     <MESSAGE value="Added optional field to capture warehouse id alias for process function" />
     <MESSAGE value="sales order converting to sales successfully" />
     <MESSAGE value="purchase and purchase orders completed, converting purchase order to purchases" />
-    <option name="LAST_COMMIT_MESSAGE" value="purchase and purchase orders completed, converting purchase order to purchases" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1626339347297">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1626339347297" />
-    <state x="687" y="130" key="NewPhpClassDialog" timestamp="1626252248977">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="687" y="130" key="NewPhpClassDialog/0.0.1366.728@0.0.1366.728" timestamp="1626252248977" />
-    <state x="519" y="282" key="NewPhpFileDialog" timestamp="1627198308713">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="519" y="282" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1627198308713" />
-    <state x="247" y="78" key="Vcs.Push.Dialog.v2" timestamp="1627202811918">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="247" y="78" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1627202811918" />
-    <state x="339" y="162" key="run.anything.popup" timestamp="1626599583922">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1626599583922" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1627200810698">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1627200810698" />
+    <MESSAGE value="product ledger showing from inception" />
+    <option name="LAST_COMMIT_MESSAGE" value="product ledger showing from inception" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

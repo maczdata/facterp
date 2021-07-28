@@ -330,8 +330,11 @@ class Sale extends MY_Controller {
 
     function view_invoice() {
         $invoice_id = $this->uri->segment(3);
-        $query = "SELECT invoice.*,accounts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice INNER JOIN accounts ON invoice.account_id = accounts.account_id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
-        $query = $this->db->query($query);
+//        $query = "SELECT invoice.*,accounts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice INNER JOIN accounts ON invoice.account_id = accounts.account_id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
+	
+	    $query = "SELECT invoice.*,accounts.*, contacts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice LEFT JOIN accounts ON invoice.account_id = accounts.account_id LEFT JOIN contacts ON invoice.invoice_contact_id = contacts.contact_id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
+	
+	    $query = $this->db->query($query);
         $invoice = $query->result();
 	
 	    $store = $this->web->GetOne('store_id', 'stores', $invoice[0]->invoice_store_id);

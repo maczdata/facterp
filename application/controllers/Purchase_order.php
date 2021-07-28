@@ -217,6 +217,7 @@ class Purchase_order extends MY_Controller {
             } else {
                 $this->data['last_Purchase_no'] = 'P-V # 00001';
             }
+	    $this->data['contacts'] = $this->web->GetAll('contact_id', 'contacts', ' where contacts.contact_supply = 1');
         $this->load->view("Purchase_order/convert_purchase", $this->data);
     }
 

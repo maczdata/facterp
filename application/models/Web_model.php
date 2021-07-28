@@ -515,6 +515,14 @@ AND product_ledger.date_ledger > '" . $to_date . "' GROUP BY product_ledger.prod
         $query = $this->db->query($query);
         return $query->result();
     }
+		
+		function GetReportforProductsToDate($to_date, $product_id) {
+			
+			$query = "select p_l.*,p.*,u.*,p_l.description as product_ledger_description from product_ledger p_l inner join products p on p.product_id=p_l.product_id inner join units u on p.unit_id = u.unit_id where p_l.product_id={$product_id} and p_l.date_ledger <= '$to_date'  and p.product_id = $product_id AND p_l.type='WAREHOUSE' order by p_l.date_ledger ASC";
+			
+			$query = $this->db->query($query);
+			return $query->result();
+		}
 
     function GetReportforProducts_general($from_date, $to_date, $product_id) {
 

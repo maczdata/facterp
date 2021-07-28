@@ -454,8 +454,8 @@
 					</script>
 					<div id="page-title" style="overflow: hidden;">
 						<div class="col-md-8">
-							<h2>Sales</h2>
-							<p>New Sale</p>
+							<h2>Purchases</h2>
+							<p>New Purchase</p>
 						</div>
 						<div class="col-md-2 panel-group" id="accordion">
 							<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">

@@ -191,13 +191,13 @@ class Products extends MY_Controller {
     function edit() {
         $data = array();
         $data['product_name'] = $this->db->escape_str($this->input->post("name", true));
-        $data['warehouse_id'] = $this->db->escape_str($this->input->post("warehouse", true));
+        //$data['warehouse_id'] = $this->db->escape_str($this->input->post("warehouse", true));
         $data['type'] = $this->db->escape_str($this->input->post("product_type", true));
         $data['unit_id'] = $this->db->escape_str($this->input->post("product_unit", true));
         $data['purchase_unit_id'] = $this->db->escape_str($this->input->post("purchase_unit", true));
         $data['sale_unit_id'] = $this->db->escape_str($this->input->post("sale_unit", true));
         $data['product_category_id'] = $this->db->escape_str($this->input->post("product_category", true));
-        $data['instock'] = $this->input->post("instock", true);
+        //$data['instock'] = $this->input->post("instock", true);
         $data['product_rate'] = $this->input->post("product_rate", true);
         $data['description'] = htmlentities($this->input->post("desc", true));
         $id = $this->input->post("product_id", true);

@@ -550,6 +550,16 @@
                                                         <?php } ?>
                                                     </select>
                                                 </div>
+	
+												<label class="col-sm-2 control-label">Select Vendor</label>
+												<div class="col-sm-4">
+													<select name="vendor" onchange=" Validation()" id="vendor" class="chosen-select">
+														<option value="1">Select Option</option>
+														<?php foreach ($contacts as $contact) { ?>
+															<option value="<?= $contact->contact_id ?>"><?= $contact->contact_name ?></option>
+														<?php } ?>
+													</select>
+												</div>
                                             </div>
                                             <input type="hidden" id="product_suggestions" value="<?= $products_suggestions ?>" />
                                             <input type="hidden" id="batch_suggestions" value="<?= $batch_suggestions ?>" />
@@ -775,6 +785,17 @@
                                                 <div class="col-md-4 col-sm-0"></div>
                                             </div>
                                             <input type="hidden" name="ordr_id" value="<?=$ordr_id?>">
+											<?php if($ordr[0]->ordr_warehouse_id): ?>
+											<input type="hidden" name="warehouse_id" value="<?=$ordr[0]->ordr_warehouse_id; ?>">
+												<input type="hidden" name="target" value="1">
+											
+											<?php endif; ?>
+	
+	                                        <?php if($ordr[0]->ordr_store_id): ?>
+												<input type="hidden" name="store_id" value="<?=$ordr[0]->ordr_store_id; ?>">
+												<input type="hidden" name="target" value="2">
+	
+	                                        <?php endif; ?>
                                         </form>
                                     </div>
                                 </div>

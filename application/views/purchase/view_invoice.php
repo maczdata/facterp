@@ -475,10 +475,10 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <h2 class="invoice-client mrg10T">Client information:</h2>
-                                        <h5><?= $invoice[0]->account_name ?></h5>
+                                        <h5><?= $invoice[0]->contact_name ?></h5>
                                         <address class="invoice-address">
                                             <?= html_entity_decode($invoice[0]->account_desc) ?>
-                                            <?= $invoice[0]->ph_number ?>
+                                            <?= $invoice[0]->contact_phone ?>
                                         </address>
                                     </div>
                                     <div class="col-md-4">

@@ -546,6 +546,16 @@
                                                         <?php } ?>
                                                     </select>
                                                 </div>
+	
+												<label class="col-sm-2 control-label">Select Vendor</label>
+												<div class="col-sm-4">
+													<select name="vendor" onchange=" Validation()" id="vendor" class="chosen-select">
+														<option value="1">Select Option</option>
+														<?php foreach ($contacts as $contact) { ?>
+															<option value="<?= $contact->contact_id ?>"><?= $contact->contact_name ?></option>
+														<?php } ?>
+													</select>
+												</div>
                                             </div>
                                             <input type="hidden" id="product_suggestions" value="<?= $products_suggestions ?>" />
                                             <div class="form-group">
@@ -692,7 +702,14 @@
                                                 </div>
                                             </div>
 
-
+											<input type="hidden" name="target" value="<?=$target; ?>">
+												<?php if($target == 1): ?>
+												<input type="hidden" name="warehouse_id" value="<?=$warehouse_id; ?>">
+											<?php endif; ?>
+	
+	                                        <?php if($target == 2): ?>
+												<input type="hidden" name="store_id" value="<?=$store_id; ?>">
+	                                        <?php endif; ?>
                                             <div class="form-group">
                                                 <label class="col-sm-12">Description</label>
                                                 <div class="col-sm-12">

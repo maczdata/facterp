@@ -720,7 +720,7 @@
                                                                 }
                                                             }
                                                             function AddPurchase() {
-                                                                window.location.href = "<?= base_url() ?>purchase/add";
+                                                                window.location.href = "<?= base_url() ?>purchase/new_purchase";
                                                             }
                                                             function ViewPurchase(invoice_id) {
                                                                 window.location.href = "<?= base_url() ?>purchase/view_invoice/" + invoice_id;

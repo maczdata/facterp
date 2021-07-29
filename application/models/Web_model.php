@@ -82,13 +82,31 @@ class Web_model extends MY_Model {
     }
 
     function GetAllSales($limit = NULL) {
-        $query = "SELECT invoice.*,invoice.date_created as invoice_date,accounts.* FROM invoice INNER JOIN accounts ON accounts.account_id = invoice.account_id WHERE type='sale' ORDER BY invoice_id DESC";
+        $query = "SELECT invoice.*,invoice.date_created as invoice_date,accounts.* FROM invoice INNER JOIN accounts ON accounts.account_id = invoice.account_id LEFT JOIN stores ON stores.store_id = invoice.invoice_store_id  WHERE type='sale' ORDER BY invoice_id DESC";
         if ($limit != NULL) {
             $query .= " limit $limit";
         }
         $query = $this->db->query($query);
         return $query->result_array();
     }
+	
+	function GetAllSalesStore($store_id, $limit = NULL) {
+		$query = "SELECT invoice.*,invoice.date_created as invoice_date,accounts.* FROM invoice INNER JOIN accounts ON accounts.account_id = invoice.account_id LEFT JOIN stores ON stores.store_id = invoice.invoice_store_id  WHERE type='sale' AND invoice_store_id ='{$store_id}' ORDER BY invoice_id DESC";
+		if ($limit != NULL) {
+			$query .= " limit $limit";
+		}
+		$query = $this->db->query($query);
+		return $query->result_array();
+	}
+	
+	function GetAllSalesContact($contact_id, $limit = NULL) {
+		$query = "SELECT invoice.*,invoice.date_created as invoice_date,accounts.* FROM invoice INNER JOIN accounts ON accounts.account_id = invoice.account_id LEFT JOIN stores ON stores.store_id = invoice.invoice_store_id  WHERE  invoice_contact_id ='{$contact_id}' ORDER BY invoice_id DESC";
+		if ($limit != NULL) {
+			$query .= " limit $limit";
+		}
+		$query = $this->db->query($query);
+		return $query->result_array();
+	}
 
     function GetAllSales_filter($date_from, $date_to, $category, $product, $prod_type, $limit = NULL, $search = NULL) {
         $query = "SELECT invoice.*,invoice_items.*,invoice.date_created as invoice_date,accounts.* FROM invoice INNER JOIN invoice_items ON invoice_items.invoice_id = invoice.invoice_id INNER JOIN products ON invoice_items.product_id = products.product_id  INNER JOIN accounts ON accounts.account_id = invoice.account_id WHERE invoice.type='Sale'  ";
@@ -118,6 +136,35 @@ class Web_model extends MY_Model {
         $query = $this->db->query($query);
         return $query->result_array();
     }
+	
+	function GetAllSalesStore_filter($store_id, $date_from, $date_to, $category, $product, $prod_type, $limit = NULL, $search = NULL) {
+		$query = "SELECT invoice.*,invoice_items.*,invoice.date_created as invoice_date,accounts.* FROM invoice INNER JOIN invoice_items ON invoice_items.invoice_id = invoice.invoice_id INNER JOIN products ON invoice_items.product_id = products.product_id  INNER JOIN accounts ON accounts.account_id = invoice.account_id WHERE invoice.type='Sale' AND invoice.invoice_store_id = '{$store_id}'  ";
+		if (!empty($date_from) && !empty($date_to)) {
+			$query .= " and (DATE(invoice.date_created) between '$date_from' and '$date_to') ";
+		}
+		if ($prod_type != NULL) {
+			$query .= " AND products.type = '$prod_type'";
+		}
+		if ($category != NULL) {
+			$query .= " AND  products.product_category_id=$category";
+		}
+		if ($product != NULL) {
+			$query .= "  AND products.product_id=$product ";
+		}
+		if (!empty($search)) {
+			$query .= " AND (invoice.invoice_id LIKE '%{$search}%' OR invoice.date_created LIKE '%{$search}%' OR accounts.account_name LIKE '%{$search}%' OR invoice.payment_method LIKE '%{$search}%' )";
+		}
+		
+		
+		$query .= " GROUP BY invoice.invoice_id ";
+		$query .= " ORDER BY invoice.invoice_id DESC ";
+		if ($limit != NULL) {
+			$query .= " limit $limit";
+		}
+//        die($query);
+		$query = $this->db->query($query);
+		return $query->result_array();
+	}
 
     function GetAllSalesOrder($limit = NULL) {
         $query = "SELECT ordr.*,ordr.date_created as ordr_date,accounts.* FROM ordr INNER JOIN accounts ON accounts.account_id = ordr.account_id WHERE type='sale' ORDER BY ordr_id DESC";
@@ -477,6 +524,14 @@ AND product_ledger.date_ledger > '" . $to_date . "' GROUP BY product_ledger.prod
         $query = $this->db->query($query);
         return $query->result();
     }
+		
+		function GetReportforProductsToDate($to_date, $product_id) {
+			
+			$query = "select p_l.*,p.*,u.*,p_l.description as product_ledger_description from product_ledger p_l inner join products p on p.product_id=p_l.product_id inner join units u on p.unit_id = u.unit_id where p_l.product_id={$product_id} and p_l.date_ledger <= '$to_date'  and p.product_id = $product_id AND p_l.type='WAREHOUSE' order by p_l.date_ledger ASC";
+			
+			$query = $this->db->query($query);
+			return $query->result();
+		}
 
     function GetReportforProducts_general($from_date, $to_date, $product_id) {
 
@@ -658,6 +713,13 @@ AND product_ledger.date_ledger > '" . $to_date . "' GROUP BY product_ledger.prod
         $query = $this->db->query($query);
         return $query->result();
     }
+		
+		function GetTotalSalesStore($store_id) {
+			$query = "SELECT SUM(invoice.invoice_total) as total_balnc FROM invoice INNER JOIN accounts ON accounts.account_id = invoice.account_id WHERE type='Sale' AND invoice.invoice_store_id = '{$store_id}' ";
+//        die($query);
+			$query = $this->db->query($query);
+			return $query->result();
+		}
 
     function GetTotalSales_filter($date_from, $date_to, $category, $product, $prod_type, $search = NULL) {
         // print_r($prod_type);die();
@@ -685,6 +747,33 @@ AND product_ledger.date_ledger > '" . $to_date . "' GROUP BY product_ledger.prod
         $query = $this->db->query($query);
         return $query->result();
     }
+		
+		function GetTotalSalesStore_filter($store_id, $date_from, $date_to, $category, $product, $prod_type, $search = NULL) {
+			// print_r($prod_type);die();
+			$query = "SELECT invoice.invoice_total as total_balnc FROM invoice INNER JOIN invoice_items ON invoice_items.invoice_id = invoice.invoice_id INNER JOIN products ON invoice_items.product_id = products.product_id  INNER JOIN accounts ON accounts.account_id = invoice.account_id WHERE invoice.type='Sale' AND invoice.invoice_store_id = '{$store_id}' ";
+			if (!empty($date_from) && !empty($date_to)) {
+				$query .= " and (DATE(invoice.date_created) between '$date_from' and '$date_to') ";
+			}
+			
+			if (!empty($prod_type)) {
+				$query .= " AND products.type = '$prod_type'";
+			}
+			if (!empty($category)) {
+				$query .= " AND  products.product_category_id=$category";
+			}
+			if (!empty($product)) {
+				$query .= "  AND products.product_id=$product ";
+			}
+			if (!empty($search)) {
+				$query .= " AND (invoice.invoice_id LIKE '%{$search}%' OR invoice.date_created LIKE '%{$search}%' OR accounts.account_name LIKE '%{$search}%' OR invoice.payment_method LIKE '%{$search}%' )";
+			}
+			
+			$query .= " GROUP BY invoice.invoice_id ";
+			$query .= " ORDER BY invoice.invoice_id DESC ";
+//        die($query);
+			$query = $this->db->query($query);
+			return $query->result();
+		}
 
     function GetTotalSalesOrder() {
         $query = "SELECT SUM(ordr.ordr_total) as total_balnc FROM ordr INNER JOIN accounts ON accounts.account_id = ordr.account_id WHERE type='Sale' ";
@@ -800,6 +889,13 @@ AND product_ledger.date_ledger > '" . $to_date . "' GROUP BY product_ledger.prod
         $result = $query->result();
         return $result;
     }
+		
+		function GetAllpayslips_month($month, $year) {
+			$query = "select e_l.*,e.emp_name as emp_name from employee_ledger e_l left join employees e on e.employee_id=e_l.employee_id where e_l.type='Salary' AND e_l.month='{$month}' AND e_l.year='{$year}'";
+			$query = $this->db->query($query);
+			$result = $query->result();
+			return $result;
+		}
 
     function GetAllIncrements() {
         $query = "SELECT   e.*,e_s.*,e.employee_id as employee_id  FROM employees e right JOIN ( ";
@@ -847,6 +943,19 @@ AND product_ledger.date_ledger > '" . $to_date . "' GROUP BY product_ledger.prod
         $query = $this->db->query($query);
         $result = $query->result();
         return $result;
+    }
+    
+    function GetProductsStore(){
+    	$query = "select * from store_stock left join stores on stores.store_id  = store_stock.store_stock_store_id left join products on products.product_id = store_stock.store_stock_product_id";
+        $query = $this->db->query($query);
+        return $query->result();
+    }
+    
+    
+    function GetProductsWarehouse(){
+	    $query = "select * from warehouse_stock left join warehouses on warehouses.warehouse_id  = warehouse_stock.warehouse_stock_warehouse_id left join products on products.product_id = warehouse_stock.warehouse_stock_product_id";
+	    $query = $this->db->query($query);
+	    return $query->result();
     }
 
 }

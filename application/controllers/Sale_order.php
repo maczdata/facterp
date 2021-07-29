@@ -215,6 +215,7 @@ class Sale_order extends MY_Controller {
             } else {
                 $this->data['last_sale_no'] = 'S-V # 00001';
             }
+	    $this->data['contacts'] = $this->web->GetAll('contact_id', 'contacts', ' where contacts.contact_customer = 1');
         $this->load->view("sale_order/convert_sale", $this->data);
     }
 
@@ -397,6 +398,7 @@ class Sale_order extends MY_Controller {
             $data['carton'] = $this->input->post("carton");
             $data['cargo'] = $this->input->post("cargo");
             $data['builty_no'] = $this->input->post("builty_no");
+            $data['ordr_store_id'] = $this->input->post('store_id');
             if (!($inv)) {
                 $data['ordr_no'] = 'S-00001';
             } else {
@@ -492,8 +494,27 @@ class Sale_order extends MY_Controller {
             $this->load->view("sale_order/add", $this->data);
 //            }
         } else {
-            $this->data['products'] = $this->web->GetAllWithInner("product_id", "products", "units", "unit_id", "product_categories", "product_category_id", "  AND products.instock > '0'");
-            $this->data['products_suggestions'] = "<option value=''>Select or Type Product</option>";
+	        $products = $this->web->GetAllWithInner("product_id", "products", "units", "unit_id", "product_categories", "product_category_id");
+	
+	        $store_id = $_GET['store_id'];
+	        $i= 0;
+	        $new_product = array();
+	        foreach ($products as $product):
+		        $products_stores = $this->web->GetOne('store_stock_product_id', 'store_stock', $product->product_id);
+		        foreach ($products_stores as $products_store):
+			        if($products_store->store_stock_store_id == $store_id):
+				        if($products_store->store_stock_quantity > 0):
+					        $product->quantity = $products_store->store_stock_quantity;
+					        $new_product[$i] = $product;
+					        $i++;
+				        endif;
+			        endif;
+		        endforeach;
+	        endforeach;
+	
+	        $this->data['products'] = $new_product;
+	        
+	        $this->data['products_suggestions'] = "<option value=''>Select or Type Product</option>";
             if ($this->data['products']) {
                 foreach ($this->data['products'] as $product) {
                     $product_suggestions[$product->product_category_name][] = $product;
@@ -528,7 +549,8 @@ class Sale_order extends MY_Controller {
             } else {
                 $this->data['last_sale_no'] = 'S-O # 00001';
             }
-
+			$this->data['store_id'] = $store_id;
+	        
             $this->load->view("sale_order/add", $this->data);
         }
     }
@@ -552,6 +574,7 @@ class Sale_order extends MY_Controller {
             $data['batch_no'] = $this->db->escape_str($this->input->post("batch_no", true));
             $data['description'] = htmlentities($this->input->post("desc", true));
             $data['ordr_no'] = $this->input->post("ordr_no", true);
+            
 //            $inv = $this->web->GetLastInsertedRow("ordr_id", "ordr", " where type='Sale'");
 //            if (!($inv)) {
 //                $data['ordr_no'] = 'S-00001';
@@ -603,5 +626,24 @@ class Sale_order extends MY_Controller {
         $batch_count = $this->web->GetBatchProCount($batch_no);
         echo $batch_count[0]->total_sale_qty . "%" . $batch_count[0]->max_qty;
     }
-
+	
+	
+	function new_sales(){
+		
+		
+		$store_id = json_decode($this->session->userdata('user_store_id'));
+		
+		$stores = array();
+		foreach ($store_id as $store):
+			$_stores = $this->web->GetOne('store_id', 'stores', $store);
+			$stores = array_merge($stores, $_stores);
+		
+		
+		endforeach;
+		
+		
+		$this->data['stores'] = $stores;
+		
+		$this->load->view("sale_order/new_sales", $this->data);
+	}
 }

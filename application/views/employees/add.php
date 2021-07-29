@@ -580,6 +580,20 @@
                                                             <input type="radio" name="emp_marital_status" value="married"> Married &nbsp; &nbsp;
                                                         </div>
                                                     </div>
+	
+													<div class="form-group">
+														<label class="col-sm-3 control-label">Bank</label>
+														<div class="col-sm-6">
+															<input type="text" name="emp_bank" id="emp_bank" class="form-control" placeholder="">
+														</div>
+													</div>
+	
+													<div class="form-group">
+														<label class="col-sm-3 control-label">Account Number</label>
+														<div class="col-sm-6">
+															<input type="text" name="emp_nuban" id="emp_nuban" class="form-control" placeholder="">
+														</div>
+													</div>
                                                     <div class="form-group">
                                                         <label class="col-sm-3 control-label">Profile Picture:</label>
                                                         <div class="col-sm-6">

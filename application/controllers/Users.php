@@ -16,6 +16,8 @@ class Users extends MY_Controller {
 
     function view() {
         $user_id = $this->uri->segment(3);
+	    $this->data['warehouses'] = $this->web->GetAll("warehouse_id", "warehouses");
+	    $this->data['stores'] = $this->web->GetAll("store_id", "stores");
         $this->data['user'] = $this->web->GetOne("id", "users", $user_id);
         $this->load->view("users/edit", $this->data);
     }
@@ -24,12 +26,15 @@ class Users extends MY_Controller {
         $data = array();
         $data['name'] = $this->db->escape_str($this->input->post("name", true));
         $data['email'] = $this->db->escape_str($this->input->post("email", true));
+        $password = $this->db->escape_str($this->input->post("password", true));
         $data['password'] = sha1($this->db->escape_str($this->input->post("password", true)));
-        if ($data['password'] == "") {
+        if (($password == "") || is_null($password) || empty($password)) {
             unset($data['password']);
         }
         $status = $this->input->post("checkbox-example-1", true);
         $data['status'] = ($status == "on" ? 1 : 0);
+	    $data['user_warehouse_id'] = json_encode($this->input->post('warehouse_id'));
+	    $data['user_store_id'] = json_encode($this->input->post('store_id'));
         $id = $this->input->post("user_id", true);
         $this->web->Update("id", "users", $id, $data);
         redirect("users", "refresh");
@@ -54,12 +59,16 @@ class Users extends MY_Controller {
             $status = $this->input->post("checkbox-example-1", true);
             $data['status'] = ($status == "on" ? 1 : 0);
             $data['user_group_id'] = $this->input->post("user_group", true);
+            $data['user_warehouse_id'] = json_encode($this->input->post('warehouse_id'));
+            $data['user_store_id'] = json_encode($this->input->post('store_id'));
 //            print_r($data);
 //            die();
             if ($this->web->Add("users", $data)) {
                 redirect("users", "refresh");
             }
         } else {
+	        $this->data['warehouses'] = $this->web->GetAll("warehouse_id", "warehouses");
+	        $this->data['stores'] = $this->web->GetAll("store_id", "stores");
             $this->data['user_groups'] = $this->web->GetAll("user_group_id", "user_groups");
             $this->load->view("users/add", $this->data);
         }

@@ -217,6 +217,7 @@ class Purchase_order extends MY_Controller {
             } else {
                 $this->data['last_Purchase_no'] = 'P-V # 00001';
             }
+	    $this->data['contacts'] = $this->web->GetAll('contact_id', 'contacts', ' where contacts.contact_supply = 1');
         $this->load->view("Purchase_order/convert_purchase", $this->data);
     }
 
@@ -379,6 +380,14 @@ class Purchase_order extends MY_Controller {
     function add() {
         if ($this->input->post()) {
             $data = array();
+	        $warehouse_id = 0;
+	        $store_id = 0;
+	        if($_POST['target'] == 1):
+		        $warehouse_id = $_POST['warehouse_id'];
+	        endif;
+	        if($_POST['target'] == 2):
+		        $store_id = $_POST['store_id'];
+	        endif;
             $data_items = array();
             $data['account_id'] = $this->db->escape_str($this->input->post("account", true));
             $data['date_created'] = date("Y-m-d", strtotime(str_replace("-", "/", $this->input->post("date", true)))) . " " . date("H:i:s");
@@ -399,6 +408,8 @@ class Purchase_order extends MY_Controller {
             $data['carton'] = $this->input->post("carton");
             $data['cargo'] = $this->input->post("cargo");
             $data['builty_no'] = $this->input->post("builty_no");
+            $data['ordr_store_id'] = $store_id;
+            $data['ordr_warehouse_id'] = $warehouse_id;
             if (!($inv)) {
                 $data['ordr_no'] = 'P-00001';
             } else {
@@ -494,8 +505,71 @@ class Purchase_order extends MY_Controller {
             $this->load->view("Purchase_order/add", $this->data);
 //            }
         } else {
-            $this->data['products'] = $this->web->GetAllWithInner("product_id", "products", "units", "unit_id", "product_categories", "product_category_id");
-            $this->data['products_suggestions'] = "<option value=''>Select or Type Product</option>";
+	        $target = $_GET['target'];
+	
+	        if($target == 1): //warehouse
+		
+		        $warehouse_id = $_GET['warehouse_id'];
+		
+		
+		        $products = $this->web->GetAllWithInner("product_id", "products", "units", "unit_id", "product_categories", "product_category_id");
+		
+		        $i= 0;
+		        $new_product = array();
+		        foreach ($products as $product):
+			        $products_warehouses = $this->web->GetOne('warehouse_stock_product_id', 'warehouse_stock', $product->product_id);
+			        foreach ($products_warehouses as $products_warehouse):
+				        if($products_warehouse->warehouse_stock_warehouse_id == $warehouse_id):
+					
+					
+					        $new_product[$i] = $product;
+					        $i++;
+				
+				        endif;
+			        endforeach;
+		        endforeach;
+		
+		        $this->data['products'] = $new_product;
+		        $this->data['warehouse_id'] = $warehouse_id;
+	
+	
+	
+	        endif;
+	
+	
+	        if($target == 2): //store
+		
+		        $store_id = $_GET['store_id'];
+		
+		
+		        $products = $this->web->GetAllWithInner("product_id", "products", "units", "unit_id", "product_categories", "product_category_id");
+		
+		        $i= 0;
+		        $new_product = array();
+		        foreach ($products as $product):
+			        $products_stores = $this->web->GetOne('store_stock_product_id', 'store_stock', $product->product_id);
+			        foreach ($products_stores as $products_store):
+				        if($products_store->store_stock_store_id == $store_id):
+					
+					
+					        $new_product[$i] = $product;
+					        $i++;
+				
+				        endif;
+			        endforeach;
+		        endforeach;
+		
+		        $this->data['products'] = $new_product;
+		        $this->data['store_id'] = $store_id;
+	
+	
+	        endif;
+	
+	        if(empty($target) || is_null($target) || $target == ""): //neither
+		        redirect("purchase_order", "refresh");
+	        endif;
+	        
+	        $this->data['target'] = $target;  $this->data['products_suggestions'] = "<option value=''>Select or Type Product</option>";
             if ($this->data['products']) {
                 foreach ($this->data['products'] as $product) {
                     $product_suggestions[$product->product_category_name][] = $product;
@@ -605,5 +679,34 @@ class Purchase_order extends MY_Controller {
         $batch_count = $this->web->GetBatchProCount($batch_no);
         echo $batch_count[0]->total_Purchase_qty . "%" . $batch_count[0]->max_qty;
     }
+	
+	function new_purchase(){
+		
+		$store_id = json_decode($this->session->userdata('user_store_id'));
+		$warehouse_id = json_decode($this->session->userdata('user_warehouse_id'));
+		
+		$stores = array();
+		foreach ($store_id as $store):
+			$_stores = $this->web->GetOne('store_id', 'stores', $store);
+			$stores = array_merge($stores, $_stores);
+		
+		
+		endforeach;
+		
+		$warehouses = array();
+		foreach ($warehouse_id as $warehouse):
+			$_warehouses = $this->web->GetOne('warehouse_id', 'warehouses', $warehouse);
+			$warehouses = array_merge($warehouses, $_warehouses);
+		
+		
+		endforeach;
+		
+		
+		$this->data['stores'] = $stores;
+		$this->data['warehouses'] = $warehouses;
+		
+		$this->load->view("purchase_order/new_purchase", $this->data);
+		
+	}
 
 }

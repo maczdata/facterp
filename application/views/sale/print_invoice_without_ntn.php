@@ -22,13 +22,13 @@
 
         <!-- JS Core -->
         <script type="text/javascript" src="<?= base_url() ?>assets-minified/js-core.js"></script>
-        <script type="text/javascript">
-            $(window).load(function () {
-                setTimeout(function () {
-                    $('#loading').fadeOut(400, "linear");
-                }, 300);
-            });
-        </script>
+<!--        <script type="text/javascript">-->
+<!--            $(window).load(function () {-->
+<!--                setTimeout(function () {-->
+<!--                    $('#loading').fadeOut(400, "linear");-->
+<!--                }, 300);-->
+<!--            });-->
+<!--        </script>-->
         <script>
             function print_me() {
                 window.print();

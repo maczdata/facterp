@@ -452,62 +452,7 @@
                                             <p>Add, Edit or Delete Product</p>
                                         </div>
 
-                                        <form method="POST" action="<?= base_url() ?>products/">
-                                            <div class="col-md-2 ">
-                                                <select name="pro_type" id="pro_type" class="chosen-select" style=" z-index: -21;" >
-                                                    <option value="">Select Product Type</option>
-                                                    <option <?php
-                                                    if (isset($pro)) {
-                                                        if ($pro == "raw") {
-                                                            echo 'selected';
-                                                        }
-                                                    }
-                                                    ?> value="raw">Raw</option>
-                                                    <option <?php
-                                                    if (isset($pro)) {
-                                                        if ($pro == "production") {
-                                                            echo 'selected';
-                                                        }
-                                                    }
-                                                    ?> value="production">Product</option>
-
-                                                </select>
-                                            </div>
-                                            <div class="col-md-2 ">
-                                                <select name="all_prod" id="all_prod" class="chosen-select" style=" z-index: -21;" >
-                                                    <option value="">Select Product Category</option>
-                                                    <?php foreach ($prod_cat as $pro_Cat) { ?>
-                                                        <option <?php
-                                                        if (isset($cate)) {
-                                                            if ($cate == $pro_Cat->product_category_id) {
-                                                                echo 'selected';
-                                                            }
-                                                        }
-                                                        ?> value="<?= $pro_Cat->product_category_id ?>"><?= $pro_Cat->product_category_name ?></option>
-                                                        <?php } ?>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-2 ">
-                                                <select  name="all_house" id="all_house" class="chosen-select">
-                                                    <option value="">Select Warehouse</option>
-                                                    <?php foreach ($all_warehouse as $all_ware) { ?>
-                                                        <option
-                                                        <?php
-                                                        if (isset($war)) {
-                                                            if ($war == $all_ware->warehouse_id) {
-                                                                echo 'selected';
-                                                            }
-                                                        }
-                                                        ?>
-                                                            value="<?= $all_ware->warehouse_id ?>"><?= $all_ware->warehouse_name ?></option>
-
-                                                    <?php } ?>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <input type="submit" class="btn btn-blue-alt pull-right" value="View"/>
-                                            </div>
-                                        </form>
+                                       
 
                                         <div class="col-md-2">
                                             <button class="btn btn-blue-alt pull-right" onclick="AddUser();"><span style="margin-right: 5px;" class="glyph-icon icon-plus"></span>Add Product</button>
@@ -537,8 +482,9 @@
                                                     <th>Sr#</th>
                                                     <th>ID</th>
                                                     <th>Name</th>
-<!--                                                    <th>In Stock</th>-->
+                                                    <th>In Stock</th>
                                                     <th>Unit</th>
+													<th>Product Type</th>
                                                     <th>Description</th>
                                                     <th>Manage</th>
                                                 </tr>
@@ -553,12 +499,15 @@
                                                             <td><?= $count ?></td>
                                                             <td><?= $product['product_id'] ?></td>
                                                             <td><?= $product['product_name'] ?></td>
-<!--                                                            <td>--><?//= $product['instock'] ?><!--</td>-->
+                                                            <td><?= $product['quantity'] ?></td>
                                                             <td><?= $product['unit_symbol'] ?></td>
+															<td> <?= $product['type']; ?></td>
                                                             <td><?= html_entity_decode($product['description']) ?></td>
 
                                                             <td>
-
+																<a href="<?=site_url()."products/view_product/".$product['product_id']; ?>" title="View"  class="btn btn-round btn-success" >
+																	<i class="glyph-icon icon-eye"></i>
+																</a>
                                                             <?php if($this->session->userdata('user_group_id') == 1){ ?>
 
                                                                 <button class="btn btn-round btn-info" data-toggle="tooltip" data-placement="top" title="Edit" data-toggle="modal" data-target="#myModal" onclick="EditProduct('<?= $product['product_id'] ?>');">

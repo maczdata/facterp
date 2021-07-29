@@ -528,7 +528,8 @@
                                     <div class="example-box-wrapper">
                                         <form method="post" action="<?= base_url() ?>sale/add" id="SubmitAdd" class="form-horizontal bordered-row">
                                             <input type="hidden" name="ordr_id" value="<?= $ordr[0]->ordr_id ?>"/>
-                                            <div class="form-group">
+                                            <input type="hidden" name="store_id" value="<?=$ordr[0]->ordr_store_id ?>">
+											<div class="form-group">
                                                 <label for="" class="col-sm-2 control-label">Date</label>
                                                 <div class="col-sm-4">
                                                     <div class="input-prepend input-group">
@@ -550,6 +551,16 @@
                                                         <?php } ?>
                                                     </select>
                                                 </div>
+												
+												<label class="col-sm-2 control-label">Select Customer</label>
+												<div class="col-sm-4">
+													<select name="customer" onchange=" Validation()" id="vendor" class="chosen-select">
+														<option value="1">Select Option</option>
+														<?php foreach ($contacts as $contact) { ?>
+															<option value="<?= $contact->contact_id ?>"><?= $contact->contact_name ?></option>
+														<?php } ?>
+													</select>
+												</div>
                                             </div>
                                             <input type="hidden" id="product_suggestions" value="<?= $products_suggestions ?>" />
                                             <input type="hidden" id="batch_suggestions" value="<?= $batch_suggestions ?>" />

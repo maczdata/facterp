@@ -201,11 +201,12 @@ class Purchase extends MY_Controller {
     function view_invoice() {
         $invoice_id = $this->uri->segment(3);
 //        $this->data['invoice'] = $this->web->GetOneWithInner('invoice_id', 'invoice', "accounts", "account_id", NULL, NULL, $invoice_id);
-        $query = "SELECT invoice.*,accounts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice INNER JOIN accounts ON invoice.account_id = accounts.account_id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
+        $query = "SELECT invoice.*,accounts.*, contacts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice LEFT JOIN accounts ON invoice.account_id = accounts.account_id LEFT JOIN contacts ON invoice.invoice_contact_id = contacts.contact_id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
         $query = $this->db->query($query);
         $this->data['invoice'] = $query->result();
+        //print_r($this->data['invoice']);
         $this->data['invoice_items'] = $this->web->GetInvoiceItems($invoice_id);
-        $this->load->view("purchase/view_invoice", $this->data);
+       $this->load->view("purchase/view_invoice", $this->data);
     }
 
     function print_inv() {
@@ -323,6 +324,15 @@ class Purchase extends MY_Controller {
     function add() {
         if ($this->input->post()) {
             $data = array();
+            $warehouse_id = 0;
+            $store_id = 0;
+            if($_POST['target'] == 1):
+	            $warehouse_id = $_POST['warehouse_id'];
+	            endif;
+          if($_POST['target'] == 2):
+	        $store_id = $_POST['store_id'];
+	        endif;
+	        
             $data_items = array();
             $data['account_id'] = $this->db->escape_str($this->input->post("account", true));
             $data['date_created'] = date("Y-m-d", strtotime(str_replace("-", "/", $this->input->post("date", true)))) . " " . date("H:i:s");
@@ -339,6 +349,9 @@ class Purchase extends MY_Controller {
             // $data['batch_no'] = $this->db->escape_str($this->input->post("batch_no", true));
             $data['builty_no'] = $this->db->escape_str($this->input->post("bilty_no", true));
             $data['voucher_no'] = $this->db->escape_str($this->input->post("pv_no", true));
+            $data['invoice_store_id'] = $store_id;
+            $data['invoice_warehouse_id'] = $warehouse_id;
+            $data['invoice_contact_id'] = $_POST['vendor'];
 
             $data['description'] = htmlentities($this->input->post("desc", true));
             $inv = $this->web->GetLastInsertedRow("invoice_id", "invoice", " where type='Purchase'");
@@ -354,18 +367,25 @@ class Purchase extends MY_Controller {
                 $invoice = $this->web->GetLastInsertedRow("invoice_id", "invoice");
                 $product_count = sizeof($data_items['product_id']);
                 $insert_items = "INSERT INTO invoice_items (invoice_id, product_id, qty, discount, product_purchase_price, invoice_subtotal) VALUES ";
-                $product_ledger = "INSERT INTO product_ledger (product_id,credit_qty,description,ref_id,type,date_ledger,invoice_id) VALUES ";
+                $product_ledger = "INSERT INTO product_ledger (product_id,credit_qty,description,ref_id,type,date_ledger,warehouse_id,store_id,invoice_id) VALUES ";
                 for ($i = 0; $i < $product_count; $i++) {
                     $insert_items .= "('" . $invoice[0]->invoice_id . "','" . $data_items['product_id'][$i] . "','" . $data_items['qty'][$i] . "','" . $data_items['discount'][$i] . "','" . $data_items['purchase_price'][$i] . "','" . $data_items['sub_total'][$i] . "'),";
                     $check_type = $this->web->GetOne("product_id", "products", "{$data_items['product_id'][$i]}");
                     if ($check_type[0]->type == 'raw') {
-                        $product_ledger .= "('" . $data_items['product_id'][$i] . "','" . $data_items['qty'][$i] . "','" . $invoice[0]->voucher_no . '<br>' . $invoice[0]->builty_no . '<br>' . $invoice[0]->description . '<br>' . "','" . $check_type[0]->warehouse_id . "','" . 'WAREHOUSE' . "','" . $invoice[0]->date_created . "','" . $invoice[0]->invoice_id . "'),";
+                        $product_ledger .= "('" . $data_items['product_id'][$i] . "','" . $data_items['qty'][$i] . "','" . $invoice[0]->voucher_no . '<br>' . $invoice[0]->builty_no . '<br>' . $invoice[0]->description . '<br>' . "','" . '1' . "','" . 'WAREHOUSE' . "','" . $invoice[0]->date_created . "','" . $warehouse_id . "','" . $store_id . "','" . $invoice[0]->invoice_id . "'),";
                     }
                     if ($check_type[0]->type == 'production') {
-                        $product_ledger .= "('" . $data_items['product_id'][$i] . "','" . $data_items['qty'][$i] . "','" . $invoice[0]->voucher_no . '<br>' . $invoice[0]->builty_no . '<br>' . $invoice[0]->description . '<br>' . "','" . '1' . "','" . 'PRODUCTION' . "','" . $invoice[0]->date_created . "','" . $invoice[0]->invoice_id . "'),";
+                        $product_ledger .= "('" . $data_items['product_id'][$i] . "','" . $data_items['qty'][$i] . "','" . $invoice[0]->voucher_no . '<br>' . $invoice[0]->builty_no . '<br>' . $invoice[0]->description . '<br>' . "','" . '1' . "','" . 'PRODUCTION' . "','" . $invoice[0]->date_created . "','"  . $warehouse_id . "','" . $store_id . "','". $invoice[0]->invoice_id . "'),";
                     }
 //                    $product_ledger .= "('" . $data_items['product_id'][$i] . "','" . $data_items['qty'][$i] . "','" . $invoice[0]->description . "','" . $invoice[0]->invoice_id . "','" . 'Invoice' . "'),";
-                    $update_stock = "update products set instock=instock+{$data_items['qty'][$i]} where product_id={$data_items['product_id'][$i]}";
+                   if($store_id):
+                    $update_stock = "update store_stock set store_stock_quantity=store_stock_quantity+{$data_items['qty'][$i]} where store_stock_product_id={$data_items['product_id'][$i]} and store_stock_store_id = {$store_id}";
+                   endif;
+                   
+                   if($warehouse_id):
+	                   $update_stock = "update warehouse_stock set warehouse_stock_quantity=warehouse_stock_quantity+{$data_items['qty'][$i]} where warehouse_stock_product_id={$data_items['product_id'][$i]} and warehouse_stock_warehouse_id = {$warehouse_id}";
+
+                   endif;
                     $this->db->query($update_stock);
 
 
@@ -391,45 +411,108 @@ class Purchase extends MY_Controller {
                 }
             }
         } else {
-
-            $this->data['products'] = $this->web->GetAllWithInner("product_id", "products", "units", "unit_id", "product_categories", "product_category_id");
-//            print_r($this->data['products']);
-//            die();
-            $this->data['products_suggestions'] = "<option value=''>Select or Type Product</option>";
-            if ($this->data['products']) {
-                foreach ($this->data['products'] as $product) {
-                    $product_suggestions[$product->product_category_name][] = $product;
+        	
+        	$target = $_GET['target'];
+        	
+        	if($target == 1): //warehouse
+		
+		        $warehouse_id = $_GET['warehouse_id'];
+		
+		
+		        $products = $this->web->GetAllWithInner("product_id", "products", "units", "unit_id", "product_categories", "product_category_id");
+		
+		        $i= 0;
+		        $new_product = array();
+		        foreach ($products as $product):
+			        $products_warehouses = $this->web->GetOne('warehouse_stock_product_id', 'warehouse_stock', $product->product_id);
+			        foreach ($products_warehouses as $products_warehouse):
+				        if($products_warehouse->warehouse_stock_warehouse_id == $warehouse_id):
+					       
+						        
+						        $new_product[$i] = $product;
+						        $i++;
+					       
+				        endif;
+			        endforeach;
+		        endforeach;
+		
+		        $this->data['products'] = $new_product;
+		        $this->data['warehouse_id'] = $warehouse_id;
+   
+		        
+		        
+		        endif;
+        	
+        	
+        	if($target == 2): //store
+		
+		        $store_id = $_GET['store_id'];
+		
+		
+		        $products = $this->web->GetAllWithInner("product_id", "products", "units", "unit_id", "product_categories", "product_category_id");
+		
+		        $i= 0;
+		        $new_product = array();
+		        foreach ($products as $product):
+			        $products_stores = $this->web->GetOne('store_stock_product_id', 'store_stock', $product->product_id);
+			        foreach ($products_stores as $products_store):
+				        if($products_store->store_stock_store_id == $store_id):
+					      
+						        
+						        $new_product[$i] = $product;
+						        $i++;
+					       
+				        endif;
+			        endforeach;
+		        endforeach;
+		
+		        $this->data['products'] = $new_product;
+		        $this->data['store_id'] = $store_id;
+		        
+		        
+		        endif;
+        	
+        	if(empty($target) || is_null($target) || $target == ""): //neither
+		        redirect("purchase", "refresh");
+		        endif;
+			$this->data['target'] = $target;
+	        $this->data['products_suggestions'] = "<option value=''>Select or Type Product</option>";
+	        if ($this->data['products']) {
+		        foreach ($this->data['products'] as $product) {
+			        $product_suggestions[$product->product_category_name][] = $product;
 //                $this->data['products_suggestions'] .= "'" . $product->product_id . " - " . $product->product_name . "',";
-                }
-                foreach ($product_suggestions as $key => $value) {
-                    $this->data['products_suggestions'] .= "<optgroup label='" . $key . "'>";
+		        }
+		        foreach ($product_suggestions as $key => $value) {
+			        $this->data['products_suggestions'] .= "<optgroup label='" . $key . "'>";
 //                echo $key . "<br>";
-                    foreach ($product_suggestions[$key] as $value) {
-                        $this->data['products_suggestions'] .= "<option unit_symbol='" . $value->unit_symbol . "' value='" . $value->product_id . "'>" . $value->product_name . "</option>";
-                    }
-                    $this->data['products_suggestions'] .= "</optgroup>";
-                }
-            }
+			        foreach ($product_suggestions[$key] as $value) {
+				        $this->data['products_suggestions'] .= "<option unit_symbol='" . $value->unit_symbol . "' value='" . $value->product_id . "'>" . $value->product_name . "</option>";
+			        }
+			        $this->data['products_suggestions'] .= "</optgroup>";
+		        }
+	        }
 //            $this->data['products_suggestions'] = rtrim($this->data['products_suggestions'], ",");
-            $this->data['accounts'] = $this->web->GetAll("account_id", "accounts");
+	        $this->data['accounts'] = $this->web->GetAll("account_id", "accounts");
 //            print_r($this->data['warehouses']);
 //            die();
-            $last_invoice = $this->web->GetLastInsertedRow("invoice_id", "invoice", " where type='Purchase'");
-            if (!empty($last_invoice)) {
-                $p_no = explode("<br>", $last_invoice[0]->voucher_no);
-                $inc = explode("#", $p_no[0]);
+	        $last_invoice = $this->web->GetLastInsertedRow("invoice_id", "invoice", " where type='Purchase'");
+	        if (!empty($last_invoice)) {
+		        $p_no = explode("<br>", $last_invoice[0]->voucher_no);
+		        $inc = explode("#", $p_no[0]);
+		
+		
+		        $no = $inc[1] + 1;
+		        $no = sprintf('%05d', $no);
+		        $p_no = str_replace(' ', '', $inc[0]) . " # " . $no;
+		        $p_no = html_entity_decode($p_no);
+		        // die($p_no);
+		        $this->data['last_purchase_no'] = $p_no;
+	        } else {
+		        $this->data['last_purchase_no'] = 'P-V # 00001';
+	        }
+	        $this->data['contacts'] = $this->web->GetAll('contact_id', 'contacts', ' where contacts.contact_supply = 1');
+	        $this->load->view("purchase/add", $this->data);
 
-
-                $no = $inc[1] + 1;
-                $no = sprintf('%05d', $no);
-                $p_no = str_replace(' ', '', $inc[0]) . " # " . $no;
-                $p_no = html_entity_decode($p_no);
-                // die($p_no);
-                $this->data['last_purchase_no'] = $p_no;
-            } else {
-                $this->data['last_purchase_no'] = 'P-V # 00001';
-            }
-            $this->load->view("purchase/add", $this->data);
         }
     }
 
@@ -501,6 +584,35 @@ class Purchase extends MY_Controller {
                 }
             }
         }
+    }
+    
+    function new_purchase(){
+	
+		    $store_id = json_decode($this->session->userdata('user_store_id'));
+		    $warehouse_id = json_decode($this->session->userdata('user_warehouse_id'));
+		
+		    $stores = array();
+		    foreach ($store_id as $store):
+			    $_stores = $this->web->GetOne('store_id', 'stores', $store);
+			    $stores = array_merge($stores, $_stores);
+		
+		
+		    endforeach;
+		
+		    $warehouses = array();
+		    foreach ($warehouse_id as $warehouse):
+			    $_warehouses = $this->web->GetOne('warehouse_id', 'warehouses', $warehouse);
+			    $warehouses = array_merge($warehouses, $_warehouses);
+		
+		
+		    endforeach;
+		
+		
+		    $this->data['stores'] = $stores;
+		    $this->data['warehouses'] = $warehouses;
+		
+		    $this->load->view("purchase/new_purchase", $this->data);
+	 
     }
 
 }

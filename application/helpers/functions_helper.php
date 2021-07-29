@@ -198,7 +198,7 @@ function getPakistaniCurrency($number) {
         19 => 'nineteen', 20 => 'twenty', 30 => 'thirty',
         40 => 'forty', 50 => 'fifty', 60 => 'sixty',
         70 => 'seventy', 80 => 'eighty', 90 => 'ninety');
-    $digits = array('', 'hundred', 'thousand', 'lakh', 'crore');
+    $digits = array('', 'hundred', 'thousand', 'million', 'billion');
     while ($i < $digits_length) {
         $divider = ($i == 2) ? 10 : 100;
         $number = floor($no % $divider);
@@ -213,5 +213,5 @@ function getPakistaniCurrency($number) {
     }
     $Rupees = ucwords(implode('', array_reverse($str)));
     $paise = ucwords(($decimal) ? "." . ($words[$decimal / 10] . " " . $words[$decimal % 10]) . ' Paise' : '');
-    return ($Rupees ? $Rupees . 'Rupees ' : '') . $paise;
+    return ($Rupees ? $Rupees . 'Naira ' : '') . $paise;
 }

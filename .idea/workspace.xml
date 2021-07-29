@@ -19,10 +19,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="product transfer for store to warehouse, warehouse to store, store to store and warehouse to warehouse completed and reflecting in product ledger">
+    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="refactoring on products and edit products page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Products.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Products.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/products/add.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/products/add.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Purchase_order.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Purchase_order.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Sale_order.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Sale_order.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/Purchase_order/convert_purchase.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/Purchase_order/convert_purchase.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/sale_order/convert_sale.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale_order/convert_sale.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,14 +49,18 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../kessayo" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/application/views/contacts" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\facterp\application\controllers" />
-      <recent name="C:\xampp\htdocs\facterp\application\views\stores" />
+      <recent name="C:\xampp\htdocs\facterp\application\views\contacts" />
+      <recent name="C:\xampp\htdocs\facterp\application\views\Purchase_order" />
+      <recent name="C:\xampp\htdocs\facterp\application\views\sale_order" />
+      <recent name="C:\xampp\htdocs\facterp\application\views\production" />
+      <recent name="C:\xampp\htdocs\facterp\application\views\sale" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -65,7 +71,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1626015296257</updated>
-      <workItem from="1626015299102" duration="24361000" />
+      <workItem from="1626015299102" duration="30419000" />
+      <workItem from="1626537441360" duration="42978000" />
+      <workItem from="1627476448674" duration="18500000" />
     </task>
     <task id="LOCAL-00001" summary="new store and store listing completed">
       <created>1626018607669</created>
@@ -109,7 +117,203 @@
       <option name="project" value="LOCAL" />
       <updated>1626261817553</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="validation on new product">
+      <created>1626288012888</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1626288012888</updated>
+    </task>
+    <task id="LOCAL-00008" summary="showing total products from all warehouse and store on products page">
+      <created>1626336890370</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1626336890370</updated>
+    </task>
+    <task id="LOCAL-00009" summary="bug on product transfer (store to store) fixed">
+      <created>1626341643704</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1626341643704</updated>
+    </task>
+    <task id="LOCAL-00010" summary="view stock on warehouse and store">
+      <created>1626342974975</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1626342974975</updated>
+    </task>
+    <task id="LOCAL-00011" summary="add users based on store and warehouse started">
+      <created>1626538576185</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1626538576185</updated>
+    </task>
+    <task id="LOCAL-00012" summary="edit users based on store and warehouse">
+      <created>1626539142287</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1626539142287</updated>
+    </task>
+    <task id="LOCAL-00013" summary="edit users based on store and warehouse - fixed">
+      <created>1626539233587</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1626539233587</updated>
+    </task>
+    <task id="LOCAL-00014" summary="store store and warehouse id in session on login">
+      <created>1626539569037</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1626539569037</updated>
+    </task>
+    <task id="LOCAL-00015" summary="displaying product based on store id on sales page">
+      <created>1626541536169</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1626541536169</updated>
+    </task>
+    <task id="LOCAL-00016" summary="checking quantity at backend on sales">
+      <created>1626542853777</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1626542853777</updated>
+    </task>
+    <task id="LOCAL-00017" summary="change stock quantity on backend on sales">
+      <created>1626543893429</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1626543893429</updated>
+    </task>
+    <task id="LOCAL-00018" summary="sales completed. peding display">
+      <created>1626544454477</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1626544454477</updated>
+    </task>
+    <task id="LOCAL-00019" summary="sales display completed showing originating store">
+      <created>1626600141644</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1626600141644</updated>
+    </task>
+    <task id="LOCAL-00020" summary="sales completed with report displaying">
+      <created>1626603368997</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1626603368997</updated>
+    </task>
+    <task id="LOCAL-00021" summary="tracking employee activities">
+      <created>1626721874920</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1626721874920</updated>
+    </task>
+    <task id="LOCAL-00022" summary="print payslip by month and year, add bank details on new employee page">
+      <created>1626725211757</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1626725211757</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Add Users to multiple stores and warehouses">
+      <created>1626958634899</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1626958634899</updated>
+    </task>
+    <task id="LOCAL-00024" summary="route sales based on stores attached to">
+      <created>1626960779034</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1626960779034</updated>
+    </task>
+    <task id="LOCAL-00025" summary="sales completed based on second brief">
+      <created>1626961242078</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1626961242078</updated>
+    </task>
+    <task id="LOCAL-00026" summary="run production routine to credit product and debit raw materials">
+      <created>1626966871951</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1626966871951</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Added optional field to capture warehouse id alias for process function">
+      <created>1626981749335</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1626981749335</updated>
+    </task>
+    <task id="LOCAL-00028" summary="sales order converting to sales successfully">
+      <created>1626985756319</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1626985756319</updated>
+    </task>
+    <task id="LOCAL-00029" summary="purchase and purchase orders completed, converting purchase order to purchases">
+      <created>1627202808349</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1627202808350</updated>
+    </task>
+    <task id="LOCAL-00030" summary="product ledger showing from inception">
+      <created>1627480728428</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1627480728428</updated>
+    </task>
+    <task id="LOCAL-00031" summary="added vendor and customer to all kinds of invoice (purchase and sales)">
+      <created>1627487445573</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1627487445573</updated>
+    </task>
+    <task id="LOCAL-00032" summary="contact details showing on invoices">
+      <created>1627488094523</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1627488094523</updated>
+    </task>
+    <task id="LOCAL-00033" summary="receiving payment for credit sales">
+      <created>1627505245191</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1627505245191</updated>
+    </task>
+    <task id="LOCAL-00034" summary="refactoring on products and edit products page">
+      <created>1627505923610</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1627505923610</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -125,31 +329,49 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="new store and store listing completed" />
-    <MESSAGE value="adding products to warehouse and stores" />
-    <MESSAGE value="stock, log on warehouse and store adding completed" />
-    <MESSAGE value="toggle between transfer type" />
-    <MESSAGE value="product transfer for store to warehouse, warehouse to store, store to store and warehouse to warehouse completed and reflecting in product ledger" />
-    <option name="LAST_COMMIT_MESSAGE" value="product transfer for store to warehouse, warehouse to store, store to store and warehouse to warehouse completed and reflecting in product ledger" />
+    <MESSAGE value="view stock on warehouse and store" />
+    <MESSAGE value="add users based on store and warehouse started" />
+    <MESSAGE value="edit users based on store and warehouse" />
+    <MESSAGE value="edit users based on store and warehouse - fixed" />
+    <MESSAGE value="store store and warehouse id in session on login" />
+    <MESSAGE value="displaying product based on store id on sales page" />
+    <MESSAGE value="checking quantity at backend on sales" />
+    <MESSAGE value="change stock quantity on backend on sales" />
+    <MESSAGE value="sales completed. peding display" />
+    <MESSAGE value="sales display completed showing originating store" />
+    <MESSAGE value="sales completed with report displaying" />
+    <MESSAGE value="tracking employee activities" />
+    <MESSAGE value="print payslip by month and year, add bank details on new employee page" />
+    <MESSAGE value="Add Users to multiple stores and warehouses" />
+    <MESSAGE value="route sales based on stores attached to" />
+    <MESSAGE value="sales completed based on second brief" />
+    <MESSAGE value="run production routine to credit product and debit raw materials" />
+    <MESSAGE value="Added optional field to capture warehouse id alias for process function" />
+    <MESSAGE value="sales order converting to sales successfully" />
+    <MESSAGE value="purchase and purchase orders completed, converting purchase order to purchases" />
+    <MESSAGE value="product ledger showing from inception" />
+    <MESSAGE value="added vendor and customer to all kinds of invoice (purchase and sales)" />
+    <MESSAGE value="contact details showing on invoices" />
+    <MESSAGE value="receiving payment for credit sales" />
+    <MESSAGE value="refactoring on products and edit products page" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactoring on products and edit products page" />
   </component>
-  <component name="WindowStateProjectService">
-    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1626254918748">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1626254918748" />
-    <state x="687" y="130" key="NewPhpClassDialog" timestamp="1626252248977">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="687" y="130" key="NewPhpClassDialog/0.0.1366.728@0.0.1366.728" timestamp="1626252248977" />
-    <state x="519" y="282" key="NewPhpFileDialog" timestamp="1626253633947">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="519" y="282" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1626253633947" />
-    <state x="247" y="78" key="Vcs.Push.Dialog.v2" timestamp="1626261821224">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="247" y="78" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1626261821224" />
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php-line-method">
+          <url>file://$PROJECT_DIR$/application/controllers/Production.php</url>
+          <line>318</line>
+          <properties>
+            <option name="className" value="\Production" />
+            <option name="methodName" value="print_slip" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

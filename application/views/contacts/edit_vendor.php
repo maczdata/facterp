@@ -1,3 +1,6 @@
+<script>
+    var curr_date = "<?= date("Y-m-d") ?>";
+</script>
 <!DOCTYPE html>
 <html  lang="en">
 
@@ -11,7 +14,7 @@
 
         <meta charset="UTF-8">
         <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
-        <title> Facteezo: Purchase </title>
+          <title> Facteezo: Product </title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
@@ -30,42 +33,19 @@
         <!-- JS Core -->
 
         <script type="text/javascript" src="<?= base_url() ?>assets-minified/js-core.js"></script>
-
-        <!-- Chosen -->
-
-        <!--<link rel="stylesheet" type="text/css" href="../../assets/widgets/chosen/chosen.css">-->
         <script type="text/javascript" src="<?= base_url() ?>assets/widgets/chosen/chosen.js"></script>
         <script type="text/javascript" src="<?= base_url() ?>assets/widgets/chosen/chosen-demo.js"></script>
-        <script type="text/javascript" src="<?= base_url() ?>assets/widgets/datepicker/datepicker.js"></script>
-        <script type="text/javascript">
-            /* Datepicker bootstrap */
-
-            $(function () {
-                "use strict";
-                $('.bootstrap-datepicker').bsdatepicker({
-                    format: 'mm-dd-yyyy'
-                });
-            });
-        </script>
 
 
-        <script type="text/javascript">
-            $(window).load(function () {
-                setTimeout(function () {
-                    $('#loading').fadeOut(400, "linear");
-                }, 300);
-            });
-        </script>
 
 
 
         <script type="text/javascript">
-            $(window).load(function () {
-                setTimeout(function () {
-                    $('#loading').fadeOut(400, "linear");
-                }, 300);
-            });
-
+    $(window).load(function () {
+        setTimeout(function () {
+            $('#loading').fadeOut(400, "linear");
+        }, 300);
+    });
         </script>
 
 
@@ -449,300 +429,186 @@
 
                             <script type="text/javascript">
 
-            /* Datatables responsive */
+    /* Datatables responsive */
 
-            $(document).ready(function () {
-                $('#datatable-responsive').DataTable({
-                    responsive: true
-                });
-            });
+    $(document).ready(function () {
+//        $('#datatable-responsive').DataTable({
+//            responsive: true
+//        });
+    });
 
-            $(document).ready(function () {
-                $('.dataTables_filter input').attr("placeholder", "Search...");
-            });
+    $(document).ready(function () {
+//        $('.dataTables_filter input').attr("placeholder", "Search...");
+    });
 
                             </script>
 
-                            <div id="page-title" style="overflow: hidden;">
-                                <div class="col-md-8">
-                                    <h2>Purchases</h2>
-                                    <p>Add, Edit or Delete Purchase</p>
-                                </div>
-                                <div class="col-md-2 panel-group" id="accordion">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">
-                                        <i class="glyph-icon icon-calendar" style="font-size: 200%;padding-left: 140px;"></i>
-                                    </a>
-                                </div>
-                                <div class="col-md-2">
-                                    <button class="btn btn-blue-alt pull-right" onclick="AddPurchase();"><span style="margin-right: 5px;" class="glyph-icon icon-plus"></span>New Purchase</button>
-                                </div>
-                            </div>
-                            <div id="collapseOne" class="panel-collapse collapse" aria-expanded="false">
-                                <div class="panel-body">
-                                    <div class="row" class="select_date">
-                                        <form name="AccountForm" method="post" id="AccountForm" action="<?= base_url() ?>purchase/" class="form-horizontal">
-                                            <div class="form-group">
+                            <div id="page-title" >
+                                <div class="row">
+                                    <div class="col-md-12">
 
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="" class="col-sm-3 control-label">From Date</label>
-                                                <div class="col-sm-6">
-                                                    <div class="input-prepend input-group">
-                                                        <span class="add-on input-group-addon">
-                                                            <i class="glyph-icon icon-calendar"></i>
-                                                        </span>
-                                                        <input id="from_date" name="from_date" type="text" class="bootstrap-datepicker form-control" value="<?php
-                                                        if (isset($date_from)) {
-                                                            echo $date_from;
-                                                        } else {
-                                                            echo date("m-d-Y");
-                                                        }
-                                                        ?>" data-date-format="mm/dd/yy">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="" class="col-sm-3 control-label">To Date</label>
-                                                <div class="col-sm-6">
-                                                    <div class="input-prepend input-group">
-                                                        <span class="add-on input-group-addon">
-                                                            <i class="glyph-icon icon-calendar"></i>
-                                                        </span>
-                                                        <input id="to_date" name="to_date" type="text" class="bootstrap-datepicker form-control" value="<?php
-                                                        if (isset($date_to)) {
-                                                            echo $date_to;
-                                                        } else {
-                                                            echo date("m-d-Y");
-                                                        }
-                                                        ?>" data-date-format="mm/dd/yy">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3 ">
-                                                <select name="pro_type" id="pro_type" class="chosen-select" style=" z-index: -21;" >
-                                                    <option value="">Select Product Type</option>
-                                                    <option
-                                                    <?php
-                                                    if (isset($pro)) {
-                                                        if ($pro == "raw") {
-                                                            echo 'selected';
-                                                        }
-                                                    }
-                                                    ?>
-                                                        value="raw">Raw</option>
-                                                    <option
-                                                    <?php
-                                                    if (isset($pro)) {
-                                                        if ($pro == "production") {
-                                                            echo 'selected';
-                                                        }
-                                                    }
-                                                    ?>
-                                                        value="production">Product</option>
+                                        <div class="col-md-2">
+                                            <h2>Edit Vendor</h2>
+<!--                                            <p>Add, Edit a Customer</p>-->
+                                        </div>
 
-                                                </select>
-                                            </div>
-                                            <div class="col-md-3 ">
-                                                <select onchange="GetProducts(this.value);" name="all_prod" id="all_prod" class="chosen-select" style=" z-index: -21;" >
-                                                    <option value="">Select Product Category</option>
-                                                    <?php foreach ($prod_cat as $pro_Cat) { ?>
-                                                        <option
-                                                        <?php
-                                                        if (isset($cate)) {
-                                                            if ($cate == $pro_Cat->product_category_id) {
-                                                                echo 'selected';
-                                                            }
-                                                        }
-                                                        ?>
-                                                            value="<?= $pro_Cat->product_category_id ?>"><?= $pro_Cat->product_category_name ?></option>
-                                                        <?php } ?>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-3 " id="all_pro_outer">
-                                                <select  name="all_prod_name" id="all_prod_name" class="chosen-select ppp">
-                                                    <option value="">Select Products</option>
+                                   
 
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-3 pull-right">
-                                                <input class="btn btn-success" type="submit" value="Filter" name="filter"/>
-                                            </div>
-                                        </form>
+                                       
+
                                     </div>
+
+
+
+
                                 </div>
                             </div>
+
                             <div class="panel">
                                 <div class="panel-body">
-                                    <?php
-                                    $total_balnc = 0;
-                                    foreach ($total_purchases as $balnc) {
-
-                                        $total_balnc = $total_balnc + $balnc->total_balnc;
-                                        ?>
-                                        <?php
-                                    }
-                                    ?>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="col-md-3">
-                                                <a href="<?= base_url() ?>Purchase"><h3 class="title-hero">
-                                                        All Purchases
-                                                    </h3></a>
-                                            </div>
-                                            <div class="col-md-7">
-                                                <div class="col-md-7" style="font-weight:bold; font-size: 20px; font-style: italic;">Total Purchases <span style="font-size: 13px;">(Selected)</span> </div>
-                                                <div class="col-md-5" style="font-weight:bold; font-size: 20px;"><?php
-                                                    print_r($total_balnc);
-                                                    echo " Rs/-";
-                                                    ?></div>
-                                            </div>
-                                            <div class="col-md-2  pull-right form-group has-feedback "><i style="margin: 0px 15px auto;" class="glyph-icon icon-search form-control-feedback"></i><input class="form-control" type="text" id="search" name="search" placeholder="Search"/></div>
-                                        </div>
+                                    <div class="row ">
+                                        <a href="<?= base_url() ?>Products"><h3 class="title-hero">
+                                               Edit Vendor
+                                            </h3></a>
+                                        <div class="col-md-3  pull-right form-group has-feedback "><i style="margin: 0px 15px auto;" class="glyph-icon icon-search form-control-feedback"></i><input class="form-control" type="text" id="search" name="search" placeholder="Search"/></div>
                                     </div>
 
                                     <div class="example-box-wrapper">
-                                        <table  class="table table-striped table-bordered responsive no-wrap" cellspacing="0" width="100%">
-                                            <tbody class="post-list" id="postList">
-                                                <tr>
-                                                    <th>Sr#</th>
-                                                    <th>ID</th>
-                                                    <th>Date</th>
-                                                    <th>Account Name</th>
-                                                    <th>Discount</th>
-                                                    <th>Total</th>
-                                                    <th>Payment Method</th>
-                                                    <th>Manage</th>
-                                                </tr>
-
-
-                                                <?php
-                                                if (!empty($purchases)): $count = 1;
-                                                    foreach ($purchases as $purchase):
-                                                        ?>
-                                                        <tr <?= $purchase['return_invoice_id'] != NULL ? "style='background:#ffe5e5 !important;'" : "" ?>>
-                                                            <td><?= $count ?></td>
-                                                            <td><?= $purchase['invoice_id'] ?></td>
-                                                            <td><?= $purchase['invoice_date'] ?></td>
-                                                            <td><?= $purchase['account_name'] ?></td>
-                                                            <td><?= $purchase['total_discount'] ?></td>
-                                                            <td><?= $purchase['invoice_total'] ?></td>
-                                                            <td><?= $purchase['payment_method'] ?></td>
-
-                                                            <td>
-                                                                <?php if ($this->session->userdata('user_group_id') == 1 && ($purchase['return_invoice_id'] == NULL)) { ?>
-
-                                                                    <button class="btn btn-round btn-info" data-toggle="tooltip" data-placement="top" title="Edit" data-toggle="modal" data-target="#myModal" onclick="EditPurchase('<?= $purchase['invoice_id'] ?>');">
-                                                                        <i class="glyph-icon icon-pencil"></i>
-                                                                    </button>
-                                                                    <button class="btn btn-round btn-danger" data-toggle="tooltip" data-placement="top" title="Delete" onclick="DeletePurchase('<?= $purchase['invoice_id'] ?>');">
-                                                                        <i class="glyph-icon icon-trash"></i>
-                                                                    </button>
-
-                                                                <?php } ?>
-                                                                <button class="btn btn-round btn-success" data-toggle="tooltip" data-placement="top" title="View" onclick="ViewPurchase('<?= $purchase['invoice_id'] ?>');">
-                                                                    <i class="glyph-icon icon-file-text-o"></i>
-                                                                </button>
-                                                                <button class="btn btn-round btn-black" data-toggle="tooltip" data-placement="top" title="Return" data-toggle="modal" data-target="#myModal" onclick="PurchaseReturn('<?= $purchase['invoice_id'] ?>');">
-                                                                    <i class="glyph-icon icon-refresh"></i>
-                                                                </button>
-
-                                                            </td>
-                                                        </tr>
-                                                        <?php
-                                                        $count++;
-                                                    endforeach;
-                                                else:
-                                                    ?>
-                                                <p>Purchase(s) not available.</p>
-                                            <?php endif; ?>
-                                            <?php
-                                            if (isset($search)) {
-                                                echo $this->ajax_pagination->create_links(NULL, NULL, $search);
-                                            }
-                                            if (isset($cate) && isset($pro_name) && isset($pro) && isset($date_from) && isset($date_to)) {
-                                                if (empty($cat)) {
-                                                    $cat = NULL;
-                                                }
-                                                if (empty($pro_name)) {
-                                                    $pro_name = NULL;
-                                                }
-                                                if (empty($pro)) {
-                                                    $pro = NULL;
-                                                }
-                                                if (empty($date_from)) {
-                                                    $date_from = NULL;
-                                                }
-                                                if (empty($date_to)) {
-                                                    $date_to = NULL;
-                                                }
-
-                                                echo $this->ajax_pagination->create_links($date_from, $date_to, NULL, $cate, $pro_name, $pro);
-                                            } if (!isset($search) && !isset($date_from) && !isset($date_to) && !isset($cate) && !isset($pro_name) && !isset($pro)) {
-                                                echo $this->ajax_pagination->create_links();
-                                            }
-                                            ?>
-
-                                            </tbody>
-                                        </table>
+										<form  method="post"  action="">
+											<div class="row">
+												<div class="col-md-12">
+													<div class="mb-3">
+														<label for="validationCustom03" class="form-label">Contact Company Name:</label>
+														<input type="text" class="form-control" id="validationCustom05"
+															   placeholder="contact e-mail" value="<?=$contact->contact_company ?>" name="contact_company", required>
+														
+				
+													</div>
+												</div>
+		
+											</div>
+											<br>
+											<input type="hidden" name="type" value="2">
+											<div class="row">
+												<div class="col-md-12">
+													<div class="mb-3">
+														<label for="validationCustom01" class="form-label">contact Name:</label>
+														<input type="text" class="form-control" id="validationCustom01"
+															   placeholder="contact Name" value="<?=$contact->contact_name ?>" name="contact_name" required>
+														
+														
+														<input type="hidden" name="type" value="2">
+														<input type="hidden" name="contact_id" value="<?=$contact->contact_id; ?>">
+				
+													</div>
+												</div>
+		
+											</div>
+											<br>
+											<div class="row">
+												<div class="col-md-12">
+													<div class="mb-3">
+														<label for="validationCustom02" class="form-label">Contact Phone:</label>
+														<input type="text" class="form-control" id="validationCustom02"
+															   placeholder="contact Phone" value="<?=$contact->contact_phone ?>" name="contact_phone" required>
+														
+				
+				
+													</div>
+												</div>
+		
+											</div>
+											<br>
+											<div class="row">
+												<div class="col-md-12">
+													<div class="mb-3">
+														<label for="validationCustom03" class="form-label">Contact E-Mail:</label>
+														<input type="email" class="form-control" id="validationCustom03"
+															   placeholder="contact e-mail" value="<?=$contact->contact_email ?>" name="contact_email">
+														
+				
+													</div>
+												</div>
+		
+											</div>
+											<br>
+											<div class="row">
+												<div class="col-md-12">
+													<div class="mb-3">
+														<label for="validationCustom03" class="form-label">Contact Address:</label>
+														<input type="text" class="form-control" id="validationCustom04"
+															   placeholder="contact address" value="<?=$contact->contact_address ?>" name="contact_address">
+														
+				
+													</div>
+												</div>
+		
+											</div>
+		
+											<div>
+												<button class="btn btn-primary" type="submit">Submit form</button>
+											</div>
+										</form>
                                     </div>
                                 </div>
                             </div>
 
                         </div>
 
-                        <input type="hidden" id="all_pro_hidden" value=""/>
+
 
                     </div>
                 </div>
             </div>
-
-
-            <!-- JS Demo -->
+	
+		
+			<!-- JS Demo -->
             <script type="text/javascript" src="<?= base_url() ?>assets-minified/admin-all-demo.js"></script>
 
             <script>
-                                                            function EditPurchase(invoice_id) {
-                                                                window.location.href = "<?= base_url() ?>purchase/view/" + invoice_id;
+                                                            function EditProduct(product_id) {
+                                                                window.location.href = "<?= base_url() ?>products/view/" + product_id;
+                                                                //        $.post("<?//= base_url() ?>users/edit", {id: user_id})
+                                                                //            .done(function (data) {
+                                                                //                if ($.trim(data) == 'done') {
+                                                                //                    window.location.href = "<?= base_url() ?>dashboard";
+                                                                //                }
+                                                                //                if ($.trim(data) == 'failed') {
+                                                                ////                                                            alert('here');
+                                                                //                    window.location.href = "<?= base_url() ?>";
+                                                                //
+                                                                //                }
+                                                                //            });
                                                             }
-                                                            function PurchaseReturn(invoice_id) {
-                                                                window.location.href = "<?= base_url() ?>purchase/view_return/" + invoice_id;
-                                                            }
-                                                            function DeletePurchase(invoice_id) {
+                                                            function DeleteProduct(product_id) {
                                                                 var cnfirm = confirm("Are You Sure?");
                                                                 if (cnfirm) {
-                                                                    $.post("<?= base_url() ?>purchase/delete", {id: invoice_id})
+                                                                    $.post("<?= base_url() ?>products/delete", {id: product_id})
                                                                             .done(function (data) {
-
+                                                                                //                                                                                    alert(data);
                                                                                 if ($.trim(data) == 'done') {
                                                                                     location.reload(true);
                                                                                 }
                                                                             });
                                                                 }
                                                             }
-                                                            function AddPurchase() {
-                                                                window.location.href = "<?= base_url() ?>purchase/new_purchase";
-                                                            }
-                                                            function ViewPurchase(invoice_id) {
-                                                                window.location.href = "<?= base_url() ?>purchase/view_invoice/" + invoice_id;
+                                                            function AddUser() {
+                                                                window.location.href = "<?= base_url() ?>contacts/new_customer";
                                                             }
 
-                                                            function GetProducts(cat_id) {
-                                                                var pro_type = $("#pro_type").val();
-
-                                                                var base_url = "<?= base_url() ?>";
-                                                                $("#all_pro_outer select").html("<option value=''>Select Option</option>");
-                                                                $.post(base_url + "purchase/GetProducts", {cat_id: cat_id, pro_type: pro_type})
+                                                            function GoLedger(product_id) {
+//                                                                alert(curr_date);
+                                                                $.post("<?= base_url() ?>" + "reports/product_statement", {product: product_id, from_date: curr_date, to_date: curr_date})
                                                                         .done(function (data) {
-                                                                            console.log(data);
-                                                                            var obj = JSON.parse(data);
-                                                                            $.each(obj, function (k, v) {
-                                                                                $("#all_pro_outer select").append("<option value='" + v['product_id'] + "'>" + v['product_name'] + "</option>");
-
-                                                                            });
-                                                                            $(".ppp").trigger("chosen:updated");
+//                                                                            console.log(data);
+//                                                                            return false;
+                                                                            var newDoc = document.open("text/html", "replace");
+                                                                            newDoc.write(data);
+                                                                            newDoc.close();
                                                                         });
-
                                                             }
+
+
 
             </script>
             <script>
@@ -753,7 +619,7 @@
                         if (rtngPtId == "") {
                             $("#search").attr("placeholder", "Enter Valid Input");
                         } else {
-                            $.post("<?= base_url() ?>purchase/search", {id: rtngPtId})
+                            $.post("<?= base_url() ?>products/search", {id: rtngPtId})
                                     .done(function (data) {
 //                                        console.log(data);
 
@@ -773,23 +639,6 @@
 
                 });
             </script>
-            <script type="text/javascript">
-                $(document).ready(function () {
-                    $("#from_date").bsdatepicker({
-                        format: 'mm-dd-yyyy',
-                    });
-                    $("#to_date").bsdatepicker({
-                        format: 'mm-dd-yyyy',
-                    });
-                    $('#from_date').on('changeDate', function (ev) {
-                        $(this).bsdatepicker('hide');
-                    });
-                    $('#to_date').on('changeDate', function (ev) {
-                        $(this).bsdatepicker('hide');
-                    });
-                });
-            </script>
-
         </div>
         <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">

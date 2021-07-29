@@ -541,13 +541,25 @@
                                                 <label class="col-sm-2 control-label">Select Account</label>
                                                 <div class="col-sm-4">
                                                     <select name="account" onchange=" Validation()" id="account" class="chosen-select">
-                                                        <option value="">Select Option</option>
+                                                        <option value="1">Select Option</option>
                                                         <?php foreach ($accounts as $account) { ?>
                                                             <option value="<?= $account->account_id ?>"><?= $account->account_name ?></option>
                                                         <?php } ?>
                                                     </select>
                                                 </div>
+	
+	
+												<label class="col-sm-2 control-label">Select Customer</label>
+												<div class="col-sm-4">
+													<select name="customer" onchange=" Validation()" id="customer" class="chosen-select">
+														<option value="1">Select Option</option>
+														<?php foreach ($contacts as $contact) { ?>
+															<option value="<?= $contact->contact_id ?>"><?= $contact->contact_name ?></option>
+														<?php } ?>
+													</select>
+												</div>
                                             </div>
+											<input type="hidden" name="store_id" value="<?=$store_id; ?>"/>
                                             <input type="hidden" id="product_suggestions" value="<?= $products_suggestions ?>" />
                                             <input type="hidden" id="batch_suggestions" value="<?= $batch_suggestions ?>" />
                                             <div class="form-group">

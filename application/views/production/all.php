@@ -524,7 +524,7 @@
                                                 <tr>
                                                     <th>ID</th>
                                                     <th>Date</th>
-                                                    <th>Section</th>
+                                                    <th>Warehouse</th>
                                                     <th>Manage</th>
                                                 </tr>
 
@@ -537,7 +537,7 @@
                                                         <tr>
                                                             <td><?= $production->issue_id ?></td>
                                                             <td><?= $production->date ?></td>
-                                                            <td><?= $production->section_name ?></td>
+                                                            <td><?= $production->warehouse_name ?></td>
 
                                                             <td>
 
@@ -637,7 +637,7 @@
                                                                     }
 
                                                                     function AddProduction() {
-                                                                        window.location.href = "<?= base_url() ?>production/add";
+                                                                        window.location.href = "<?= base_url() ?>production/new_production";
                                                                     }
 
             </script>

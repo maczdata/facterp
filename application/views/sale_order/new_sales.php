@@ -11,7 +11,7 @@
 
         <meta charset="UTF-8">
         <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
-        <title> Facteezo: Purchase </title>
+        <title> Facteezo: Sales </title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
@@ -31,31 +31,7 @@
 
         <script type="text/javascript" src="<?= base_url() ?>assets-minified/js-core.js"></script>
 
-        <!-- Chosen -->
 
-        <!--<link rel="stylesheet" type="text/css" href="../../assets/widgets/chosen/chosen.css">-->
-        <script type="text/javascript" src="<?= base_url() ?>assets/widgets/chosen/chosen.js"></script>
-        <script type="text/javascript" src="<?= base_url() ?>assets/widgets/chosen/chosen-demo.js"></script>
-        <script type="text/javascript" src="<?= base_url() ?>assets/widgets/datepicker/datepicker.js"></script>
-        <script type="text/javascript">
-            /* Datepicker bootstrap */
-
-            $(function () {
-                "use strict";
-                $('.bootstrap-datepicker').bsdatepicker({
-                    format: 'mm-dd-yyyy'
-                });
-            });
-        </script>
-
-
-        <script type="text/javascript">
-            $(window).load(function () {
-                setTimeout(function () {
-                    $('#loading').fadeOut(400, "linear");
-                }, 300);
-            });
-        </script>
 
 
 
@@ -65,7 +41,6 @@
                     $('#loading').fadeOut(400, "linear");
                 }, 300);
             });
-
         </script>
 
 
@@ -446,7 +421,12 @@
                             <script type="text/javascript" src="<?= base_url() ?>assets/widgets/datatable/datatable.js"></script>
                             <script type="text/javascript" src="<?= base_url() ?>assets/widgets/datatable/datatable-bootstrap.js"></script>
                             <script type="text/javascript" src="<?= base_url() ?>assets/widgets/datatable/datatable-responsive.js"></script>
+                            <script type="text/javascript" src="<?= base_url() ?>assets/widgets/datepicker/datepicker.js"></script>
+                            <!-- Chosen -->
 
+                            <!--<link rel="stylesheet" type="text/css" href="../../assets/widgets/chosen/chosen.css">-->
+                            <script type="text/javascript" src="<?= base_url() ?>assets/widgets/chosen/chosen.js"></script>
+                            <script type="text/javascript" src="<?= base_url() ?>assets/widgets/chosen/chosen-demo.js"></script>
                             <script type="text/javascript">
 
             /* Datatables responsive */
@@ -462,235 +442,77 @@
             });
 
                             </script>
+                            <script type="text/javascript">
+                                /* Datepicker bootstrap */
 
+                                $(function () {
+                                    "use strict";
+                                    $('.bootstrap-datepicker').bsdatepicker({
+                                        format: 'mm-dd-yyyy'
+                                    });
+                                });
+                            </script>
                             <div id="page-title" style="overflow: hidden;">
                                 <div class="col-md-8">
-                                    <h2>Purchases</h2>
-                                    <p>Add, Edit or Delete Purchase</p>
+                                    <h2>Sales</h2>
+                                    <p>New Sale</p>
                                 </div>
                                 <div class="col-md-2 panel-group" id="accordion">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">
                                         <i class="glyph-icon icon-calendar" style="font-size: 200%;padding-left: 140px;"></i>
                                     </a>
                                 </div>
-                                <div class="col-md-2">
-                                    <button class="btn btn-blue-alt pull-right" onclick="AddPurchase();"><span style="margin-right: 5px;" class="glyph-icon icon-plus"></span>New Purchase</button>
-                                </div>
+                               
                             </div>
                             <div id="collapseOne" class="panel-collapse collapse" aria-expanded="false">
                                 <div class="panel-body">
                                     <div class="row" class="select_date">
-                                        <form name="AccountForm" method="post" id="AccountForm" action="<?= base_url() ?>purchase/" class="form-horizontal">
-                                            <div class="form-group">
-
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="" class="col-sm-3 control-label">From Date</label>
-                                                <div class="col-sm-6">
-                                                    <div class="input-prepend input-group">
-                                                        <span class="add-on input-group-addon">
-                                                            <i class="glyph-icon icon-calendar"></i>
-                                                        </span>
-                                                        <input id="from_date" name="from_date" type="text" class="bootstrap-datepicker form-control" value="<?php
-                                                        if (isset($date_from)) {
-                                                            echo $date_from;
-                                                        } else {
-                                                            echo date("m-d-Y");
-                                                        }
-                                                        ?>" data-date-format="mm/dd/yy">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="" class="col-sm-3 control-label">To Date</label>
-                                                <div class="col-sm-6">
-                                                    <div class="input-prepend input-group">
-                                                        <span class="add-on input-group-addon">
-                                                            <i class="glyph-icon icon-calendar"></i>
-                                                        </span>
-                                                        <input id="to_date" name="to_date" type="text" class="bootstrap-datepicker form-control" value="<?php
-                                                        if (isset($date_to)) {
-                                                            echo $date_to;
-                                                        } else {
-                                                            echo date("m-d-Y");
-                                                        }
-                                                        ?>" data-date-format="mm/dd/yy">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3 ">
-                                                <select name="pro_type" id="pro_type" class="chosen-select" style=" z-index: -21;" >
-                                                    <option value="">Select Product Type</option>
-                                                    <option
-                                                    <?php
-                                                    if (isset($pro)) {
-                                                        if ($pro == "raw") {
-                                                            echo 'selected';
-                                                        }
-                                                    }
-                                                    ?>
-                                                        value="raw">Raw</option>
-                                                    <option
-                                                    <?php
-                                                    if (isset($pro)) {
-                                                        if ($pro == "production") {
-                                                            echo 'selected';
-                                                        }
-                                                    }
-                                                    ?>
-                                                        value="production">Product</option>
-
-                                                </select>
-                                            </div>
-                                            <div class="col-md-3 ">
-                                                <select onchange="GetProducts(this.value);" name="all_prod" id="all_prod" class="chosen-select" style=" z-index: -21;" >
-                                                    <option value="">Select Product Category</option>
-                                                    <?php foreach ($prod_cat as $pro_Cat) { ?>
-                                                        <option
-                                                        <?php
-                                                        if (isset($cate)) {
-                                                            if ($cate == $pro_Cat->product_category_id) {
-                                                                echo 'selected';
-                                                            }
-                                                        }
-                                                        ?>
-                                                            value="<?= $pro_Cat->product_category_id ?>"><?= $pro_Cat->product_category_name ?></option>
-                                                        <?php } ?>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-3 " id="all_pro_outer">
-                                                <select  name="all_prod_name" id="all_prod_name" class="chosen-select ppp">
-                                                    <option value="">Select Products</option>
-
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-3 pull-right">
-                                                <input class="btn btn-success" type="submit" value="Filter" name="filter"/>
-                                            </div>
-                                        </form>
+                                    
                                     </div>
                                 </div>
                             </div>
                             <div class="panel">
                                 <div class="panel-body">
-                                    <?php
-                                    $total_balnc = 0;
-                                    foreach ($total_purchases as $balnc) {
-
-                                        $total_balnc = $total_balnc + $balnc->total_balnc;
-                                        ?>
-                                        <?php
-                                    }
-                                    ?>
+                            
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="col-md-3">
-                                                <a href="<?= base_url() ?>Purchase"><h3 class="title-hero">
-                                                        All Purchases
-                                                    </h3></a>
+												<form name="AccountForm" method="get" id="AccountForm" action="<?= base_url() ?>sale_order/add" class="form-horizontal">
+													<div class="form-group">
+		
+													</div>
+													<div class="form-group">
+														<label for="" class="col-sm-3 control-label">Select Store</label>
+														<select name="store_id" id="pro_type" class="chosen-select" style=" z-index: -21;" >
+															<option value="">Select Store</option>
+															
+															<?php foreach ($stores as $store): ?>
+															<option value="<?=$store->store_id ?>" > <?=$store->store_name; ?></option>
+															
+															<?php endforeach; ?>
+														
+														</select>
+													</div>
+												
+													<div class="col-md-3 ">
+													
+													</div>
+												
+													<div class="col-sm-3 pull-right">
+														<input class="btn btn-success" type="submit" value="Proceed"/>
+													</div>
+												</form>
                                             </div>
-                                            <div class="col-md-7">
-                                                <div class="col-md-7" style="font-weight:bold; font-size: 20px; font-style: italic;">Total Purchases <span style="font-size: 13px;">(Selected)</span> </div>
-                                                <div class="col-md-5" style="font-weight:bold; font-size: 20px;"><?php
-                                                    print_r($total_balnc);
-                                                    echo " Rs/-";
-                                                    ?></div>
-                                            </div>
-                                            <div class="col-md-2  pull-right form-group has-feedback "><i style="margin: 0px 15px auto;" class="glyph-icon icon-search form-control-feedback"></i><input class="form-control" type="text" id="search" name="search" placeholder="Search"/></div>
-                                        </div>
+                                                    </div>
                                     </div>
 
-                                    <div class="example-box-wrapper">
-                                        <table  class="table table-striped table-bordered responsive no-wrap" cellspacing="0" width="100%">
-                                            <tbody class="post-list" id="postList">
-                                                <tr>
-                                                    <th>Sr#</th>
-                                                    <th>ID</th>
-                                                    <th>Date</th>
-                                                    <th>Account Name</th>
-                                                    <th>Discount</th>
-                                                    <th>Total</th>
-                                                    <th>Payment Method</th>
-                                                    <th>Manage</th>
-                                                </tr>
 
-
-                                                <?php
-                                                if (!empty($purchases)): $count = 1;
-                                                    foreach ($purchases as $purchase):
-                                                        ?>
-                                                        <tr <?= $purchase['return_invoice_id'] != NULL ? "style='background:#ffe5e5 !important;'" : "" ?>>
-                                                            <td><?= $count ?></td>
-                                                            <td><?= $purchase['invoice_id'] ?></td>
-                                                            <td><?= $purchase['invoice_date'] ?></td>
-                                                            <td><?= $purchase['account_name'] ?></td>
-                                                            <td><?= $purchase['total_discount'] ?></td>
-                                                            <td><?= $purchase['invoice_total'] ?></td>
-                                                            <td><?= $purchase['payment_method'] ?></td>
-
-                                                            <td>
-                                                                <?php if ($this->session->userdata('user_group_id') == 1 && ($purchase['return_invoice_id'] == NULL)) { ?>
-
-                                                                    <button class="btn btn-round btn-info" data-toggle="tooltip" data-placement="top" title="Edit" data-toggle="modal" data-target="#myModal" onclick="EditPurchase('<?= $purchase['invoice_id'] ?>');">
-                                                                        <i class="glyph-icon icon-pencil"></i>
-                                                                    </button>
-                                                                    <button class="btn btn-round btn-danger" data-toggle="tooltip" data-placement="top" title="Delete" onclick="DeletePurchase('<?= $purchase['invoice_id'] ?>');">
-                                                                        <i class="glyph-icon icon-trash"></i>
-                                                                    </button>
-
-                                                                <?php } ?>
-                                                                <button class="btn btn-round btn-success" data-toggle="tooltip" data-placement="top" title="View" onclick="ViewPurchase('<?= $purchase['invoice_id'] ?>');">
-                                                                    <i class="glyph-icon icon-file-text-o"></i>
-                                                                </button>
-                                                                <button class="btn btn-round btn-black" data-toggle="tooltip" data-placement="top" title="Return" data-toggle="modal" data-target="#myModal" onclick="PurchaseReturn('<?= $purchase['invoice_id'] ?>');">
-                                                                    <i class="glyph-icon icon-refresh"></i>
-                                                                </button>
-
-                                                            </td>
-                                                        </tr>
-                                                        <?php
-                                                        $count++;
-                                                    endforeach;
-                                                else:
-                                                    ?>
-                                                <p>Purchase(s) not available.</p>
-                                            <?php endif; ?>
-                                            <?php
-                                            if (isset($search)) {
-                                                echo $this->ajax_pagination->create_links(NULL, NULL, $search);
-                                            }
-                                            if (isset($cate) && isset($pro_name) && isset($pro) && isset($date_from) && isset($date_to)) {
-                                                if (empty($cat)) {
-                                                    $cat = NULL;
-                                                }
-                                                if (empty($pro_name)) {
-                                                    $pro_name = NULL;
-                                                }
-                                                if (empty($pro)) {
-                                                    $pro = NULL;
-                                                }
-                                                if (empty($date_from)) {
-                                                    $date_from = NULL;
-                                                }
-                                                if (empty($date_to)) {
-                                                    $date_to = NULL;
-                                                }
-
-                                                echo $this->ajax_pagination->create_links($date_from, $date_to, NULL, $cate, $pro_name, $pro);
-                                            } if (!isset($search) && !isset($date_from) && !isset($date_to) && !isset($cate) && !isset($pro_name) && !isset($pro)) {
-                                                echo $this->ajax_pagination->create_links();
-                                            }
-                                            ?>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
                                 </div>
                             </div>
 
                         </div>
 
-                        <input type="hidden" id="all_pro_hidden" value=""/>
+
 
                     </div>
                 </div>
@@ -701,37 +523,40 @@
             <script type="text/javascript" src="<?= base_url() ?>assets-minified/admin-all-demo.js"></script>
 
             <script>
-                                                            function EditPurchase(invoice_id) {
-                                                                window.location.href = "<?= base_url() ?>purchase/view/" + invoice_id;
+                                                            function EditSale(invoice_id) {
+                                                                window.location.href = "<?= base_url() ?>sale/view/" + invoice_id;
                                                             }
-                                                            function PurchaseReturn(invoice_id) {
-                                                                window.location.href = "<?= base_url() ?>purchase/view_return/" + invoice_id;
-                                                            }
-                                                            function DeletePurchase(invoice_id) {
+
+                                                            function DeleteSale(invoice_id) {
                                                                 var cnfirm = confirm("Are You Sure?");
                                                                 if (cnfirm) {
-                                                                    $.post("<?= base_url() ?>purchase/delete", {id: invoice_id})
+                                                                    $.post("<?= base_url() ?>sale/delete", {id: invoice_id})
                                                                             .done(function (data) {
-
+//                                                                                    alert(data);
                                                                                 if ($.trim(data) == 'done') {
                                                                                     location.reload(true);
                                                                                 }
                                                                             });
                                                                 }
                                                             }
-                                                            function AddPurchase() {
-                                                                window.location.href = "<?= base_url() ?>purchase/new_purchase";
-                                                            }
-                                                            function ViewPurchase(invoice_id) {
-                                                                window.location.href = "<?= base_url() ?>purchase/view_invoice/" + invoice_id;
-                                                            }
 
+
+
+                                                            function SaleReturn(invoice_id) {
+                                                                window.location.href = "<?= base_url() ?>sale/view_return/" + invoice_id;
+                                                            }
+                                                            function AddSale() {
+                                                                window.location.href = "<?= base_url() ?>sale/new_sales";
+                                                            }
+                                                            function ViewSale(invoice_id) {
+                                                                window.location.href = "<?= base_url() ?>sale/view_invoice/" + invoice_id;
+                                                            }
                                                             function GetProducts(cat_id) {
                                                                 var pro_type = $("#pro_type").val();
 
                                                                 var base_url = "<?= base_url() ?>";
                                                                 $("#all_pro_outer select").html("<option value=''>Select Option</option>");
-                                                                $.post(base_url + "purchase/GetProducts", {cat_id: cat_id, pro_type: pro_type})
+                                                                $.post(base_url + "sale/GetProducts", {cat_id: cat_id, pro_type: pro_type})
                                                                         .done(function (data) {
                                                                             console.log(data);
                                                                             var obj = JSON.parse(data);
@@ -753,9 +578,8 @@
                         if (rtngPtId == "") {
                             $("#search").attr("placeholder", "Enter Valid Input");
                         } else {
-                            $.post("<?= base_url() ?>purchase/search", {id: rtngPtId})
+                            $.post("<?= base_url() ?>sale/search", {id: rtngPtId})
                                     .done(function (data) {
-//                                        console.log(data);
 
                                         if ($.trim(data) == 'no') {
                                             $("#search")
@@ -773,6 +597,7 @@
 
                 });
             </script>
+
             <script type="text/javascript">
                 $(document).ready(function () {
                     $("#from_date").bsdatepicker({
@@ -789,7 +614,6 @@
                     });
                 });
             </script>
-
         </div>
         <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">

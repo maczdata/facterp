@@ -41,8 +41,34 @@ class Products extends MY_Controller {
             $this->ajax_pagination->initialize($config);
 
             //get the posts data
-            $this->data['products'] = $this->web->getRows(array('table1' => 'products', 'table2' => 'units', 'table2_primary_key' => 'unit_id', 'search_column_id' => 'products.product_id', 'search_column1' => 'products.product_name', 'search_column2' => 'products.instock', 'search_column3' => 'units.unit_symbol', 'limit' => $this->perPage));
-
+            $products = $this->web->getRows(array('table1' => 'products', 'table2' => 'units', 'table2_primary_key' => 'unit_id', 'search_column_id' => 'products.product_id', 'search_column1' => 'products.product_name', 'search_column2' => 'products.instock', 'search_column3' => 'units.unit_symbol', 'limit' => $this->perPage));
+	
+            $new_products = array();
+            $i = 0;
+            foreach ($products as $product):
+	           $products_stores = $this->web->GetOne('store_stock_product_id', 'store_stock', $product['product_id']);
+            
+                $products_warehouses = $this->web->GetOne('warehouse_stock_product_id', 'warehouse_stock', $product['product_id']);
+	            
+                $store_quantity =0;
+                $warehouse_quantity = 0;
+	                foreach($products_stores as $products_store):
+		                $store_quantity = $products_store->store_stock_quantity + $store_quantity;
+	                endforeach;
+		
+		            foreach($products_warehouses as $products_warehouse):
+			            $warehouse_quantity = $products_warehouse->warehouse_stock_quantity + $warehouse_quantity;
+		            endforeach;
+            
+		            $total_quantity = $store_quantity + $warehouse_quantity;
+		            
+		            $product['quantity'] = $total_quantity;
+              
+		            $new_products[$i] = $product;
+		            $i++;
+                endforeach;
+	        
+            $this->data['products'] = $new_products;
 
 
 //            $this->data['products'] = $this->web->GetAllWithInner("product_id", "products", "units", "unit_id", NULL, NULL);
@@ -128,17 +154,50 @@ class Products extends MY_Controller {
 //        die();
         $this->load->view("products/edit", $this->data);
     }
+	
+	
+	function view_product($product_id) {
+		$product_id = $this->uri->segment(3);
+		$products_stores = $this->web->GetOne('store_stock_product_id', 'store_stock', $product_id);
+		
+		
+		$products_warehouses = $this->web->GetOne('warehouse_stock_product_id', 'warehouse_stock', $product_id);
+		
+		$i = 0;
+		$j = 0;
+		
+		$new_products_stores = array();
+		$new_products_warehouses = array();
+		
+		foreach($products_stores as $products_store):
+			$store = $this->web->GetOne('store_id', 'stores', $products_store->store_stock_store_id)[0];
+			$products_store->store_name = $store->store_name;
+			$new_products_stores[$i] = $products_store;
+			$i++;
+		endforeach;
+		
+		foreach($products_warehouses as $products_warehouse):
+			$warehouse = $this->web->GetOne('warehouse_id', 'warehouses', $products_warehouse->warehouse_stock_warehouse_id)[0];
+			$products_warehouse->warehouse_name = $warehouse->warehouse_name;
+			$new_products_warehouses[$j] = $products_warehouse;
+			$j++;
+		endforeach;
+		$this->data['product'] = $this->web->GetOne('product_id', 'products', $product_id)[0];
+		$this->data['new_products_warehouses'] = $new_products_warehouses;
+		$this->data['new_products_stores'] = $new_products_stores;
+		$this->load->view("products/view", $this->data);
+	}
 
     function edit() {
         $data = array();
         $data['product_name'] = $this->db->escape_str($this->input->post("name", true));
-        $data['warehouse_id'] = $this->db->escape_str($this->input->post("warehouse", true));
+        //$data['warehouse_id'] = $this->db->escape_str($this->input->post("warehouse", true));
         $data['type'] = $this->db->escape_str($this->input->post("product_type", true));
         $data['unit_id'] = $this->db->escape_str($this->input->post("product_unit", true));
         $data['purchase_unit_id'] = $this->db->escape_str($this->input->post("purchase_unit", true));
         $data['sale_unit_id'] = $this->db->escape_str($this->input->post("sale_unit", true));
         $data['product_category_id'] = $this->db->escape_str($this->input->post("product_category", true));
-        $data['instock'] = $this->input->post("instock", true);
+        //$data['instock'] = $this->input->post("instock", true);
         $data['product_rate'] = $this->input->post("product_rate", true);
         $data['description'] = htmlentities($this->input->post("desc", true));
         $id = $this->input->post("product_id", true);
@@ -187,7 +246,8 @@ class Products extends MY_Controller {
 				        'credit_qty' => $quantity,
 				        'description' => 'Initial Stocking',
 				        'type' => 'WAREHOUSE',
-				        'warehouse_id' => $warehouse_id
+				        'warehouse_id' => $warehouse_id,
+				        'user_id' => $this->session->userdata('user_id'),
 			        );
 	        		
 	        		$this->web->Add('product_ledger', $ledger);
@@ -219,7 +279,8 @@ class Products extends MY_Controller {
 				        'credit_qty' => $quantity,
 				        'description' => 'Initial Stocking',
 				        'type' => 'STORE',
-				        'store_id' => $store_id
+				        'store_id' => $store_id,
+				        'user_id' => $this->session->userdata('user_id'),
 			        );
 			
 			        $this->web->Add('product_ledger', $ledger);

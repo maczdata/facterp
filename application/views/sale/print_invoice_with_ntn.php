@@ -32,7 +32,7 @@
         <script>
             function print_me() {
                 window.print();
-                window.location.href = "<?= base_url() ?>sale/view_invoice/<?= $invoice[0]->invoice_id ?>";                    }
+                                    }
         </script>
 
     </head>
@@ -143,7 +143,7 @@
                 <?php $amount_total = $invoice[0]->invoice_total; ?>
                     <td colspan="5" class="font-blue font-size-16"><?= getPakistaniCurrency($amount_total) ?>&nbsp;&nbsp;&nbsp;&nbsp;</td>
                     <td></td>
-                    <td  float="right" class="font-Black font-size-16 text-right"><?= $invoice[0]->invoice_total ?> Rs</td>
+                    <td  float="right" class="font-Black font-size-16 text-right"><?= $invoice[0]->invoice_total ?> NGN</td>
             </tr>
         </table>
    </div>  

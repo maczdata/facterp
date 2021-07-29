@@ -21,10 +21,16 @@
   <component name="ChangeListManager">
     <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="refactoring on products and edit products page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Purchase_order.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Purchase_order.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Sale_order.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Sale_order.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/Purchase_order/convert_purchase.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/Purchase_order/convert_purchase.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/sale_order/convert_sale.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale_order/convert_sale.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/Purchase_order/print_gatepass.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/Purchase_order/print_gatepass.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/Purchase_order/print_ordr.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/Purchase_order/print_ordr.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/purchase/print_gatepass.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/purchase/print_gatepass.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/purchase/print_invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/purchase/print_invoice.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/sale/print_gatepass.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale/print_gatepass.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/sale/print_invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale/print_invoice.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/sale/print_invoice_with_ntn.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale/print_invoice_with_ntn.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/sale/print_invoice_without_ntn.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale/print_invoice_without_ntn.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/sale_order/print_gatepass.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale_order/print_gatepass.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/sale_order/print_ordr.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale_order/print_ordr.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +79,7 @@
       <updated>1626015296257</updated>
       <workItem from="1626015299102" duration="30419000" />
       <workItem from="1626537441360" duration="42978000" />
-      <workItem from="1627476448674" duration="18500000" />
+      <workItem from="1627476448674" duration="19876000" />
     </task>
     <task id="LOCAL-00001" summary="new store and store listing completed">
       <created>1626018607669</created>
@@ -313,7 +319,14 @@
       <option name="project" value="LOCAL" />
       <updated>1627505923610</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="refactoring on products and edit products page">
+      <created>1627506636040</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1627506636040</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

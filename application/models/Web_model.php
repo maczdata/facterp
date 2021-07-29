@@ -98,6 +98,15 @@ class Web_model extends MY_Model {
 		$query = $this->db->query($query);
 		return $query->result_array();
 	}
+	
+	function GetAllSalesContact($contact_id, $limit = NULL) {
+		$query = "SELECT invoice.*,invoice.date_created as invoice_date,accounts.* FROM invoice INNER JOIN accounts ON accounts.account_id = invoice.account_id LEFT JOIN stores ON stores.store_id = invoice.invoice_store_id  WHERE  invoice_contact_id ='{$contact_id}' ORDER BY invoice_id DESC";
+		if ($limit != NULL) {
+			$query .= " limit $limit";
+		}
+		$query = $this->db->query($query);
+		return $query->result_array();
+	}
 
     function GetAllSales_filter($date_from, $date_to, $category, $product, $prod_type, $limit = NULL, $search = NULL) {
         $query = "SELECT invoice.*,invoice_items.*,invoice.date_created as invoice_date,accounts.* FROM invoice INNER JOIN invoice_items ON invoice_items.invoice_id = invoice.invoice_id INNER JOIN products ON invoice_items.product_id = products.product_id  INNER JOIN accounts ON accounts.account_id = invoice.account_id WHERE invoice.type='Sale'  ";
@@ -515,6 +524,14 @@ AND product_ledger.date_ledger > '" . $to_date . "' GROUP BY product_ledger.prod
         $query = $this->db->query($query);
         return $query->result();
     }
+		
+		function GetReportforProductsToDate($to_date, $product_id) {
+			
+			$query = "select p_l.*,p.*,u.*,p_l.description as product_ledger_description from product_ledger p_l inner join products p on p.product_id=p_l.product_id inner join units u on p.unit_id = u.unit_id where p_l.product_id={$product_id} and p_l.date_ledger <= '$to_date'  and p.product_id = $product_id AND p_l.type='WAREHOUSE' order by p_l.date_ledger ASC";
+			
+			$query = $this->db->query($query);
+			return $query->result();
+		}
 
     function GetReportforProducts_general($from_date, $to_date, $product_id) {
 

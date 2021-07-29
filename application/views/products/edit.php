@@ -512,14 +512,7 @@
                                                         <input type="text" value="<?= $product[0]->product_name ?>" name="name" id="name" class="form-control" placeholder="Product Name">
                                                     </div>
                                                 </div>
-                                                <label class="col-sm-2 control-label">Warehouse</label>
-                                                <div class="col-sm-4">
-                                                    <select name="warehouse" id="warehouse" class="chosen-select">
-                                                        <?php foreach ($warehouses as $warehouse) { ?>
-                                                            <option <?= $product[0]->warehouse_id == $warehouse->warehouse_id ? "selected" : "" ?> value="<?= $warehouse->warehouse_id ?>"><?= $warehouse->warehouse_name ?></option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </div>
+                                               
                                             </div>
                                             <input type="hidden" name="product_id" value="<?= $product[0]->product_id ?>" />
                                             <div class="form-group">
@@ -542,13 +535,7 @@
                                                         <?php } ?>
                                                     </select>
                                                 </div>
-                                                <label class="col-sm-2 control-label">In Stock</label>
-                                                <div class="col-sm-2">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon glyph-icon icon-cubes"></span>
-                                                        <input value="<?= $product[0]->instock ?>" type="number" name="instock" id="instock" class="form-control" placeholder="In Stock">
-                                                    </div>
-                                                </div>
+                                               
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label">Product Unit</label>
@@ -638,18 +625,12 @@
                         $("#name").css("border", "1px solid red");
                         err = true;
                     }
-                    if (warehouse == "" || warehouse == null) {
-                        $("#warehouse_chosen").css("border", "1px solid red");
-                        err = true;
-                    }
+                   
                     if (product_type == "" || product_type == null) {
                         $("#product_type_chosen").css("border", "1px solid red");
                         err = true;
                     }
-                    if (instock == "" || instock == null) {
-                        $("#instock").css("border", "1px solid red");
-                        err = true;
-                    }
+               
                     if (product_unit == "" || product_unit == null) {
                         $("#product_unit_chosen").css("border", "1px solid red");
                         err = true;

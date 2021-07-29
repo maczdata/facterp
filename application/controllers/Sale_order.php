@@ -215,6 +215,7 @@ class Sale_order extends MY_Controller {
             } else {
                 $this->data['last_sale_no'] = 'S-V # 00001';
             }
+	    $this->data['contacts'] = $this->web->GetAll('contact_id', 'contacts', ' where contacts.contact_customer = 1');
         $this->load->view("sale_order/convert_sale", $this->data);
     }
 
@@ -549,6 +550,7 @@ class Sale_order extends MY_Controller {
                 $this->data['last_sale_no'] = 'S-O # 00001';
             }
 			$this->data['store_id'] = $store_id;
+	        
             $this->load->view("sale_order/add", $this->data);
         }
     }

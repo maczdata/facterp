@@ -11,7 +11,7 @@
 	
 	<meta charset="UTF-8">
 	<!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
-	<title> Facteezo: Purchases </title>
+	<title> Facteezo: Sales </title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	
@@ -454,79 +454,97 @@
 					</script>
 					<div id="page-title" style="overflow: hidden;">
 						<div class="col-md-8">
-							<h2>Purchases</h2>
-							<p>New Purchase</p>
+							<h2>ALl Invoices</h2>
+							
 						</div>
 						<div class="col-md-2 panel-group" id="accordion">
 							<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">
 								<i class="glyph-icon icon-calendar" style="font-size: 200%;padding-left: 140px;"></i>
 							</a>
 						</div>
+						
+					</div>
 					
-					</div>
-					<div id="collapseOne" class="panel-collapse collapse" aria-expanded="false">
-						<div class="panel-body">
-							<div class="row" class="select_date">
-							
-							</div>
-						</div>
-					</div>
 					<div class="panel">
 						<div class="panel-body">
 							
 							<div class="row">
 								<div class="col-md-12">
 									<div class="col-md-3">
-										<form name="AccountForm" method="get" id="AccountForm" action="<?= base_url() ?>purchase_order/add" class="form-horizontal">
-											<div class="form-group">
-												<label for="" class="col-sm-6 control-label">Target Location</label>
-												<select name="target" id="pro_type" class="chosen-select">
-													<option value="">Select Target</option>
-													
-													<option value="1"> Warehouse </option>
-													<option value="2">Store</option>
-												
-												</select>
-											</div>
-											
-											<div class="form-group" id="warehouse">
-												<label for="" class="col-sm-6 control-label">Warehouse</label>
-												<select name="warehouse_id" id="pro_type" class="chosen-select" >
-													<option value="">Warehouse</option>
-													
-													<?php foreach ($warehouses as $warehouse): ?>
-														<option value="<?=$warehouse->warehouse_id ?>" > <?=$warehouse->warehouse_name; ?></option>
-													
-													<?php endforeach; ?>
-												
-												</select>
-											</div>
-											<div class="form-group" id="store">
-												<label for="" class="col-sm-3 control-label">Store</label>
-												<select name="store_id" id="pro_type" class="chosen-select" >
-													<option value="">Select Store</option>
-													
-													<?php foreach ($stores as $store): ?>
-														<option value="<?=$store->store_id ?>" > <?=$store->store_name; ?></option>
-													
-													<?php endforeach; ?>
-												
-												</select>
-											</div>
-											
-											<div class="col-md-3 ">
-											
-											</div>
-											
-											<div class="col-sm-3 pull-right">
-												<input class="btn btn-success" type="submit" value="Proceed"/>
-											</div>
-										</form>
+										<h3> Total Balance: <?php echo $total_balance; ?> </h3>
 									</div>
-								</div>
+									
+										</div>
+							
+							
+							
+							<div class="example-box-wrapper">
+								<table class="table  table-bordered responsive no-wrap" cellspacing="0" width="100%">
+									<tbody class="post-list" id="postList">
+									<tr>
+										<th>Sr#</th>
+										<th>ID</th>
+										<th>Date</th>
+										<th>Account Name</th>
+										<th>Discount</th>
+										<th> Payment Status</th>
+										<th>Total</th>
+										<th>Balance</th>
+										<th> Target</th>
+										<th>Payment Method</th>
+										<th>Manage</th>
+									</tr>
+									
+									
+									<?php
+										if (!empty($sales)): $count = 1;
+											foreach ($sales as $sale):
+												?>
+												<tr <?= $sale['return_invoice_id'] != NULL ? "style='background:#ffe5e5 !important;'" : "" ?>>
+													<td><?= $count ?></td>
+													<td><?= $sale['invoice_no'] ?></td>
+													<td><?= $sale['invoice_date'] ?></td>
+													<td><?= $sale['account_name'] ?></td>
+													<td><?= $sale['total_discount'] ?></td>
+													<td> <?php if($sale['payment_status'] == 'Confirmed'): echo "Paid Fully"; endif;
+															if($sale['payment_status'] == 'Pending'): echo "On Credit"; endif;
+														?></td>
+													<td><?= $sale['invoice_total'] ?></td>
+													<td> <?=$sale['balance'] ?></td>
+													<td><?php if($sale['store_name']){echo $sale['store_name']; } if($sale['warehouse_name']){echo $sale['warehouse_name']; } ?></td>
+													<td><?= $sale['payment_method'] ?></td>
+													
+													<td>
+													
+														<button class="btn btn-round btn-success" data-toggle="tooltip" data-placement="top" title="View" onclick="ViewSale('<?= $sale['invoice_id'] ?>');">
+															<i class="glyph-icon icon-file-text-o"></i>
+														</button>
+														
+														<?php if($sale['payment_status'] == 'Pending'): ?>
+														
+														<button class="btn btn-round btn-success" data-toggle="tooltip" data-placement="top" title="Receive Payment" onclick="ReceivePayment('<?= $sale['invoice_id'] ?>');">
+															<i class="glyph-icon icon-arrow-down"></i>
+														</button>
+														
+														<?php endif; ?>
+													
+													</td>
+												</tr>
+												<?php
+												$count++;
+											endforeach;
+										else:
+											?>
+											<p>Sale(s) not available.</p>
+										<?php endif; ?>
+								
+										
+									
+									
+									
+									</tbody>
+								</table>
 							</div>
-						
-						
 						</div>
 					</div>
 				
@@ -571,6 +589,9 @@
         function ViewSale(invoice_id) {
             window.location.href = "<?= base_url() ?>sale/view_invoice/" + invoice_id;
         }
+        function ReceivePayment(invoice_id) {
+            window.location.href = "<?= base_url() ?>contacts/receive_payment/" + invoice_id;
+        }
         function GetProducts(cat_id) {
             var pro_type = $("#pro_type").val();
 
@@ -591,20 +612,6 @@
 	
 	</script>
 	<script>
-		$("#pro_type").change(function(event){
-		    var type = $("#pro_type").val();
-            $("#store").hide();
-            $("#warehouse").hide();
-		    if(type == 1){
-			    $("#warehouse").show();
-			    $("#store").hide();
-		    }
-            if(type == 2){
-                $("#store").show();
-                $("#warehouse").hide();
-            }
-		    
-		})
         $("#search").keyup(function (event) {
             var keycode = (event.keyCode ? event.keyCode : event.which);
             if (keycode == '13') {
@@ -634,8 +641,6 @@
 	
 	<script type="text/javascript">
         $(document).ready(function () {
-            $("#store").hide();
-            $("#warehouse").hide();
             $("#from_date").bsdatepicker({
                 format: 'mm-dd-yyyy',
             });

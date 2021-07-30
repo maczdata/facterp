@@ -47,7 +47,7 @@
             function print_me() {
                 
                 window.print();
-                window.location.href = "<?= base_url() ?>sale/view_invoice/<?= $invoice[0]->invoice_id ?>";
+               
                     }
         </script>
 

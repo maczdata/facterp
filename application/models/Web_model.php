@@ -3,11 +3,11 @@
 class Web_model extends MY_Model {
 
     function filter_products($category_id, $warehouse_id, $prod_type, $limit = NULL, $search = NULL) {
-        $query = "SELECT * FROM products INNER JOIN product_categories p_c on p_c.product_category_id=products.product_category_id INNER JOIN units ON products.unit_id = units.unit_id INNER JOIN warehouses ON warehouses.warehouse_id= products.warehouse_id where 1=1  ";
+        $query = "SELECT * FROM products INNER JOIN product_categories p_c on p_c.product_category_id=products.product_category_id INNER JOIN units ON products.unit_id = units.unit_id where 1=1";
 
-        if ($warehouse_id != NULL) {
-            $query .= "  AND products.warehouse_id=$warehouse_id";
-        }
+//        if ($warehouse_id != NULL) {
+//            $query .= "  AND products.warehouse_id=$warehouse_id";
+//        }
         if ($category_id != NULL) {
             $query .= " AND  products.product_category_id=$category_id";
         }

@@ -11,6 +11,12 @@ class Login extends CI_Controller {
     }
 
     public function index() {
+	   $sections =  $this->web->GetAll("section_id", "sections");
+	   if(empty($sections)):
+		    $data['section_name'] = 'test';
+	        $data['section_address'] = 'test';
+			$this->web->AddReturnId("sections", $data);
+		endif;
         if (CheckSess() == TRUE) {
             redirect('dashboard', 'refresh');
         }

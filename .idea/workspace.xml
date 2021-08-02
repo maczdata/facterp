@@ -19,18 +19,13 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="refactoring on products and edit products page">
+    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="product ledger showing all activities">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/Purchase_order/print_gatepass.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/Purchase_order/print_gatepass.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/Purchase_order/print_ordr.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/Purchase_order/print_ordr.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/purchase/print_gatepass.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/purchase/print_gatepass.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/purchase/print_invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/purchase/print_invoice.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/sale/print_gatepass.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale/print_gatepass.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/sale/print_invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale/print_invoice.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/sale/print_invoice_with_ntn.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale/print_invoice_with_ntn.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/sale/print_invoice_without_ntn.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale/print_invoice_without_ntn.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/sale_order/print_gatepass.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale_order/print_gatepass.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/sale_order/print_ordr.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale_order/print_ordr.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/config/database.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Login.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Products.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Products.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/Web_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Web_model.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/products/ajax-pagination-data.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/products/ajax-pagination-data.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +52,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/application/views/contacts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../makeup" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -79,7 +74,7 @@
       <updated>1626015296257</updated>
       <workItem from="1626015299102" duration="30419000" />
       <workItem from="1626537441360" duration="42978000" />
-      <workItem from="1627476448674" duration="19876000" />
+      <workItem from="1627476448674" duration="24632000" />
     </task>
     <task id="LOCAL-00001" summary="new store and store listing completed">
       <created>1626018607669</created>
@@ -326,7 +321,21 @@
       <option name="project" value="LOCAL" />
       <updated>1627506636040</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="printing bug fixed">
+      <created>1627533246869</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1627533246869</updated>
+    </task>
+    <task id="LOCAL-00037" summary="product ledger showing all activities">
+      <created>1627634094914</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1627634094914</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -345,8 +354,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="view stock on warehouse and store" />
-    <MESSAGE value="add users based on store and warehouse started" />
     <MESSAGE value="edit users based on store and warehouse" />
     <MESSAGE value="edit users based on store and warehouse - fixed" />
     <MESSAGE value="store store and warehouse id in session on login" />
@@ -370,7 +377,9 @@
     <MESSAGE value="contact details showing on invoices" />
     <MESSAGE value="receiving payment for credit sales" />
     <MESSAGE value="refactoring on products and edit products page" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactoring on products and edit products page" />
+    <MESSAGE value="printing bug fixed" />
+    <MESSAGE value="product ledger showing all activities" />
+    <option name="LAST_COMMIT_MESSAGE" value="product ledger showing all activities" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

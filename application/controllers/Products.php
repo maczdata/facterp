@@ -108,7 +108,34 @@ class Products extends MY_Controller {
         $this->ajax_pagination->initialize($config);
 
         //get the posts data
-        $data['products'] = $this->web->filter_products($cat, $war, $pro, " {$offset},{$this->perPage}", $search);
+        $products = $this->web->filter_products($cat, $war, $pro, " {$offset},{$this->perPage}", $search);
+	    $new_products = array();
+	    $i = 0;
+	    foreach ($products as $product):
+		    $products_stores = $this->web->GetOne('store_stock_product_id', 'store_stock', $product['product_id']);
+		
+		    $products_warehouses = $this->web->GetOne('warehouse_stock_product_id', 'warehouse_stock', $product['product_id']);
+		
+		    $store_quantity =0;
+		    $warehouse_quantity = 0;
+		    foreach($products_stores as $products_store):
+			    $store_quantity = $products_store->store_stock_quantity + $store_quantity;
+		    endforeach;
+		
+		    foreach($products_warehouses as $products_warehouse):
+			    $warehouse_quantity = $products_warehouse->warehouse_stock_quantity + $warehouse_quantity;
+		    endforeach;
+		
+		    $total_quantity = $store_quantity + $warehouse_quantity;
+		
+		    $product['quantity'] = $total_quantity;
+		
+		    $new_products[$i] = $product;
+		    $i++;
+	    endforeach;
+	
+	    $data['products'] = $new_products;
+     
 //        print_r($data['issues']);
 //        die();
         //load the view
@@ -120,7 +147,7 @@ class Products extends MY_Controller {
         $data['pro'] = $pro;
         $data['count'] = $offset + 1;
 
-
+        
         $this->load->view('Products/ajax-pagination-data', $data, false);
     }
 

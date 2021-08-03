@@ -634,8 +634,8 @@
                                                     $("#div_discount" + u_id + " span").remove();
 
                                                     $("#div_qty" + u_id).append('<span class="input-group-addon bootstrap-touchspin-postfix">' + unit_symbol + '</span>');
-                                                    $("#div_sale_price" + u_id).append('<span class="input-group-addon bootstrap-touchspin-postfix">Rs</span>');
-                                                    $("#div_discount" + u_id).append('<span class="input-group-addon bootstrap-touchspin-postfix">Rs</span>');
+                                                    $("#div_sale_price" + u_id).append('<span class="input-group-addon bootstrap-touchspin-postfix">NGN</span>');
+                                                    $("#div_discount" + u_id).append('<span class="input-group-addon bootstrap-touchspin-postfix">NGN</span>');
 
                                                 }
                                                 function add_product() {

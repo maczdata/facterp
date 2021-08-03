@@ -19,11 +19,15 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="sale price on new and edit product">
+    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="sale price on new sales page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Products.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Products.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Sale.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Sale.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/views/sale/add.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale/add.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/views/sale/all.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale/all.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/sale/print_gatepass.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale/print_gatepass.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/sale/print_invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale/print_invoice.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/sale/print_invoice_with_ntn.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale/print_invoice_with_ntn.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/sale/print_invoice_without_ntn.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale/print_invoice_without_ntn.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/views/sale_order/add.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale_order/add.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -74,7 +78,7 @@
       <workItem from="1626015299102" duration="30419000" />
       <workItem from="1626537441360" duration="42978000" />
       <workItem from="1627476448674" duration="26908000" />
-      <workItem from="1627929305975" duration="4095000" />
+      <workItem from="1627929305975" duration="9819000" />
     </task>
     <task id="LOCAL-00001" summary="new store and store listing completed">
       <created>1626018607669</created>
@@ -356,7 +360,14 @@
       <option name="project" value="LOCAL" />
       <updated>1628004693931</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="sale price on new sales page">
+      <created>1628006419138</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1628006419138</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -375,7 +386,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="displaying product based on store id on sales page" />
     <MESSAGE value="checking quantity at backend on sales" />
     <MESSAGE value="change stock quantity on backend on sales" />
     <MESSAGE value="sales completed. peding display" />
@@ -400,7 +410,8 @@
     <MESSAGE value="pagination on products page fixed" />
     <MESSAGE value="bug on pagination fixed" />
     <MESSAGE value="sale price on new and edit product" />
-    <option name="LAST_COMMIT_MESSAGE" value="sale price on new and edit product" />
+    <MESSAGE value="sale price on new sales page" />
+    <option name="LAST_COMMIT_MESSAGE" value="sale price on new sales page" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

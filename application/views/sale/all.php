@@ -599,6 +599,8 @@
                                                     <th>Account Name</th>
                                                     <th>Discount</th>
                                                     <th>Total</th>
+													<th> Balance</th>
+													<th> Status</th>
 													<th> Store</th>
                                                     <th>Payment Method</th>
                                                     <th>Manage</th>
@@ -615,7 +617,20 @@
                                                             <td><?= $sale['invoice_date'] ?></td>
                                                             <td><?= $sale['account_name'] ?></td>
                                                             <td><?= $sale['total_discount'] ?></td>
-                                                            <td><?= $sale['invoice_total'] ?></td>
+															<td><?= $sale['invoice_total'] ?></td>
+															
+															<td> <?=$sale['balance'] ?></td>
+               
+	
+															<td> <?php if($sale['payment_status'] == 'Confirmed'): echo "Paid Fully"; endif;
+																	if($sale['payment_status'] == 'Pending'):
+																		if(($sale['balance'] < $sale['invoice_total'])):
+																		echo "Part Payment";
+																		else:
+																			echo "On Credit";
+																		endif;
+																		endif;
+																?></td>
 															<td><?= $sale['store_name']; ?></td>
                                                             <td><?= $sale['payment_method'] ?></td>
 

@@ -254,6 +254,7 @@ class Products extends MY_Controller {
         $data['product_category_id'] = $this->db->escape_str($this->input->post("product_category", true));
         //$data['instock'] = $this->input->post("instock", true);
         $data['product_rate'] = $this->input->post("product_rate", true);
+        $data['sale_price'] = $this->input->post('sale_price', true);
         $data['description'] = htmlentities($this->input->post("desc", true));
         $id = $this->input->post("product_id", true);
         $this->web->Update("product_id", "products", $id, $data);
@@ -278,6 +279,7 @@ class Products extends MY_Controller {
             $data['purchase_unit_id'] = $this->db->escape_str($this->input->post("purchase_unit", true));
             $data['sale_unit_id'] = $this->db->escape_str($this->input->post("sale_unit", true));
             $data['product_category_id'] = $this->db->escape_str($this->input->post("product_category", true));
+            $data['sale_price'] = $this->db->escape_str($this->input->post("sale_price", true));
             //$data['instock'] = $this->input->post("instock", true);
             $quantity = $this->input->post("instock", true);
             $data['product_rate'] = $this->input->post("product_rate", true);

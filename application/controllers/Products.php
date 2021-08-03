@@ -260,6 +260,13 @@ class Products extends MY_Controller {
         $this->web->Update("product_id", "products", $id, $data);
         redirect("products", "refresh");
     }
+    
+    function get_product($product_id){
+	    
+		    $product_id = $this->uri->segment(3);
+	        $data = $this->web->GetOne('product_id', 'products', $product_id)[0];
+	        echo json_encode($data);
+    }
 
     function delete() {
         $product_id = $this->input->post("id", true);

@@ -632,6 +632,13 @@
                                                                         <i class="glyph-icon icon-refresh"></i>
                                                                     </button>
                                                                 <?php } ?>
+																<?php if($sale['payment_status'] == 'Pending'): ?>
+		
+																	<button class="btn btn-round btn-success" data-toggle="tooltip" data-placement="top" title="Receive Payment" onclick="ReceivePayment('<?= $sale['invoice_id'] ?>');">
+																		<i class="glyph-icon icon-arrow-down"></i>
+																	</button>
+	
+																<?php endif; ?>
                                                                 <button class="btn btn-round btn-success" data-toggle="tooltip" data-placement="top" title="View" onclick="ViewSale('<?= $sale['invoice_id'] ?>');">
                                                                     <i class="glyph-icon icon-file-text-o"></i>
                                                                 </button>
@@ -693,6 +700,9 @@
             <script type="text/javascript" src="<?= base_url() ?>assets-minified/admin-all-demo.js"></script>
 
             <script>
+				function ReceivePayment(invoice_id) {
+					window.location.href = "<?= base_url() ?>contacts/receive_payment/" + invoice_id;
+				}
                                                             function EditSale(invoice_id) {
                                                                 window.location.href = "<?= base_url() ?>sale/view/" + invoice_id;
                                                             }

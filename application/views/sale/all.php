@@ -599,6 +599,8 @@
                                                     <th>Account Name</th>
                                                     <th>Discount</th>
                                                     <th>Total</th>
+													<th> Balance</th>
+													<th> Status</th>
 													<th> Store</th>
                                                     <th>Payment Method</th>
                                                     <th>Manage</th>
@@ -615,7 +617,20 @@
                                                             <td><?= $sale['invoice_date'] ?></td>
                                                             <td><?= $sale['account_name'] ?></td>
                                                             <td><?= $sale['total_discount'] ?></td>
-                                                            <td><?= $sale['invoice_total'] ?></td>
+															<td><?= $sale['invoice_total'] ?></td>
+															
+															<td> <?=$sale['balance'] ?></td>
+               
+	
+															<td> <?php if($sale['payment_status'] == 'Confirmed'): echo "Paid Fully"; endif;
+																	if($sale['payment_status'] == 'Pending'):
+																		if(($sale['balance'] < $sale['invoice_total'])):
+																		echo "Part Payment";
+																		else:
+																			echo "On Credit";
+																		endif;
+																		endif;
+																?></td>
 															<td><?= $sale['store_name']; ?></td>
                                                             <td><?= $sale['payment_method'] ?></td>
 
@@ -632,6 +647,13 @@
                                                                         <i class="glyph-icon icon-refresh"></i>
                                                                     </button>
                                                                 <?php } ?>
+																<?php if($sale['payment_status'] == 'Pending'): ?>
+		
+																	<button class="btn btn-round btn-success" data-toggle="tooltip" data-placement="top" title="Receive Payment" onclick="ReceivePayment('<?= $sale['invoice_id'] ?>');">
+																		<i class="glyph-icon icon-arrow-down"></i>
+																	</button>
+	
+																<?php endif; ?>
                                                                 <button class="btn btn-round btn-success" data-toggle="tooltip" data-placement="top" title="View" onclick="ViewSale('<?= $sale['invoice_id'] ?>');">
                                                                     <i class="glyph-icon icon-file-text-o"></i>
                                                                 </button>
@@ -693,6 +715,9 @@
             <script type="text/javascript" src="<?= base_url() ?>assets-minified/admin-all-demo.js"></script>
 
             <script>
+				function ReceivePayment(invoice_id) {
+					window.location.href = "<?= base_url() ?>contacts/receive_payment/" + invoice_id;
+				}
                                                             function EditSale(invoice_id) {
                                                                 window.location.href = "<?= base_url() ?>sale/view/" + invoice_id;
                                                             }

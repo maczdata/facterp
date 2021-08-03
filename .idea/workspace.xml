@@ -19,13 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="product ledger showing all activities">
+    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="print showing customer name">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/config/database.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Login.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Login.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Products.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Products.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Web_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Web_model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/products/ajax-pagination-data.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/products/ajax-pagination-data.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/contacts/view_invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/contacts/view_invoice.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +48,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../makeup" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../testj" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -74,7 +70,8 @@
       <updated>1626015296257</updated>
       <workItem from="1626015299102" duration="30419000" />
       <workItem from="1626537441360" duration="42978000" />
-      <workItem from="1627476448674" duration="24632000" />
+      <workItem from="1627476448674" duration="26908000" />
+      <workItem from="1627929305975" duration="9989000" />
     </task>
     <task id="LOCAL-00001" summary="new store and store listing completed">
       <created>1626018607669</created>
@@ -335,7 +332,42 @@
       <option name="project" value="LOCAL" />
       <updated>1627634094914</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="pagination on products page fixed">
+      <created>1627636562286</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1627636562286</updated>
+    </task>
+    <task id="LOCAL-00039" summary="bug on pagination fixed">
+      <created>1628003595241</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1628003595241</updated>
+    </task>
+    <task id="LOCAL-00040" summary="sale price on new and edit product">
+      <created>1628004693931</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1628004693931</updated>
+    </task>
+    <task id="LOCAL-00041" summary="sale price on new sales page">
+      <created>1628006419138</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1628006419138</updated>
+    </task>
+    <task id="LOCAL-00042" summary="print showing customer name">
+      <created>1628022552786</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1628022552786</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -354,11 +386,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="edit users based on store and warehouse" />
-    <MESSAGE value="edit users based on store and warehouse - fixed" />
-    <MESSAGE value="store store and warehouse id in session on login" />
-    <MESSAGE value="displaying product based on store id on sales page" />
-    <MESSAGE value="checking quantity at backend on sales" />
     <MESSAGE value="change stock quantity on backend on sales" />
     <MESSAGE value="sales completed. peding display" />
     <MESSAGE value="sales display completed showing originating store" />
@@ -379,7 +406,12 @@
     <MESSAGE value="refactoring on products and edit products page" />
     <MESSAGE value="printing bug fixed" />
     <MESSAGE value="product ledger showing all activities" />
-    <option name="LAST_COMMIT_MESSAGE" value="product ledger showing all activities" />
+    <MESSAGE value="pagination on products page fixed" />
+    <MESSAGE value="bug on pagination fixed" />
+    <MESSAGE value="sale price on new and edit product" />
+    <MESSAGE value="sale price on new sales page" />
+    <MESSAGE value="print showing customer name" />
+    <option name="LAST_COMMIT_MESSAGE" value="print showing customer name" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

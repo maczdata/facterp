@@ -163,8 +163,36 @@ class Products extends MY_Controller {
         $this->ajax_pagination->initialize($config);
 
         //get the posts data
-        $this->data['products'] = $this->web->filter_products(NULL, NULL, NULL, " 0,{$this->perPage}", $search_text);
-//        print_r($this->data['products']);
+        $products = $this->web->filter_products(NULL, NULL, NULL, " 0,{$this->perPage}", $search_text);
+	
+	    $new_products = array();
+	    $i = 0;
+	    foreach ($products as $product):
+		    $products_stores = $this->web->GetOne('store_stock_product_id', 'store_stock', $product['product_id']);
+		
+		    $products_warehouses = $this->web->GetOne('warehouse_stock_product_id', 'warehouse_stock', $product['product_id']);
+		
+		    $store_quantity =0;
+		    $warehouse_quantity = 0;
+		    foreach($products_stores as $products_store):
+			    $store_quantity = $products_store->store_stock_quantity + $store_quantity;
+		    endforeach;
+		
+		    foreach($products_warehouses as $products_warehouse):
+			    $warehouse_quantity = $products_warehouse->warehouse_stock_quantity + $warehouse_quantity;
+		    endforeach;
+		
+		    $total_quantity = $store_quantity + $warehouse_quantity;
+		
+		    $product['quantity'] = $total_quantity;
+		
+		    $new_products[$i] = $product;
+		    $i++;
+	    endforeach;
+	
+	    $this->data['products'] = $new_products;
+	
+	    //        print_r($this->data['products']);
 //        die();
         $this->data['search'] = $search_text;
 
@@ -226,10 +254,18 @@ class Products extends MY_Controller {
         $data['product_category_id'] = $this->db->escape_str($this->input->post("product_category", true));
         //$data['instock'] = $this->input->post("instock", true);
         $data['product_rate'] = $this->input->post("product_rate", true);
+        $data['sale_price'] = $this->input->post('sale_price', true);
         $data['description'] = htmlentities($this->input->post("desc", true));
         $id = $this->input->post("product_id", true);
         $this->web->Update("product_id", "products", $id, $data);
         redirect("products", "refresh");
+    }
+    
+    function get_product($product_id){
+	    
+		    $product_id = $this->uri->segment(3);
+	        $data = $this->web->GetOne('product_id', 'products', $product_id)[0];
+	        echo json_encode($data);
     }
 
     function delete() {
@@ -250,6 +286,7 @@ class Products extends MY_Controller {
             $data['purchase_unit_id'] = $this->db->escape_str($this->input->post("purchase_unit", true));
             $data['sale_unit_id'] = $this->db->escape_str($this->input->post("sale_unit", true));
             $data['product_category_id'] = $this->db->escape_str($this->input->post("product_category", true));
+            $data['sale_price'] = $this->db->escape_str($this->input->post("sale_price", true));
             //$data['instock'] = $this->input->post("instock", true);
             $quantity = $this->input->post("instock", true);
             $data['product_rate'] = $this->input->post("product_rate", true);

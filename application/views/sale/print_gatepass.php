@@ -82,12 +82,13 @@
             <tr>
 
                 <td style="text-align: left;">
-
-                    <h5><?= $invoice[0]->account_name ?></h5>
-                    <address class="invoice-address">
-                        <?= html_entity_decode($invoice[0]->account_desc) ?>
-                        <?= $invoice[0]->ph_number ?>
-                    </address>
+	
+					<h2 class="invoice-client mrg10T">Client information:</h2>
+					<h5><?= $invoice[0]->contact_name ?></h5>
+					<address class="invoice-address">
+						<?= html_entity_decode($invoice[0]->account_desc) ?>
+						<?= $invoice[0]->contact_phone ?>
+					</address>
 
                 </td>
 

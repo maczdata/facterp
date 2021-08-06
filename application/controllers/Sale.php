@@ -122,11 +122,36 @@ class Sale extends MY_Controller {
 		        $new_sales_array = array();
 		        $i = 0;
 		        foreach ($sales as $sale):
-			       $store = $this->web->GetOne('store_id', 'stores', $sale['invoice_store_id']);
-		            $sale['store_name'] = $store[0]->store_name;
-			         $new_sales_array[$i] = $sale;
-			         $i++;
-			    endforeach;
+			        $total_paid = 0;
+			
+			
+			
+			        if($sale['payment_status'] == 'Confirmed'):
+				
+				        $sale['balance'] =0;
+			        endif;
+			
+			        if($sale['payment_status'] == 'Pending'):
+				
+				        $receipts = $this->web->GetOne('r_invoice_id', 'receivables', $sale['invoice_id']);
+				        if(empty($receipts)):
+					        $total_paid = 0;
+				        else:
+					        foreach ($receipts as $receipt):
+						        $total_paid = $total_paid+ $receipt->r_amount;
+					        endforeach;
+				
+				        endif;
+				
+				        $sale['balance'] = $sale['invoice_total'] - ($total_paid + $sale['total_discount'] );
+			        endif;
+			
+			
+			        $store = $this->web->GetOne('store_id', 'stores', $sale['invoice_store_id']);
+			        $sale['store_name'] = $store[0]->store_name;
+			        $new_sales_array[$i] = $sale;
+			        $i++;
+		        endforeach;
 		        $this->data['sales'] = $new_sales_array;
 		        $this->data['total_sales'] = $this->web->GetTotalSales();
 		       // $this->load->view("sale/all", $this->data);
@@ -155,11 +180,38 @@ class Sale extends MY_Controller {
 		        $new_sales_array = array();
 		        $i = 0;
 		        foreach ($sales as $sale):
+			        $total_paid = 0;
+			
+		  
+			
+			        if($sale['payment_status'] == 'Confirmed'):
+				      
+				        $sale['balance'] =0;
+			        endif;
+			
+			        if($sale['payment_status'] == 'Pending'):
+				       
+				        $receipts = $this->web->GetOne('r_invoice_id', 'receivables', $sale['invoice_id']);
+				        if(empty($receipts)):
+					        $total_paid = 0;
+				        else:
+					        foreach ($receipts as $receipt):
+						        $total_paid = $total_paid+ $receipt->r_amount;
+					        endforeach;
+				
+				        endif;
+				
+				        $sale['balance'] = $sale['invoice_total'] - ($total_paid + $sale['total_discount'] );
+			        endif;
+			        
+			        
 			        $store = $this->web->GetOne('store_id', 'stores', $sale['invoice_store_id']);
 			        $sale['store_name'] = $store[0]->store_name;
 			        $new_sales_array[$i] = $sale;
 			        $i++;
 		        endforeach;
+		        
+		        
 		        $this->data['sales'] = $new_sales_array;
 				$total_sales = array();
 		        foreach ($store_id as $store):
@@ -173,7 +225,9 @@ class Sale extends MY_Controller {
 		        endif;
 		        
 		        //print_r($this->data['sales']);
-	        $this->load->view("sale/all", $this->data);
+		        
+		        //print_r($this->data['sales']);
+	       $this->load->view("sale/all", $this->data);
         	
             //pagination configuration
             
@@ -213,7 +267,116 @@ class Sale extends MY_Controller {
 //        print_r($offset);
 //        print_r($this->perPage);
 //        die();
-        $data['sales'] = $this->web->GetAllSales_filter($date_from, $date_to, $cat, $war, $pro, " {$offset},{$this->perPage}", $search);
+	    $data['sales'] = $this->web->GetAllSales_filter($date_from, $date_to, $cat, $war, $pro, " {$offset},{$this->perPage}", $search);
+	
+//	    if($user_group_id == 1):
+//
+//		    foreach ($sales as $sale):
+//			    $total_paid = 0;
+//
+//
+//
+//			    if($sale['payment_status'] == 'Confirmed'):
+//
+//				    $sale['balance'] =0;
+//			    endif;
+//
+//			    if($sale['payment_status'] == 'Pending'):
+//
+//				    $receipts = $this->web->GetOne('r_invoice_id', 'receivables', $sale['invoice_id']);
+//				    if(empty($receipts)):
+//					    $total_paid = 0;
+//				    else:
+//					    foreach ($receipts as $receipt):
+//						    $total_paid = $total_paid+ $receipt->r_amount;
+//					    endforeach;
+//
+//				    endif;
+//
+//				    $sale['balance'] = $sale['invoice_total'] - ($total_paid + $sale['total_discount'] );
+//			    endif;
+//
+//
+//			    $store = $this->web->GetOne('store_id', 'stores', $sale['invoice_store_id']);
+//			    $sale['store_name'] = $store[0]->store_name;
+//			    $new_sales_array[$i] = $sale;
+//			    $i++;
+//		    endforeach;
+//		    $this->data['sales'] = $new_sales_array;
+//		    $this->data['total_sales'] = $this->web->GetTotalSales();
+//	    // $this->load->view("sale/all", $this->data);
+//	    else:
+//
+//		    $totalRec = 0;
+//		    foreach ($store_id as $store):
+//
+//			    $totalRec = count($this->web->GetAllSalesStore($store)) + $totalRec;
+//
+//		    endforeach;
+//
+//		    $config['target'] = '#postList';
+//		    $config['base_url'] = base_url() . 'sale/ajaxPaginationData';
+//		    $config['total_rows'] = $totalRec;
+//		    $config['per_page'] = $this->perPage;
+//		    $this->ajax_pagination->initialize($config);
+//		    $sales = array();
+//		    foreach ($store_id as $store):
+//
+//			    $_sales = $this->web->GetAllSalesStore($store, "$this->perPage");
+//			    $sales = array_merge($sales, $_sales);
+//		    endforeach;
+//
+//
+//		    $new_sales_array = array();
+//		    $i = 0;
+//		    foreach ($sales as $sale):
+//			    $total_paid = 0;
+//
+//
+//
+//			    if($sale['payment_status'] == 'Confirmed'):
+//
+//				    $sale['balance'] =0;
+//			    endif;
+//
+//			    if($sale['payment_status'] == 'Pending'):
+//
+//				    $receipts = $this->web->GetOne('r_invoice_id', 'receivables', $sale['invoice_id']);
+//				    if(empty($receipts)):
+//					    $total_paid = 0;
+//				    else:
+//					    foreach ($receipts as $receipt):
+//						    $total_paid = $total_paid+ $receipt->r_amount;
+//					    endforeach;
+//
+//				    endif;
+//
+//				    $sale['balance'] = $sale['invoice_total'] - ($total_paid + $sale['total_discount'] );
+//			    endif;
+//
+//
+//			    $store = $this->web->GetOne('store_id', 'stores', $sale['invoice_store_id']);
+//			    $sale['store_name'] = $store[0]->store_name;
+//			    $new_sales_array[$i] = $sale;
+//			    $i++;
+//		    endforeach;
+//
+//
+//		    $this->data['sales'] = $new_sales_array;
+//		    $total_sales = array();
+//		    foreach ($store_id as $store):
+//
+//			    $_total_sales = $this->web->GetTotalSalesStore($store);
+//			    $total_sales = array_merge($total_sales, $_total_sales);
+//		    endforeach;
+//		    $this->data['total_sales'] = $total_sales;
+//
+//
+//	    endif;
+       
+       
+       
+       
         // print_r($data['sales']);
         // die();
         //load the view
@@ -353,9 +516,16 @@ class Sale extends MY_Controller {
     function print_inv_with_ntn() {
         $invoice_id = $this->uri->segment(3);
 //        $this->data['invoice'] = $this->web->GetOneWithInner('invoice_id', 'invoice', "accounts", "account_id", NULL, NULL, $invoice_id);
-        $query = "SELECT invoice.*,accounts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice INNER JOIN accounts ON invoice.account_id = accounts.account_id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
-        $query = $this->db->query($query);
-        $this->data['invoice'] = $query->result();
+	    $query = "SELECT invoice.*,accounts.*, contacts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice LEFT JOIN accounts ON invoice.account_id = accounts.account_id LEFT JOIN contacts ON invoice.invoice_contact_id = contacts.contact_id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
+	
+	    $query = $this->db->query($query);
+	    $invoice = $query->result();
+	
+	    $store = $this->web->GetOne('store_id', 'stores', $invoice[0]->invoice_store_id);
+	    $invoice[0]->store_name = $store[0]->store_name;
+	
+	
+	    $this->data['invoice'] = $invoice;
         $this->data['invoice_items'] = $this->web->GetInvoiceItems($invoice_id);
         $this->load->view("sale/print_invoice_with_ntn", $this->data);
     }
@@ -363,9 +533,16 @@ class Sale extends MY_Controller {
     function print_inv_without_ntn() {
         $invoice_id = $this->uri->segment(3);
 //        $this->data['invoice'] = $this->web->GetOneWithInner('invoice_id', 'invoice', "accounts", "account_id", NULL, NULL, $invoice_id);
-        $query = "SELECT invoice.*,accounts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice INNER JOIN accounts ON invoice.account_id = accounts.account_id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
-        $query = $this->db->query($query);
-        $this->data['invoice'] = $query->result();
+	    $query = "SELECT invoice.*,accounts.*, contacts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice LEFT JOIN accounts ON invoice.account_id = accounts.account_id LEFT JOIN contacts ON invoice.invoice_contact_id = contacts.contact_id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
+	
+	    $query = $this->db->query($query);
+	    $invoice = $query->result();
+	
+	    $store = $this->web->GetOne('store_id', 'stores', $invoice[0]->invoice_store_id);
+	    $invoice[0]->store_name = $store[0]->store_name;
+	
+	
+	    $this->data['invoice'] = $invoice;
         $this->data['invoice_items'] = $this->web->GetInvoiceItems($invoice_id);
         $this->load->view("sale/print_invoice_without_ntn", $this->data);
     }
@@ -513,7 +690,11 @@ class Sale extends MY_Controller {
         if ($this->input->post()) {
             $data = array();
 	        $store_id = $this->input->post("store_id");
-            $data_items = array();
+	        $payment_status = $this->db->escape_str($this->input->post("payment_status", true));
+	        $amount_tendered = $this->db->escape_str($this->input->post("amount_tendered", true));
+	        $date = date("Y-m-d", strtotime(str_replace("-", "/", $this->input->post("date", true)))) . " " . date("H:i:s");
+	
+	        $data_items = array();
             $data['account_id'] = $this->db->escape_str($this->input->post("account", true));
             $data['date_created'] = date("Y-m-d", strtotime(str_replace("-", "/", $this->input->post("date", true)))) . " " . date("H:i:s");
             $data_items['product_id'] = $this->input->post("product_name", true);
@@ -610,6 +791,39 @@ class Sale extends MY_Controller {
                         $ledger_query = "INSERT INTO ledger (debit_amount,credit_amount,description,type,invoice_ref,account_id,date) ";
                         $ledger_query .= "VALUES ('" . $data['invoice_total'] . "',NULL,'" . $invoice[0]->voucher_no . '<br>' . $invoice[0]->builty_no . '<br>' . $invoice[0]->description . '<br>' . "','Invoice','" . $invoice[0]->invoice_id . "','" . $data['account_id'] . "','" . $data['date_created'] . "')";
                     }
+                    
+                    if(($payment_status == 'Pending') && (!is_null($amount_tendered) || $amount_tendered != 0) || (!empty($amount_tendered))){
+						$invoice = $invoice[0]->invoice_id;
+                    	$dat['r_user_id'] = $this->session->userdata('user_id');
+	                    $dat['r_amount'] = $amount_tendered;
+	                    $dat['r_invoice_id'] = $invoice;
+	                    $dat['r_date'] = $date;
+	
+	                    $this->web->Add('receivables', $dat);
+	                    $total_paid =0;
+	
+	                    $query = "SELECT invoice.*,accounts.*, contacts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice LEFT JOIN accounts ON invoice.account_id = accounts.account_id LEFT JOIN contacts ON invoice.invoice_contact_id = contacts.contact_id WHERE invoice.invoice_id = '" . $invoice . "' ORDER BY invoice.invoice_id ASC";
+	
+	                    $query = $this->db->query($query);
+	                    $invoices = $query->result();
+	
+	                    $receipts = $this->web->GetOne('r_invoice_id', 'receivables', $invoice);
+	                    foreach ($receipts as $receipt):
+		                    $total_paid = $total_paid+ $receipt->r_amount;
+	                    endforeach;
+	
+	                    if($total_paid == ($invoices[0]->invoice_total + $invoices[0]->total_discount) ):
+		                    $invoice_data = array(
+			                    'payment_status' => 'Confirmed'
+		                    );
+		
+		                    $this->web->Update("invoice_id", "invoice", $invoice, $invoice_data);
+	                    endif;
+                    	
+                    	
+                    	
+                    }
+                    
                     if ($this->db->query($insert_items) && $this->db->query($ledger_query) && $this->db->query($product_ledger)) {
                         redirect("sale", "refresh");
                     }

@@ -32,7 +32,7 @@
         <script>
             function print_me() {
                 window.print();
-                window.location.href = "<?= base_url() ?>sale/view_invoice/<?= $invoice[0]->invoice_id ?>";                    }
+                                    }
         </script>
 
     </head>
@@ -71,17 +71,19 @@
             <tbody>
             <tr>
                 <td style="text-align: left">
-                    <h5><?= $invoice[0]->account_name ?></h5>
-                    <address class="">
-                        <?= html_entity_decode($invoice[0]->account_desc) ?>
-                        <?= $invoice[0]->ph_number ?>
-                    </address>
+					<h2 class="invoice-client mrg10T">Client information:</h2>
+					<h5><?= $invoice[0]->contact_name ?></h5>
+					<address class="invoice-address">
+						<?= html_entity_decode($invoice[0]->account_desc) ?>
+						<?= $invoice[0]->contact_phone ?>
+					</address>
                 </td>
                 <td valign="top"  >
                     <ul class="reset-ul">
                         <li><b style="text-align: left">Sale Voucher:</b>
                             <span style="text-align: right;"><?= html_entity_decode($invoice[0]->voucher_no) ?></span>
                         </li>
+						<li> <b style="text-align: left"> Store:</b> <?= html_entity_decode($invoice[0]->store_name) ?></li>
                         <li><b style="text-align: justify;">Date:</b>
                             <span style="text-align: right"><?= date("F j, Y", strtotime($invoice[0]->date_created)) ?></span>
                         </li>
@@ -143,7 +145,7 @@
                 <?php $amount_total = $invoice[0]->invoice_total; ?>
                     <td colspan="5" class="font-blue font-size-16"><?= getPakistaniCurrency($amount_total) ?>&nbsp;&nbsp;&nbsp;&nbsp;</td>
                     <td></td>
-                    <td  float="right" class="font-Black font-size-16 text-right"><?= $invoice[0]->invoice_total ?> Rs</td>
+                    <td  float="right" class="font-Black font-size-16 text-right"><?= $invoice[0]->invoice_total ?> NGN</td>
             </tr>
         </table>
    </div>  

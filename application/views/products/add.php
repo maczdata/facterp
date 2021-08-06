@@ -556,6 +556,7 @@
 										
 											
 											<div class="form-group">
+												<div class="form-row">
                                                 <label class="col-sm-2 control-label">Product Type</label>
                                                 <div class="col-sm-2">
                                                     <select name="product_type" onchange="RevertValidation()" id="product_type" class="chosen-select" >
@@ -582,8 +583,12 @@
                                                         <input type="number" name="instock" onkeyup="RevertValidation()" id="instock" class="form-control" placeholder="In Stock">
                                                     </div>
                                                 </div>
+												</div>
                                             </div>
+									
+									
                                             <div class="form-group">
+												<div class="form-row">
                                                 <label class="col-sm-2 control-label">Product Unit</label>
                                                 <div class="col-sm-2">
                                                     <select name="product_unit" onchange="RevertValidation()" id="product_unit" class="chosen-select">
@@ -611,16 +616,33 @@
                                                         <?php } ?>
                                                     </select>
                                                 </div>
+												</div>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label">Product Rate</label>
+									
+							
+								<div class="form-group">
+									<div class="form-row">
+									<label class="col-sm-2 control-label">Product Rate</label>
                                                 <div class="col-sm-2">
                                                     <div class="input-group">
                                                         <span class="input-group-addon glyph-icon icon-cubes"></span>
                                                         <input type="number" name="product_rate" onkeyup="RevertValidation()" id="product_rate" class="form-control" placeholder="Product Rate">
                                                     </div>
                                                 </div>
-                                            </div>
+                                        
+									
+										<label class="col-sm-2 control-label">Sale Price</label>
+										<div class="col-sm-2">
+											<div class="input-group">
+												<span class="input-group-addon glyph-icon icon-cubes"></span>
+												<input type="number" name="sale_price" onkeyup="RevertValidation()" id="sale_price" class="form-control" placeholder="Sale Price">
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								
+							
                                             <div class="form-group">
                                                 <label class="col-sm-12">Description</label>
                                                 <div class="col-sm-12">
@@ -635,6 +657,7 @@
                                                 </button>
                                                 <div class="col-md-4 col-sm-0"></div>
                                             </div>
+									
                                         </form>
                                     </div>
                                 </div>

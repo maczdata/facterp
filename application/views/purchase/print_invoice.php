@@ -46,7 +46,7 @@
         <script>
             function print_me() {
                 window.print();
-                window.location.href = "<?= base_url() ?>purchase/view_invoice/<?= $invoice[0]->invoice_id ?>";
+                
                     }
         </script>
 
@@ -140,7 +140,7 @@
                             <td colspan="1" class="text-right font-size-18">TOTAL:</td>
                             <?php $amount_total = $invoice[0]->invoice_total; ?>
                             <td colspan="4" class="font-blue font-size-16"><?= getPakistaniCurrency($amount_total) ?></td>
-                            <td colspan="1" class="font-blue font-size-16"><?= $invoice[0]->invoice_total ?> Rs</td>
+                            <td colspan="1" class="font-blue font-size-16"><?= $invoice[0]->invoice_total ?> NGN</td>
                         </tr>
             </tbody>
         </table>

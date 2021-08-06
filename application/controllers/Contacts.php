@@ -143,6 +143,7 @@
 				$data['r_user_id'] = $this->session->userdata('user_id');
 				$data['r_amount'] = $_POST['r_amount'];
 				$data['r_invoice_id'] = $invoice_id;
+				$data['r_date'] = $_POST['r_date'];
 				
 				$this->web->Add('receivables', $data);
 				$total_paid =0;

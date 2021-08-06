@@ -46,7 +46,7 @@
         <script>
             function print_me() {
                 window.print();
-                window.location.href = "<?= base_url() ?>sale/view_ordr/<?= $ordr[0]->ordr_id ?>";
+               
                     }
         </script>
 

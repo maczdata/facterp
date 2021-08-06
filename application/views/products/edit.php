@@ -567,12 +567,24 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label">Product Rate</label>
-                                                <div class="col-sm-2">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon glyph-icon icon-cubes"></span>
-                                                        <input type="number" value="<?= $product[0]->product_rate ?>" name="product_rate" id="product_rate" class="form-control" placeholder="Product Rate">
-                                                    </div>
+												<div class="form-row">
+													<label class="col-sm-2 control-label">Product Rate</label>
+													<div class="col-sm-2">
+														<div class="input-group">
+															<span class="input-group-addon glyph-icon icon-cubes"></span>
+															<input type="number" value="<?= $product[0]->product_rate ?>" name="product_rate" id="product_rate" class="form-control" placeholder="Product Rate">
+														</div>
+													</div>
+													<label class="col-sm-2 control-label">Sale Price</label>
+													<div class="col-sm-2">
+														<div class="input-group">
+															<span class="input-group-addon glyph-icon icon-cubes"></span>
+															<input type="number" name="sale_price" value="<?= $product[0]->sale_price ?>" id="sale_price" class="form-control" placeholder="Sale Price">
+														</div>
+													</div>
+													
+											
+                                               
                                                 </div>
                                             </div>
                                             <div class="form-group">

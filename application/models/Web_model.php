@@ -3,11 +3,11 @@
 class Web_model extends MY_Model {
 
     function filter_products($category_id, $warehouse_id, $prod_type, $limit = NULL, $search = NULL) {
-        $query = "SELECT * FROM products INNER JOIN product_categories p_c on p_c.product_category_id=products.product_category_id INNER JOIN units ON products.unit_id = units.unit_id INNER JOIN warehouses ON warehouses.warehouse_id= products.warehouse_id where 1=1  ";
+        $query = "SELECT * FROM products INNER JOIN product_categories p_c on p_c.product_category_id=products.product_category_id INNER JOIN units ON products.unit_id = units.unit_id where 1=1 ORDER BY products.product_id DESC";
 
-        if ($warehouse_id != NULL) {
-            $query .= "  AND products.warehouse_id=$warehouse_id";
-        }
+//        if ($warehouse_id != NULL) {
+//            $query .= "  AND products.warehouse_id=$warehouse_id";
+//        }
         if ($category_id != NULL) {
             $query .= " AND  products.product_category_id=$category_id";
         }
@@ -20,6 +20,8 @@ class Web_model extends MY_Model {
         if ($limit != NULL) {
             $query .= " limit $limit";
         }
+        
+     
 
 
 //        die($query);
@@ -527,7 +529,7 @@ AND product_ledger.date_ledger > '" . $to_date . "' GROUP BY product_ledger.prod
 		
 		function GetReportforProductsToDate($to_date, $product_id) {
 			
-			$query = "select p_l.*,p.*,u.*,p_l.description as product_ledger_description from product_ledger p_l inner join products p on p.product_id=p_l.product_id inner join units u on p.unit_id = u.unit_id where p_l.product_id={$product_id} and p_l.date_ledger <= '$to_date'  and p.product_id = $product_id AND p_l.type='WAREHOUSE' order by p_l.date_ledger ASC";
+			$query = "select p_l.*,p.*,u.*,p_l.description as product_ledger_description from product_ledger p_l inner join products p on p.product_id=p_l.product_id inner join units u on p.unit_id = u.unit_id where p_l.product_id={$product_id} and p_l.date_ledger <= '$to_date'  and p.product_id = $product_id  order by p_l.date_ledger ASC";
 			
 			$query = $this->db->query($query);
 			return $query->result();

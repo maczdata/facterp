@@ -568,6 +568,17 @@
 									
 									</div>
 								</div>
+							</div>
+								<div class="row">
+								<div class="col-md-4">
+									<div class="mb-3">
+										<label for="validationCustom03" class="form-label">Date:</label>
+										<input type="date" value="<?php echo date('Y-m-d'); ?>" class="form-control" id="validationCustom05"
+											   name="r_date" required>
+									
+									
+									</div>
+								</div>
 							
 							</div>
 							

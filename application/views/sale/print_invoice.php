@@ -58,15 +58,17 @@
             </tr>
             <tr>
                 <td  style="text-align: left">
-                    <h5><?= $invoice[0]->account_name ?></h5>
-                    <address class="invoice-address">
-                        <?= html_entity_decode($invoice[0]->account_desc) ?>
-                        <?= $invoice[0]->ph_number ?>
-                    </address>
+					<h2 class="invoice-client mrg10T">Client information:</h2>
+					<h5><?= $invoice[0]->contact_name ?></h5>
+					<address class="invoice-address">
+						<?= html_entity_decode($invoice[0]->account_desc) ?>
+						<?= $invoice[0]->contact_phone ?>
+					</address>
                 </td>
                 <td  valign="top"  >
                     <ul class="reset-ul">
                         <li><b style="text-align: left">Sale Voucher:</b><span style="text-align: right;"><?= html_entity_decode($invoice[0]->voucher_no) ?></span></li>
+						<li> <b style="text-align: left"> Store:</b> <?= html_entity_decode($invoice[0]->store_name) ?></li>
                         <li><b style="text-align: justify;">Date:</b>
                             <span style="text-align: right"><?= date("F j, Y", strtotime($invoice[0]->date_created)) ?></span>
                         </li>

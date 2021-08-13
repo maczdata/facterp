@@ -44,7 +44,7 @@
         <header>
         <div class="row">
             <div class="col-md-12"  >
-                <img height="80px" width="100%" src="<?= base_url() ?>/images/invoice_header.jpg" />
+                <img height="80px" width="100%" src="<?= base_url() ?>/images/colorflexinvoice.jpg" />
             </div>
         </div>
       <hr style="margin-top: 0px; margin-bottom: 0px;">
@@ -64,21 +64,24 @@
         <table width="100%" style="height: 40px;" >
           <thead >  
             <tr>
-                <th><h2 class="font-size-18 font-bold">Client information</h2></th>
-                <th><h2 class="font-size-18 font-bold">Invoice Information:</h2></th>
+                <!-- <th><h2 class="font-size-18 font-bold">Client information</h2></th> 
+                <th><h2 class="font-size-18 font-bold">Invoice Information:</h2></th>-->
             </tr>
           </thead>
             <tbody>
             <tr>
                 <td style="text-align: left">
 					<h2 class="invoice-client mrg10T">Client information:</h2>
-					<h5><?= $invoice[0]->contact_name ?></h5>
-					<address class="invoice-address">
-						<?= html_entity_decode($invoice[0]->account_desc) ?>
-						<?= $invoice[0]->contact_phone ?>
-					</address>
+					<ul class="reset-ul">
+                        <li><b style="width: 50px; ">Name:</b><?= html_entity_decode($invoice[0]->contact_name) ?></li>
+                        <li><b style="width: 50px; ">Phone:</b><?= html_entity_decode($invoice[0]->contact_phone) ?></li> 
+                        <li><b style="width: 50px; ">Address:</b><?= html_entity_decode($invoice[0]->contact_address) ?> 
+                        
+                    </li>
+                    </ul>
                 </td>
                 <td valign="top"  >
+                    <h2 class="font-size-18 font-bold">Invoice Information:</h2>
                     <ul class="reset-ul">
                         <li><b style="text-align: left">Sale Voucher:</b>
                             <span style="text-align: right;"><?= html_entity_decode($invoice[0]->voucher_no) ?></span>
@@ -90,7 +93,12 @@
                         <li><b style="text-align: left">Status:</b>
                             <span style="text-align: right"><?= $invoice[0]->payment_status == 'Pending' ? '<span class="bs-label label-warning">Pending</span>' : '<span class="bs-label label-success">Confirmed</span>' ?></span>
                         </li>
-                        <li><b style="text-align: left">Purchase Order:</b></li>
+                        <li><b style="width: 80px; display:inline; ">Account Name:</b><?= html_entity_decode($invoice[0]->account_name) ?> 
+                        <br><b style="width: 80px; display:inline; ">Account number:</b>
+                        <?= html_entity_decode($invoice[0]->account_number) ?> 
+                        <br><b style="width: 80px; display:inline; "> Bank:   </b>
+                        <?= html_entity_decode($invoice[0]->account_address) ?>
+                    </li>
                     </ul>
                 </td>
             </tr>
@@ -123,10 +131,10 @@
                         <td><?= $counter ?></td>
                         <td><?= $inv_item->product_name ?></td>
                         <td align="right"><?= $inv_item->qty . " " . $inv_item->unit ?></td>
-						<td align="right"><?= $inv_item->product_sale_price ?> Rs</td>
+						<td align="right"><?= $inv_item->product_sale_price ?> N</td>
                         <td align="right"><?= $inv_item->batch ?></td>
-						<td align="right"><?= $inv_item->discount ?> Rs</td>
-                        <td align="right"><?= $inv_item->invoice_subtotal ?> Rs</td>
+						<td align="right"><?= $inv_item->discount ?> N</td>
+                        <td align="right"><?= $inv_item->invoice_subtotal ?> N</td>
                     </tr>
                     <?php
                     $counter++;
@@ -134,7 +142,7 @@
                 ?>
                 <tr class="font-bold font-black">
                     <td colspan="4" class="text-right">Discount on Sub Total:</td>
-                    <td colspan="3" class="font-red text-right"><?= $invoice[0]->total_discount ?> Rs</td>
+                    <td colspan="3" class="font-red text-right"><?= $invoice[0]->total_discount ?> N</td>
                 </tr>
             </tbody>
         </table>
@@ -233,8 +241,8 @@
 
  
 
-        <p></br>Email: kohinoorsurgical@hotmail.com &nbsp;&nbsp;&nbsp;  Website: www.kohinoorpharma.com</p>
-        <!-- <p>Software Developed By EEIZO INVENT OR ADOPT, SAHIWAL. +(92) (315) 2021990 | info@eeizo.com</p> -->
+        <p></br>Thanks for your patronage.</p>
+        
     </footer>
     
     </body>

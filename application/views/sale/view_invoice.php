@@ -447,7 +447,7 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="">
-                                            <img src="<?= base_url() ?>/images/Kohinoor_logo.png" />
+                                            <img src="<?= base_url() ?>/images/colorflexlogo2.png" />
                                         </div>
                                         <!-- <address class="invoice-address">
                                           160/B,Small Industries Estate,Sahiwal - Pakistan. 
@@ -461,17 +461,17 @@
                                         <div class="divider"></div>
                                         <div class="invoice-date mrg20B"><?= date("j F Y", strtotime($invoice[0]->date_created)) ?></div>
                                         <button onclick="printGatepass()" class="btn btn-alt btn-hover btn-success">
-                                            <span>Print Gate Pass</span>
+                                            <span>Print waybill</span>
                                             <i class="glyph-icon icon-print"></i>
                                         </button>
                                        <button onclick="printInvoiceWithNtn()" class="btn btn-alt btn-hover btn-info">
-                                            <span>Print Invoice With NTN</span>
+                                            <span>Print Invoice </span>
                                             <i class="glyph-icon icon-print"></i>
                                         </button>
-                                        <button onclick="printInvoiceWithoutNtn()" class="btn btn-alt btn-hover btn-primary">
+                                        <!-- <button onclick="printInvoiceWithoutNtn()" class="btn btn-alt btn-hover btn-primary">
                                             <span>Print Invoice Without NTN</span>
                                             <i class="glyph-icon icon-print"></i>
-                                        </button>
+                                        </button> -->
                                         <button onclick="cancelInvoice()" class="btn btn-alt btn-hover btn-danger">
                                             <span>Cancel Invoice</span>
                                             <i class="glyph-icon icon-trash"></i>

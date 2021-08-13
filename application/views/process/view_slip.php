@@ -544,6 +544,38 @@
                                         ?>
                                     </tbody>
                                 </table>
+                                
+
+
+                              <table class="table mrg20T table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Description</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $qty = 0;
+                                        $count = 1;
+                                        foreach ($raw_items as $raw_item) {
+                                            ?>
+                                            <tr>
+                                                <td><?= $count ?></td>
+                                                <td>
+                                                    <?php $products_data=$this->web->GetAllWithInner("product_id","products","units","unit_id" ,NULL,NULL," where product_id={$raw_item->product_id}");
+                                                echo $products_data[0]->description;
+                                                 ?>
+                                                </td>
+                                                <td class="text-center"><?= $raw_item->debit_qty . " " . $products_data[0]->unit_symbol ?></td>
+                                            </tr>
+                                            <?php
+                                            
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
 
                             </div>
 
@@ -563,5 +595,5 @@
         </div>
     </body>
 
-    <!-- Mirrored from agileui.com/demo/monarch/demo/admin-template/invoice.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 02 Mar 2017 12:12:30 GMT -->
+   
 </html>

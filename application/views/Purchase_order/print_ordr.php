@@ -202,7 +202,7 @@
         </table> -->
 
          
-            <p></br>Email: kohinoorsurgical@hotmail.com &nbsp;&nbsp;&nbsp;  Website: www.kohinoorpharma.com</p>
+            <p></br>Thanks for your patronage.</p>
 <!--         <p>Software Developed By EEIZO INVENT OR ADOPT, SAHIWAL. +(92) (315) 2021990 | info@eeizo.com</p> -->
     </footer>
     </body>

@@ -53,21 +53,22 @@
         <!-- <hr> -->
         <table width="100%" >
             <tr>
-                <th><h2 class="invoice-client mrg10T">Client information</h2></th>
-                <th><h2 class="invoice-client mrg10T">Invoice Information:</h2></th>
-            </tr>
-            <tr>
-                <td  style="text-align: left">
+                <td style="text-align: left">
 					<h2 class="invoice-client mrg10T">Client information:</h2>
-					<h5><?= $invoice[0]->contact_name ?></h5>
-					<address class="invoice-address">
-						<?= html_entity_decode($invoice[0]->account_desc) ?>
-						<?= $invoice[0]->contact_phone ?>
-					</address>
+					<ul class="reset-ul">
+                        <li><b style="width: 50px; ">Name:</b><?= html_entity_decode($invoice[0]->contact_name) ?></li>
+                        <li><b style="width: 50px; ">Phone:</b><?= html_entity_decode($invoice[0]->contact_phone) ?></li> 
+                        <li><b style="width: 50px; ">Address:</b><?= html_entity_decode($invoice[0]->contact_address) ?> 
+                        
+                    </li>
+                    </ul>
                 </td>
-                <td  valign="top"  >
+                <td valign="top"  >
+                    <h2 class="font-size-18 font-bold">Invoice Information:</h2>
                     <ul class="reset-ul">
-                        <li><b style="text-align: left">Sale Voucher:</b><span style="text-align: right;"><?= html_entity_decode($invoice[0]->voucher_no) ?></span></li>
+                        <li><b style="text-align: left">Sale Voucher:</b>
+                            <span style="text-align: right;"><?= html_entity_decode($invoice[0]->voucher_no) ?></span>
+                        </li>
 						<li> <b style="text-align: left"> Store:</b> <?= html_entity_decode($invoice[0]->store_name) ?></li>
                         <li><b style="text-align: justify;">Date:</b>
                             <span style="text-align: right"><?= date("F j, Y", strtotime($invoice[0]->date_created)) ?></span>
@@ -75,15 +76,14 @@
                         <li><b style="text-align: left">Status:</b>
                             <span style="text-align: right"><?= $invoice[0]->payment_status == 'Pending' ? '<span class="bs-label label-warning">Pending</span>' : '<span class="bs-label label-success">Confirmed</span>' ?></span>
                         </li>
-                        <!-- <li><b>Id:</b> #<?= $invoice[0]->invoice_id ?></li> -->
-                         
-                         <li><b style="text-align: left">Purchase Order:</b></li>
+                        <li><b style="width: 80px; display:inline; ">Account Name:</b><?= html_entity_decode($invoice[0]->account_name) ?> 
+                        <br><b style="width: 80px; display:inline; ">Account number:</b>
+                        <?= html_entity_decode($invoice[0]->account_number) ?> 
+                        <br><b style="width: 80px; display:inline; "> Bank:   </b>
+                        <?= html_entity_decode($invoice[0]->account_address) ?>
+                    </li>
                     </ul>
                 </td>
-               <!--  <td colspan="4" width="30%" valign="top">
-
-                    <?= html_entity_decode($invoice[0]->voucher_no) ?>
-                </td> -->
             </tr>
         </table>
         <hr>
@@ -213,7 +213,7 @@
 
     <footer style="font-size: 10px; bottom: 0; position: fixed; left: 0; width: 100%; text-align: center" class="footer">
 
-        <p></br>Email: kohinoorsurgical@hotmail.com &nbsp;&nbsp;&nbsp;  Website: www.kohinoorpharma.com</p>
+        <p></br>Thanks for your patronage.</p>
         <!-- <p>Software Developed By EEIZO INVENT OR ADOPT, SAHIWAL. +(92) (315) 2021990 | info@eeizo.com</p> -->
     </footer>
     

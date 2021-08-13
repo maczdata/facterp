@@ -550,9 +550,12 @@ class Sale extends MY_Controller {
     function print_gatepass() {
         $invoice_id = $this->uri->segment(3);
 //        $this->data['invoice'] = $this->web->GetOneWithInner('invoice_id', 'invoice', "accounts", "account_id", NULL, NULL, $invoice_id);
-        $query = "SELECT invoice.*,accounts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice INNER JOIN accounts ON invoice.account_id = accounts.account_id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
+ //       $query = "SELECT invoice.*,accounts.*,contacts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice INNER JOIN accounts ON invoice.account_id = accounts.account_id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
+       	    $query = "SELECT invoice.*,accounts.*, contacts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice LEFT JOIN accounts ON invoice.account_id = accounts.account_id LEFT JOIN contacts ON invoice.invoice_contact_id = contacts.contact_id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
+
         $query = $this->db->query($query);
-        $this->data['invoice'] = $query->result();
+        $invoice = $query->result();
+        $this->data['invoice'] = $invoice;
         $this->data['invoice_items'] = $this->web->GetInvoiceItems($invoice_id);
         $this->load->view("sale/print_gatepass", $this->data);
     }

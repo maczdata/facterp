@@ -55,18 +55,18 @@
     <body onload="print_me();">
         <table width="100%"  overflow:auto;">
             <tr>
-                <td colspan="3" width="40%">
+                <td colspan="3" width="50%">
                     <div class="">
-                        <img style="height: 50px" src="<?= base_url() ?>/images/Kohinoor_logo.png" />
+                        <img style="height: 100px" src="<?= base_url() ?>/images/colorflexlogo.png" />
                     </div>
                     <address class="invoice-address">
-                      160/B,Small Industries Estate,Sahiwal - Pakistan. 
+                      4/5 Ezeiweka Road, Awada Obosi. Anambra State. 
                     <br>
-                        Tel: +92-40-4502650-51
+                        Tel: +234-806-362-6383, +234-903-303-6363
                     </address>
                 </td>
-                <td colspan="6" class="text-right" valign="top">
-                    <h4 class="invoice-title" style="font-size: 22px">Outward Gate Pass</h4>
+                <td colspan="3" class="text-right" valign="top">
+                    <h4 class="invoice-title" style="font-size: 22px">WAYBILL</h4>
                     No. <b>#<?= $invoice[0]->invoice_id ?></b>
                     
                     <div class="invoice-date"><?= date("j F Y", strtotime($invoice[0]->date_created)) ?></div>
@@ -75,28 +75,38 @@
         </table>
    <hr style="margin-top: 0px; margin-bottom: 0px;">
         <table width="100%">
-            <tr><th style="width: 50%"><h2 class="invoice-client ">Client information:</h2></th>
+            <!-- <tr>
+                 <th style="width: 50%"><h2 class="invoice-client ">Client information:</h2></th>
                 <th ><h2 class="invoice-client ">Invoice Information:</h2></th>
-                <!-- <th colspan="4"><h2 class="invoice-client">Invoice Details:</h2></th> -->
-            </tr>
+                <th colspan="4"><h2 class="invoice-client">Invoice Details:</h2></th> 
+            </tr> -->
             <tr>
 
-                <td style="text-align: left;">
+                <td style="text-align: left; " valign="top" colspan="3" width="50%" >
 	
 					<h2 class="invoice-client mrg10T">Client information:</h2>
-					<h5><?= $invoice[0]->contact_name ?></h5>
-					<address class="invoice-address">
-						<?= html_entity_decode($invoice[0]->account_desc) ?>
-						<?= $invoice[0]->contact_phone ?>
-					</address>
+					<ul class="reset-ul">
+                        <li><b style="width: 50px; ">Name:</b><?= html_entity_decode($invoice[0]->contact_name) ?></li>
+                        <li><b style="width: 50px; ">Phone:</b><?= html_entity_decode($invoice[0]->contact_phone) ?></li> 
+                        <li><b style="width: 50px; ">Address:</b><?= html_entity_decode($invoice[0]->contact_address) ?> 
+                        
+                    </li>
+                    </ul>
+                   
 
                 </td>
 
-                <td style="text-align: left;"  valign="top">
-
+                <td style="text-align: left;"  valign="top" >
+                    <h2 class="invoice-client ">Invoice Information:</h2>
                     <ul class="reset-ul">
-                        <li><b>Date:</b><?= date("F j, Y", strtotime($invoice[0]->date_created)) ?></li>
-                        <li><b>Sale Voucher:</b><?= html_entity_decode($invoice[0]->voucher_no) ?></li>  
+                        <li><b style="width: 80px; display:inline; ">Date:</b ><?= date("F j, Y", strtotime($invoice[0]->date_created)) ?></li>
+                        <li><b style="width: 80px; display:inline; ">Sale Voucher:</b><?= html_entity_decode($invoice[0]->voucher_no) ?></li> 
+                        <li><b style="width: 80px; display:inline; ">Account Name:</b><?= html_entity_decode($invoice[0]->account_name) ?> 
+                        <br><b style="width: 80px; display:inline; ">Account number:</b>
+                        <?= html_entity_decode($invoice[0]->account_number) ?> 
+                        <br><b style="width: 80px; display:inline; "> Bank:   </b>
+                        <?= html_entity_decode($invoice[0]->account_address) ?>
+                    </li>
                     </ul>
                 </td>
             </tr>

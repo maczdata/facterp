@@ -169,7 +169,7 @@ class Web_model extends MY_Model {
 	}
 
     function GetAllSalesOrder($limit = NULL) {
-        $query = "SELECT ordr.*,ordr.date_created as ordr_date,accounts.* FROM ordr INNER JOIN accounts ON accounts.account_id = ordr.account_id WHERE type='sale' ORDER BY ordr_id DESC";
+        $query = "SELECT ordr.*,ordr.date_created as ordr_date,accounts.* FROM ordr INNER JOIN accounts ON accounts.account_id = ordr.account_id WHERE type='sale' AND ordr_status=0 ORDER BY ordr_id DESC";
         if ($limit != NULL) {
             $query .= " limit $limit";
         }

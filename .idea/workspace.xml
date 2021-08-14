@@ -19,10 +19,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="show user who prepared invoice on invoice (print and view)">
+    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="convert sale order only once">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Sale.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Sale.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Sale_order.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Sale_order.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/models/Web_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Web_model.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/views/sale_order/convert_sale.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale_order/convert_sale.php" afterDir="false" />
     </list>
@@ -76,7 +74,7 @@
       <workItem from="1627476448674" duration="26908000" />
       <workItem from="1627929305975" duration="10257000" />
       <workItem from="1628689349207" duration="11000" />
-      <workItem from="1628950429509" duration="5168000" />
+      <workItem from="1628950429509" duration="6468000" />
     </task>
     <task id="LOCAL-00001" summary="new store and store listing completed">
       <created>1626018607669</created>
@@ -400,7 +398,14 @@
       <option name="project" value="LOCAL" />
       <updated>1628953895335</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="convert sale order only once">
+      <created>1628955815465</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1628955815465</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -419,7 +424,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="tracking employee activities" />
     <MESSAGE value="print payslip by month and year, add bank details on new employee page" />
     <MESSAGE value="Add Users to multiple stores and warehouses" />
     <MESSAGE value="route sales based on stores attached to" />
@@ -444,7 +448,8 @@
     <MESSAGE value="invoice showing balance and total paid" />
     <MESSAGE value="print invoice with total paid and balance" />
     <MESSAGE value="show user who prepared invoice on invoice (print and view)" />
-    <option name="LAST_COMMIT_MESSAGE" value="show user who prepared invoice on invoice (print and view)" />
+    <MESSAGE value="convert sale order only once" />
+    <option name="LAST_COMMIT_MESSAGE" value="convert sale order only once" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

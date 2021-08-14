@@ -19,12 +19,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="print invoice with total paid and balance">
+    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="show user who prepared invoice on invoice (print and view)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/controllers/Sale.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Sale.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/sale/print_invoice_with_ntn.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale/print_invoice_with_ntn.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/sale/print_invoice_without_ntn.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale/print_invoice_without_ntn.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/sale/view_invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale/view_invoice.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Sale_order.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Sale_order.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/Web_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Web_model.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/sale_order/convert_sale.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale_order/convert_sale.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +76,7 @@
       <workItem from="1627476448674" duration="26908000" />
       <workItem from="1627929305975" duration="10257000" />
       <workItem from="1628689349207" duration="11000" />
-      <workItem from="1628950429509" duration="3309000" />
+      <workItem from="1628950429509" duration="5168000" />
     </task>
     <task id="LOCAL-00001" summary="new store and store listing completed">
       <created>1626018607669</created>
@@ -393,7 +393,14 @@
       <option name="project" value="LOCAL" />
       <updated>1628952827283</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="show user who prepared invoice on invoice (print and view)">
+      <created>1628953895335</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1628953895335</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -412,7 +419,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="sales completed with report displaying" />
     <MESSAGE value="tracking employee activities" />
     <MESSAGE value="print payslip by month and year, add bank details on new employee page" />
     <MESSAGE value="Add Users to multiple stores and warehouses" />
@@ -437,7 +443,8 @@
     <MESSAGE value="date on receivables" />
     <MESSAGE value="invoice showing balance and total paid" />
     <MESSAGE value="print invoice with total paid and balance" />
-    <option name="LAST_COMMIT_MESSAGE" value="print invoice with total paid and balance" />
+    <MESSAGE value="show user who prepared invoice on invoice (print and view)" />
+    <option name="LAST_COMMIT_MESSAGE" value="show user who prepared invoice on invoice (print and view)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

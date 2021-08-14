@@ -811,6 +811,8 @@ class Sale extends MY_Controller {
                         if ($data['ordr_id'] != "") {
                             $update_sale_order_invoice_id = "Update ordr set invoice_id={$invoice[0]->invoice_id} where ordr_id={$data['ordr_id']}";
                             $this->db->query($update_sale_order_invoice_id);
+	                        $update_sale_order_invoice_id = "Update ordr set ordr_status=1 where ordr_id={$data['ordr_id']}";
+	                        $this->db->query($update_sale_order_invoice_id);
                         }
                     }
 

@@ -591,7 +591,14 @@
                                                     }
                                                 }
 
-
+												function resetField(id){
+													let it = $("#invoice_total").val();
+													let st = $("#sub_total" + id).val()
+													$("#sub_total" + id).val(0);
+													$("#invoice_total").val(it - st);
+													$("#qty" + id).val(0)
+													$('#total span').html(parseFloat(it - st).toFixed(2));
+												}
 
                                                 function setTwoNumberDecimal(id) {
 
@@ -626,7 +633,22 @@
                                                     $("#invoice_total").val(parseFloat((total - total_discount) + tax).toFixed(2));
                                                 }
                                                 function add_units(u_id, unit_symbol) {
-                                                    u_id = u_id.replace("product_name", "");
+													let p_id = $('#'+u_id).val();
+													u_id = u_id.replace("product_name", "");
+	
+													$.ajax({
+														url: '<?php echo base_url()?>'+`products/get_product/${p_id}`,
+														type: 'get',
+														data: {
+															'product_id': p_id,
+														},
+														dataType: 'json',
+														success:function(response){
+															$('#purchase_price'+u_id).val(response.purchase_unit_price)
+															// console.log();
+														}
+													});
+													//
                                                     $("#div_qty" + u_id + " span").remove();
                                                     $("#div_purchase_price" + u_id + " span").remove();
                                                     $("#div_discount" + u_id + " span").remove();
@@ -634,6 +656,16 @@
                                                     $("#div_qty" + u_id).append('<span class="input-group-addon bootstrap-touchspin-postfix">' + unit_symbol + '</span>');
                                                     $("#div_purchase_price" + u_id).append('<span class="input-group-addon bootstrap-touchspin-postfix">₦</span>');
                                                     $("#div_discount" + u_id).append('<span class="input-group-addon bootstrap-touchspin-postfix">₦</span>');
+													let id = u_id;
+	
+													var purchase_price = $("#purchase_price" + id).val();
+	
+													purchase_price = $("#qty" + id).val() * purchase_price;
+	
+													
+													$("#sub_total" + id).val(parseFloat(purchase_price).toFixed(2));
+	
+													CalculateSubTotal(id);
 
                                                 }
                                                 function add_product() {
@@ -646,8 +678,8 @@
                                                     }
                                                     );
                                                     var html = '<div class="col-sm-12 prod" id="prod' + id + '"><div class="col-sm-3">';
-                                                    html += '<div class="input-group"><select onchange=' + 'add_units(this.id,this.options[this.selectedIndex].getAttribute("unit_symbol")),Validation()' + '  name="product_name[]" id="product_name' + id + '" class="chosen-select">' + $("#product_suggestions").val() + '</select></div>';
-                                                    html += '</div><div  class=" col-sm-2"><div id="div_qty' + id + '" class="input-group"><input step=".01" type="number" name="qty[]" id="qty' + id + '" class="form-control" placeholder="Qty"></div></div>';
+                                                    html += '<div class="input-group"><select onchange=' + 'add_units(this.id,this.options[this.selectedIndex].getAttribute("unit_symbol")),Validation,resetField(' + id + ')' + '  name="product_name[]" id="product_name' + id + '" class="chosen-select">' + $("#product_suggestions").val() + '</select></div>';
+                                                    html += '</div><div  class=" col-sm-2"><div id="div_qty' + id + '" class="input-group"><input step=".01" type="number" name="qty[]" id="qty' + id + '" class="form-control" onkeyup="CalculateSubTotal(' + id + ');" placeholder="Qty"></div></div>';
                                                     html += '<div class="col-sm-2"><div id="div_purchase_price' + id + '" class="input-group"><input type="number" onblur="setTwoNumberDecimal(this.id)" onkeyup="CalculateSubTotal(' + id + ');" step="0.01" name="purchase_price[]" id="purchase_price' + id + '" class="form-control" placeholder="Purchase Price"></div></div>';
                                                     html += '<div class="col-sm-2"><div id="div_discount' + id + '" class="input-group"><input type="number" onblur="setTwoNumberDecimal(this.id)" step="0.01" onkeydown="checkTabPress(event);" onkeyup="CalculateSubTotal(' + id + ');"  name="discount[]" id="discount' + id + '" class="form-control discount" placeholder="Discount"></div></div>';
                                                     html += '<div class="col-sm-2"><div class="input-group"><input type="number" readonly="" onblur="setTwoNumberDecimal(this.id)" step="0.01" name="sub_total[]" id="sub_total' + id + '" value="0.00" class="form-control sub_total" placeholder="Sub Total"></div></div>';
@@ -743,6 +775,8 @@
                                                     CKEDITOR.replace('desc');
             </script>
             <script>
+	
+				
                 function ConfirmAdd() {
                     var account = $("#account").val();
 //                    var discount = $("#total_discount").val();

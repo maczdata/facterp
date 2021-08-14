@@ -599,15 +599,20 @@
 
                                                 function setTwoNumberDecimal(id) {
 
-                                                    $("#" + id).val(parseFloat($("#" + id).val()).toFixed(2));
+                                                    $("#sub_total" + id).val(parseFloat($("#" + id).val()).toFixed(2));
                                                 }
+                                                
+                                                function resetField(id){
+													$("#sub_total" + id).val(0);
+												}
                                                 function  CalculateSubTotal(id) {
-                                                    var sale_price = $("#sale_price" + id).val();
-                                                    var sale_price = $("#qty" + id).val() * sale_price;
+                                                	
+                                                    var sale_p = $("#sale_price" + id).val();
+                                                    sale_p = $("#qty" + id).val() * sale_p;
 
-                                                    var discount = $("#discount" + id).val();
-                                                    var sub_total = sale_price - discount;
-                                                    $("#sub_total" + id).val(parseFloat(sub_total).toFixed(2));
+                                                    var dis = $("#discount" + id).val();
+                                                    var sub_t = sale_p - dis;
+                                                    $("#sub_total" + id).val(parseFloat(sub_t).toFixed(2));
                                                     TotalInvoiceAmount();
 
                                                 }
@@ -634,6 +639,8 @@
 															
 														})
 													}
+	
+													//$("#sub_total" + id).val(parseFloat(total).toFixed(2));
 													  
                                                 
                                                 }
@@ -663,7 +670,22 @@
                                                     $("#div_qty" + u_id).append('<span class="input-group-addon bootstrap-touchspin-postfix">' + unit_symbol + '</span>');
                                                     $("#div_sale_price" + u_id).append('<span class="input-group-addon bootstrap-touchspin-postfix">₦</span>');
                                                     $("#div_discount" + u_id).append('<span class="input-group-addon bootstrap-touchspin-postfix">₦</span>');
-
+													
+                                                    let id = u_id;
+	
+													var sale_price = $("#sale_price" + id).val();
+													
+													 sale_price = $("#qty" + id).val() * sale_price;
+	
+													var discount = $("#discount" + id).val();
+													var sub_total = sale_price - discount;
+													$("#sub_total" + id).val(parseFloat(sub_total).toFixed(2));
+	
+													CalculateSubTotal(id);
+													
+													//setTimeout()
+													//TotalInvoiceAmount();
+													
                                                 }
                                                 function add_product() {
                                                     var id = "0";
@@ -675,7 +697,7 @@
                                                     }
                                                     );
                                                     var html = '<div class="col-sm-12 prod" id="prod' + id + '"><div class="col-sm-3">';
-                                                    html += '<div class="input-group"><select onchange=' + 'add_units(this.id,this.options[this.selectedIndex].getAttribute("unit_symbol")),Validation()' + '   name="product_name[]" id="product_name' + id + '" class="chosen-select">' + $("#product_suggestions").val() + '</select></div>';
+                                                    html += '<div class="input-group"><select onchange=' + 'add_units(this.id,this.options[this.selectedIndex].getAttribute("unit_symbol")),Validation(),resetField(' + id + ')'+ '   name="product_name[]" id="product_name' + id + '" class="chosen-select">' + $("#product_suggestions").val() + '</select></div>';
                                                     html += '</div><div  class="col-sm-2"><div id="div_qty' + id + '" class="input-group"><input step=".01" type="number" name="qty[]" onchange="Validation()" onkeyup="CalculateSubTotal(' + id + ');" step=".01" id="qty' + id + '" class="form-control" placeholder="Qty"></div></div>';
                                                     html += '<div class="col-sm-2"><div id="div_sale_price' + id + '" class="input-group"><input type="number" onblur="setTwoNumberDecimal(this.id)" onchange="Validation()" onkeyup="CalculateSubTotal(' + id + ');" step="0.01" name="sale_price[]" id="sale_price' + id + '" class="form-control" placeholder="Sale Price" value=""></div></div>';
                                                     html += '<div class="col-sm-2" style="width:13%;"><div id="div_discount' + id + '" class="input-group"><input type="number" onblur="setTwoNumberDecimal(this.id)" step="0.01" onkeydown="checkTabPress(event);" onkeyup="CalculateSubTotal(' + id + ');"  name="discount[]" id="discount' + id + '" class="form-control discount" placeholder="Discount"></div></div>';

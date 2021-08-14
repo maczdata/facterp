@@ -529,11 +529,24 @@ class Sale extends MY_Controller {
 	    $query = $this->db->query($query);
 	    $invoice = $query->result();
 	
-	    $store = $this->web->GetOne('store_id', 'stores', $invoice[0]->invoice_store_id);
-	    $invoice[0]->store_name = $store[0]->store_name;
+	
+	    $receivables = $this->web->GetOne('r_invoice_id', 'receivables', $invoice_id);
+	
+	    if($invoice[0]->invoice_store_id):
+		    $store = $this->web->GetOne('store_id', 'stores', $invoice[0]->invoice_store_id);
+		    $invoice[0]->target_name = $store[0]->store_name;
+	    endif;
 	
 	
+	    if($invoice[0]->invoice_warehouse_id):
+		    $store = $this->web->GetOne('warehouse_id', 'warehouses', $invoice[0]->invoice_warehouse_id);
+		    $invoice[0]->target_name = $store[0]->warehouse_name;
+	    endif;
 	    $this->data['invoice'] = $invoice;
+//        $this->data['invoice'] = $this->web->GetOneWithInner('invoice_id', 'invoice', "accounts", "account_id", NULL, NULL, $invoice_id);
+//        $this->data['invoice'] = $this->web->GetOneWithInner('invoice_id', 'invoice', "accounts", "account_id", NULL, NULL, $invoice_id);
+//        echo $this->db->last_query();
+	    $this->data['receipts']= $receivables;
         $this->data['invoice_items'] = $this->web->GetInvoiceItems($invoice_id);
         $this->load->view("sale/print_invoice_with_ntn", $this->data);
     }
@@ -545,12 +558,24 @@ class Sale extends MY_Controller {
 	
 	    $query = $this->db->query($query);
 	    $invoice = $query->result();
+	   
+	    $receivables = $this->web->GetOne('r_invoice_id', 'receivables', $invoice_id);
 	
-	    $store = $this->web->GetOne('store_id', 'stores', $invoice[0]->invoice_store_id);
-	    $invoice[0]->store_name = $store[0]->store_name;
+	    if($invoice[0]->invoice_store_id):
+		    $store = $this->web->GetOne('store_id', 'stores', $invoice[0]->invoice_store_id);
+		    $invoice[0]->target_name = $store[0]->store_name;
+	    endif;
 	
 	
+	    if($invoice[0]->invoice_warehouse_id):
+		    $store = $this->web->GetOne('warehouse_id', 'warehouses', $invoice[0]->invoice_warehouse_id);
+		    $invoice[0]->target_name = $store[0]->warehouse_name;
+	    endif;
 	    $this->data['invoice'] = $invoice;
+//        $this->data['invoice'] = $this->web->GetOneWithInner('invoice_id', 'invoice', "accounts", "account_id", NULL, NULL, $invoice_id);
+//        $this->data['invoice'] = $this->web->GetOneWithInner('invoice_id', 'invoice', "accounts", "account_id", NULL, NULL, $invoice_id);
+//        echo $this->db->last_query();
+	    $this->data['receipts']= $receivables;
         $this->data['invoice_items'] = $this->web->GetInvoiceItems($invoice_id);
         $this->load->view("sale/print_invoice_without_ntn", $this->data);
     }

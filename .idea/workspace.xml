@@ -19,9 +19,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="reset field complete">
+    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="purchase price on purchase">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/purchase/add.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/purchase/add.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Products.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Products.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/products/add.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/products/add.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/products/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/products/edit.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,14 +75,7 @@
       <workItem from="1627476448674" duration="26908000" />
       <workItem from="1627929305975" duration="10257000" />
       <workItem from="1628689349207" duration="11000" />
-      <workItem from="1628950429509" duration="11894000" />
-    </task>
-    <task id="LOCAL-00002" summary="adding products to warehouse and stores">
-      <created>1626082310502</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1626082310502</updated>
+      <workItem from="1628950429509" duration="12144000" />
     </task>
     <task id="LOCAL-00003" summary="stock, log on warehouse and store adding completed">
       <created>1626123367134</created>
@@ -418,7 +413,14 @@
       <option name="project" value="LOCAL" />
       <updated>1628961610348</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="purchase price on purchase">
+      <created>1628962860760</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1628962860760</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -437,7 +439,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="sales completed based on second brief" />
     <MESSAGE value="run production routine to credit product and debit raw materials" />
     <MESSAGE value="Added optional field to capture warehouse id alias for process function" />
     <MESSAGE value="sales order converting to sales successfully" />
@@ -462,7 +463,8 @@
     <MESSAGE value="convert sale order only once -- completed" />
     <MESSAGE value="reset field almost done" />
     <MESSAGE value="reset field complete" />
-    <option name="LAST_COMMIT_MESSAGE" value="reset field complete" />
+    <MESSAGE value="purchase price on purchase" />
+    <option name="LAST_COMMIT_MESSAGE" value="purchase price on purchase" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

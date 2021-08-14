@@ -495,20 +495,28 @@ class Sale extends MY_Controller {
         $invoice_id = $this->uri->segment(3);
 //        $query = "SELECT invoice.*,accounts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice INNER JOIN accounts ON invoice.account_id = accounts.account_id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
 	
+	    $receivables = $this->web->GetOne('r_invoice_id', 'receivables', $invoice_id);
+	    
 	    $query = "SELECT invoice.*,accounts.*, contacts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice LEFT JOIN accounts ON invoice.account_id = accounts.account_id LEFT JOIN contacts ON invoice.invoice_contact_id = contacts.contact_id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
 	
 	    $query = $this->db->query($query);
         $invoice = $query->result();
 	
-	    $store = $this->web->GetOne('store_id', 'stores', $invoice[0]->invoice_store_id);
-	    $invoice[0]->store_name = $store[0]->store_name;
-	   
+	    if($invoice[0]->invoice_store_id):
+		    $store = $this->web->GetOne('store_id', 'stores', $invoice[0]->invoice_store_id);
+		    $invoice[0]->target_name = $store[0]->store_name;
+	    endif;
 	
+	
+	    if($invoice[0]->invoice_warehouse_id):
+		    $store = $this->web->GetOne('warehouse_id', 'warehouses', $invoice[0]->invoice_warehouse_id);
+		    $invoice[0]->target_name = $store[0]->warehouse_name;
+	    endif;
 	    $this->data['invoice'] = $invoice;
 //        $this->data['invoice'] = $this->web->GetOneWithInner('invoice_id', 'invoice', "accounts", "account_id", NULL, NULL, $invoice_id);
 //        $this->data['invoice'] = $this->web->GetOneWithInner('invoice_id', 'invoice', "accounts", "account_id", NULL, NULL, $invoice_id);
 //        echo $this->db->last_query();
-
+	    $this->data['receipts']= $receivables;
         $this->data['invoice_items'] = $this->web->GetInvoiceItems($invoice_id);
         $this->load->view("sale/view_invoice", $this->data);
     }

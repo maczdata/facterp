@@ -555,7 +555,7 @@
 												<label class="col-sm-2 control-label">Select Customer</label>
 												<div class="col-sm-4">
 													<select name="customer" onchange=" Validation()" id="vendor" class="chosen-select">
-														<option value="1">Select Option</option>
+														
 														<?php foreach ($contacts as $contact) { ?>
 															<option value="<?= $contact->contact_id ?>"><?= $contact->contact_name ?></option>
 														<?php } ?>
@@ -600,8 +600,8 @@
                                                         }
                                                         $html .= '</select></div>';
                                                         $html .= '</div><div class="col-sm-2"><div id="div_qty' . $id . '" class="input-group"><input type="number" name="qty[]" step=".01" step=".01" value="' . $inv_item->qty . '" id="qty' . $id . '" class="form-control" placeholder="Qty"><span class="input-group-addon bootstrap-touchspin-postfix">' . $unit . '</span></div></div>';
-                                                        $html .= '<div class="col-sm-2"><div id="div_sale_price' . $id . '" class="input-group"><input type="number" onblur="setTwoNumberDecimal(this.id)" onkeyup="CalculateSubTotal(' . $id . ');" step="0.01" name="sale_price[]" id="sale_price' . $id . '" value="' . $inv_item->product_sale_price . '" class="form-control" placeholder="Sale Price"><span class="input-group-addon bootstrap-touchspin-postfix">Rs</span></div></div>';
-                                                        $html .= '<div class="col-sm-2" style="width:13%;"><div id="div_discount' . $id . '" class="input-group"><input type="number" onblur="setTwoNumberDecimal(this.id)" step="0.01" onkeydown="checkTabPress(event);" onkeyup="CalculateSubTotal(' . $id . ');"  name="discount[]" id="discount' . $id . '" value="' . $inv_item->discount . '" class="form-control discount" placeholder="Discount"><span class="input-group-addon bootstrap-touchspin-postfix">Rs</span></div></div>';
+                                                        $html .= '<div class="col-sm-2"><div id="div_sale_price' . $id . '" class="input-group"><input type="number" onblur="setTwoNumberDecimal(this.id)" onkeyup="CalculateSubTotal(' . $id . ');" step="0.01" name="sale_price[]" id="sale_price' . $id . '" value="' . $inv_item->product_sale_price . '" class="form-control" placeholder="Sale Price"><span class="input-group-addon bootstrap-touchspin-postfix">NGN</span></div></div>';
+                                                        $html .= '<div class="col-sm-2" style="width:13%;"><div id="div_discount' . $id . '" class="input-group"><input type="number" onblur="setTwoNumberDecimal(this.id)" step="0.01" onkeydown="checkTabPress(event);" onkeyup="CalculateSubTotal(' . $id . ');"  name="discount[]" id="discount' . $id . '" value="' . $inv_item->discount . '" class="form-control discount" placeholder="Discount"><span class="input-group-addon bootstrap-touchspin-postfix">NGN</span></div></div>';
                                                         $html .= '<div class="col-sm-1" style="width:12%;"><div id="div_batch' . $id . '" class="input-group"><select onchange="GetBatchProCount(this.value,' . $id . ')" name="batch[]" id="batch' . $id . '" class="chosen-select">';
                                                         $html .= '<option value="">Batch No</option>';
                                                         foreach ($batches as $batch) {
@@ -620,8 +620,8 @@
                                                 <div class="col-sm-12">
                                                     <div class="col-sm-3"></div>
                                                     <div class="col-sm-4" style="font-size: 22px; font-weight: bold; color:#003eff;">Total</div>
-                                                    <div id="tot_dis" class="col-sm-3" style="font-size: 20px; font-weight: bold;"><span><?= $ordr[0]->total_discount ?></span> Rs</div>
-                                                    <div id="total" class="col-sm-2" style="font-size: 22px; font-weight: bold; color:#003eff;"><span><?= $ordr[0]->ordr_total ?></span> Rs
+                                                    <div id="tot_dis" class="col-sm-3" style="font-size: 20px; font-weight: bold;"><span><?= $ordr[0]->total_discount ?></span> NGN</div>
+                                                    <div id="total" class="col-sm-2" style="font-size: 22px; font-weight: bold; color:#003eff;"><span><?= $ordr[0]->ordr_total ?></span> NGN
                                                         <input type="hidden" name="invoice_total" id="ordr_total" value="<?= $ordr[0]->ordr_total ?>" />
                                                     </div>
                                                 </div>
@@ -712,7 +712,7 @@
                                                 </div>
                                                 <label class="col-sm-2 control-label">Payment Status</label>
                                                 <div class="col-sm-2">
-                                                    <select name="payment_status" id="payment_status" class="chosen-select">
+                                                    <select name="payment_status" id="payment_status" onchange="check_credit()" class="chosen-select">
                                                         <option  value="">Select Option</option>
                                                         <option <?= $ordr[0]->payment_status == 'Pending' ? "selected" : "" ?> value="Pending">Pending</option>
                                                         <option <?= $ordr[0]->payment_status == 'Confirmed' ? "selected" : "" ?> value="Confirmed">Confirmed</option>
@@ -773,6 +773,13 @@
                                                 <div class="col-sm-2">
                                                     <input  type="text" name="mobile_no" id="mobile_no" class="form-control" placeholder="Enter Mobile No." value="">
                                                 </div>
+	
+												<div id="amt_tdiv">
+													<label class="col-sm-2 control-label">Amount Tendered:</label>
+													<div class="col-sm-2">
+														<input  type="number" step="any" name="amount_tendered" id="amount_tendered" value="0" class="form-control" placeholder="Enter Amount.">
+													</div>
+												</div>
                                             </div>
 
 
@@ -782,6 +789,7 @@
                                                     <textarea name="desc" id="desc"> </textarea>
                                                 </div>
                                             </div>
+											<input type="hidden" name="ordr_id" value="<?=$ordr_id?>">
                                             <div class="form-group">
                                                 <div class="col-md-4 col-sm-0"></div>
                                                 <button id="confrm_btn" class="btn btn-alt btn-hover btn-blue-alt col-md-4" onclick="return ConfirmAdd();">
@@ -790,7 +798,7 @@
                                                 </button>
                                                 <div class="col-md-4 col-sm-0"></div>
                                             </div>
-                                            <input type="hidden" name="ordr_id" value="<?=$ordr_id?>">
+                                            
                                         </form>
                                     </div>
                                 </div>
@@ -810,6 +818,50 @@
                                                     CKEDITOR.replace('desc');
             </script>
             <script>
+	
+				$("#amt_tdiv").hide();
+	
+				function check_credit(){
+					let payment_type = $("#payment_status").val();
+					if(payment_type == 'Pending'){
+						$("#amt_tdiv").show();
+						TotalInvoiceAmount()
+					}else{
+						$("#amt_tdiv").hide();
+						$("#amount_tendered").attr({
+							"max" : 0
+				
+						})
+					}
+				}
+				
+				
+				function TotalInvoiceAmount() {
+					var total = 0;
+					var total_discount = parseFloat($("#total_discount").val());
+					var tax = parseFloat($("#tax").val());
+					if (isNaN(total_discount)) {
+						total_discount = 0;
+					}
+					if (isNaN(tax)) {
+						tax = 0;
+					}
+					$(".sub_total").each(function () {
+						total += parseFloat($(this).val());
+					});
+					$("#tot_dis span").html(parseFloat(total_discount).toFixed(2));
+					$('#total span').html(parseFloat((total - total_discount) + tax).toFixed(2));
+					$("#invoice_total").val(parseFloat((total - total_discount) + tax).toFixed(2));
+					let payment_type = $("#payment_status").val();
+					if(payment_type == 'Pending'){
+						$("#amount_tendered").attr({
+							"max" : parseFloat(((total - total_discount) + tax).toFixed(2) )
+							
+						})
+					}
+					
+					
+				}
                 function ConfirmAdd() {
                     var account = $("#account").val();
 //                    var discount = $("#total_discount").val();

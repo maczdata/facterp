@@ -19,9 +19,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="print showing customer name">
+    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="purchase price on addition and edit of product">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/contacts/view_invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/contacts/view_invoice.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Purchase.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Purchase.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/purchase/add.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/purchase/add.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/purchase/print_invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/purchase/print_invoice.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/purchase/view_invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/purchase/view_invoice.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +51,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../testj" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -71,28 +74,9 @@
       <workItem from="1626015299102" duration="30419000" />
       <workItem from="1626537441360" duration="42978000" />
       <workItem from="1627476448674" duration="26908000" />
-      <workItem from="1627929305975" duration="9989000" />
-    </task>
-    <task id="LOCAL-00001" summary="new store and store listing completed">
-      <created>1626018607669</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1626018607669</updated>
-    </task>
-    <task id="LOCAL-00002" summary="adding products to warehouse and stores">
-      <created>1626082310502</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1626082310502</updated>
-    </task>
-    <task id="LOCAL-00003" summary="stock, log on warehouse and store adding completed">
-      <created>1626123367134</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1626123367134</updated>
+      <workItem from="1627929305975" duration="10257000" />
+      <workItem from="1628689349207" duration="11000" />
+      <workItem from="1628950429509" duration="13239000" />
     </task>
     <task id="LOCAL-00004" summary="toggle between transfer type">
       <created>1626260061392</created>
@@ -367,7 +351,77 @@
       <option name="project" value="LOCAL" />
       <updated>1628022552786</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="date on receivables">
+      <created>1628022776877</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1628022776877</updated>
+    </task>
+    <task id="LOCAL-00044" summary="invoice showing balance and total paid">
+      <created>1628951805699</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1628951805699</updated>
+    </task>
+    <task id="LOCAL-00045" summary="print invoice with total paid and balance">
+      <created>1628952827283</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1628952827283</updated>
+    </task>
+    <task id="LOCAL-00046" summary="show user who prepared invoice on invoice (print and view)">
+      <created>1628953895335</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1628953895335</updated>
+    </task>
+    <task id="LOCAL-00047" summary="convert sale order only once">
+      <created>1628955815465</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1628955815465</updated>
+    </task>
+    <task id="LOCAL-00048" summary="convert sale order only once -- completed">
+      <created>1628957069907</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1628957069907</updated>
+    </task>
+    <task id="LOCAL-00049" summary="reset field almost done">
+      <created>1628960537829</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1628960537829</updated>
+    </task>
+    <task id="LOCAL-00050" summary="reset field complete">
+      <created>1628961610347</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1628961610348</updated>
+    </task>
+    <task id="LOCAL-00051" summary="purchase price on purchase">
+      <created>1628962860760</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1628962860760</updated>
+    </task>
+    <task id="LOCAL-00052" summary="purchase price on addition and edit of product">
+      <created>1628963177043</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1628963177043</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -386,16 +440,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="change stock quantity on backend on sales" />
-    <MESSAGE value="sales completed. peding display" />
-    <MESSAGE value="sales display completed showing originating store" />
-    <MESSAGE value="sales completed with report displaying" />
-    <MESSAGE value="tracking employee activities" />
-    <MESSAGE value="print payslip by month and year, add bank details on new employee page" />
-    <MESSAGE value="Add Users to multiple stores and warehouses" />
-    <MESSAGE value="route sales based on stores attached to" />
-    <MESSAGE value="sales completed based on second brief" />
-    <MESSAGE value="run production routine to credit product and debit raw materials" />
     <MESSAGE value="Added optional field to capture warehouse id alias for process function" />
     <MESSAGE value="sales order converting to sales successfully" />
     <MESSAGE value="purchase and purchase orders completed, converting purchase order to purchases" />
@@ -411,7 +455,17 @@
     <MESSAGE value="sale price on new and edit product" />
     <MESSAGE value="sale price on new sales page" />
     <MESSAGE value="print showing customer name" />
-    <option name="LAST_COMMIT_MESSAGE" value="print showing customer name" />
+    <MESSAGE value="date on receivables" />
+    <MESSAGE value="invoice showing balance and total paid" />
+    <MESSAGE value="print invoice with total paid and balance" />
+    <MESSAGE value="show user who prepared invoice on invoice (print and view)" />
+    <MESSAGE value="convert sale order only once" />
+    <MESSAGE value="convert sale order only once -- completed" />
+    <MESSAGE value="reset field almost done" />
+    <MESSAGE value="reset field complete" />
+    <MESSAGE value="purchase price on purchase" />
+    <MESSAGE value="purchase price on addition and edit of product" />
+    <option name="LAST_COMMIT_MESSAGE" value="purchase price on addition and edit of product" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

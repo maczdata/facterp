@@ -495,20 +495,28 @@ class Sale extends MY_Controller {
         $invoice_id = $this->uri->segment(3);
 //        $query = "SELECT invoice.*,accounts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice INNER JOIN accounts ON invoice.account_id = accounts.account_id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
 	
-	    $query = "SELECT invoice.*,accounts.*, contacts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice LEFT JOIN accounts ON invoice.account_id = accounts.account_id LEFT JOIN contacts ON invoice.invoice_contact_id = contacts.contact_id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
+	    $receivables = $this->web->GetOne('r_invoice_id', 'receivables', $invoice_id);
+	    
+	    $query = "SELECT invoice.*,accounts.*, contacts.*, users.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice LEFT JOIN accounts ON invoice.account_id = accounts.account_id LEFT JOIN contacts ON invoice.invoice_contact_id = contacts.contact_id LEFT JOIN users ON invoice.user_id = users.id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
 	
 	    $query = $this->db->query($query);
         $invoice = $query->result();
 	
-	    $store = $this->web->GetOne('store_id', 'stores', $invoice[0]->invoice_store_id);
-	    $invoice[0]->store_name = $store[0]->store_name;
-	   
+	    if($invoice[0]->invoice_store_id):
+		    $store = $this->web->GetOne('store_id', 'stores', $invoice[0]->invoice_store_id);
+		    $invoice[0]->target_name = $store[0]->store_name;
+	    endif;
 	
+	
+	    if($invoice[0]->invoice_warehouse_id):
+		    $store = $this->web->GetOne('warehouse_id', 'warehouses', $invoice[0]->invoice_warehouse_id);
+		    $invoice[0]->target_name = $store[0]->warehouse_name;
+	    endif;
 	    $this->data['invoice'] = $invoice;
 //        $this->data['invoice'] = $this->web->GetOneWithInner('invoice_id', 'invoice', "accounts", "account_id", NULL, NULL, $invoice_id);
 //        $this->data['invoice'] = $this->web->GetOneWithInner('invoice_id', 'invoice', "accounts", "account_id", NULL, NULL, $invoice_id);
 //        echo $this->db->last_query();
-
+	    $this->data['receipts']= $receivables;
         $this->data['invoice_items'] = $this->web->GetInvoiceItems($invoice_id);
         $this->load->view("sale/view_invoice", $this->data);
     }
@@ -516,16 +524,29 @@ class Sale extends MY_Controller {
     function print_inv_with_ntn() {
         $invoice_id = $this->uri->segment(3);
 //        $this->data['invoice'] = $this->web->GetOneWithInner('invoice_id', 'invoice', "accounts", "account_id", NULL, NULL, $invoice_id);
-	    $query = "SELECT invoice.*,accounts.*, contacts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice LEFT JOIN accounts ON invoice.account_id = accounts.account_id LEFT JOIN contacts ON invoice.invoice_contact_id = contacts.contact_id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
+	    $query = "SELECT invoice.*,accounts.*, contacts.*, users.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice LEFT JOIN accounts ON invoice.account_id = accounts.account_id LEFT JOIN contacts ON invoice.invoice_contact_id = contacts.contact_id LEFT JOIN users ON invoice.user_id = users.id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
 	
 	    $query = $this->db->query($query);
 	    $invoice = $query->result();
 	
-	    $store = $this->web->GetOne('store_id', 'stores', $invoice[0]->invoice_store_id);
-	    $invoice[0]->store_name = $store[0]->store_name;
+	
+	    $receivables = $this->web->GetOne('r_invoice_id', 'receivables', $invoice_id);
+	
+	    if($invoice[0]->invoice_store_id):
+		    $store = $this->web->GetOne('store_id', 'stores', $invoice[0]->invoice_store_id);
+		    $invoice[0]->target_name = $store[0]->store_name;
+	    endif;
 	
 	
+	    if($invoice[0]->invoice_warehouse_id):
+		    $store = $this->web->GetOne('warehouse_id', 'warehouses', $invoice[0]->invoice_warehouse_id);
+		    $invoice[0]->target_name = $store[0]->warehouse_name;
+	    endif;
 	    $this->data['invoice'] = $invoice;
+//        $this->data['invoice'] = $this->web->GetOneWithInner('invoice_id', 'invoice', "accounts", "account_id", NULL, NULL, $invoice_id);
+//        $this->data['invoice'] = $this->web->GetOneWithInner('invoice_id', 'invoice', "accounts", "account_id", NULL, NULL, $invoice_id);
+//        echo $this->db->last_query();
+	    $this->data['receipts']= $receivables;
         $this->data['invoice_items'] = $this->web->GetInvoiceItems($invoice_id);
         $this->load->view("sale/print_invoice_with_ntn", $this->data);
     }
@@ -533,16 +554,28 @@ class Sale extends MY_Controller {
     function print_inv_without_ntn() {
         $invoice_id = $this->uri->segment(3);
 //        $this->data['invoice'] = $this->web->GetOneWithInner('invoice_id', 'invoice', "accounts", "account_id", NULL, NULL, $invoice_id);
-	    $query = "SELECT invoice.*,accounts.*, contacts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice LEFT JOIN accounts ON invoice.account_id = accounts.account_id LEFT JOIN contacts ON invoice.invoice_contact_id = contacts.contact_id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
+	    $query = "SELECT invoice.*,accounts.*, contacts.*, users.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice LEFT JOIN accounts ON invoice.account_id = accounts.account_id LEFT JOIN contacts ON invoice.invoice_contact_id = contacts.contact_id LEFT JOIN users ON invoice.user_id = users.id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
 	
 	    $query = $this->db->query($query);
 	    $invoice = $query->result();
+	   
+	    $receivables = $this->web->GetOne('r_invoice_id', 'receivables', $invoice_id);
 	
-	    $store = $this->web->GetOne('store_id', 'stores', $invoice[0]->invoice_store_id);
-	    $invoice[0]->store_name = $store[0]->store_name;
+	    if($invoice[0]->invoice_store_id):
+		    $store = $this->web->GetOne('store_id', 'stores', $invoice[0]->invoice_store_id);
+		    $invoice[0]->target_name = $store[0]->store_name;
+	    endif;
 	
 	
+	    if($invoice[0]->invoice_warehouse_id):
+		    $store = $this->web->GetOne('warehouse_id', 'warehouses', $invoice[0]->invoice_warehouse_id);
+		    $invoice[0]->target_name = $store[0]->warehouse_name;
+	    endif;
 	    $this->data['invoice'] = $invoice;
+//        $this->data['invoice'] = $this->web->GetOneWithInner('invoice_id', 'invoice', "accounts", "account_id", NULL, NULL, $invoice_id);
+//        $this->data['invoice'] = $this->web->GetOneWithInner('invoice_id', 'invoice', "accounts", "account_id", NULL, NULL, $invoice_id);
+//        echo $this->db->last_query();
+	    $this->data['receipts']= $receivables;
         $this->data['invoice_items'] = $this->web->GetInvoiceItems($invoice_id);
         $this->load->view("sale/print_invoice_without_ntn", $this->data);
     }
@@ -720,6 +753,7 @@ class Sale extends MY_Controller {
             $data['mobile_no'] = $this->input->post("mobile_no");
             $data['invoice_store_id'] =  $store_id;
 	        $data['invoice_contact_id'] = $_POST['customer'];
+	        $data['user_id'] = $this->session->userdata('user_id');
 
             if (!($inv)) {
                 $data['invoice_no'] = 'S-00001';
@@ -777,6 +811,8 @@ class Sale extends MY_Controller {
                         if ($data['ordr_id'] != "") {
                             $update_sale_order_invoice_id = "Update ordr set invoice_id={$invoice[0]->invoice_id} where ordr_id={$data['ordr_id']}";
                             $this->db->query($update_sale_order_invoice_id);
+	                        $update_sale_order_invoice_id = "Update ordr set ordr_status=1 where ordr_id={$data['ordr_id']}";
+	                        $this->db->query($update_sale_order_invoice_id);
                         }
                     }
 

@@ -515,9 +515,9 @@
                                                 <td><?= $counter ?></td>
                                                 <td><?= $inv_item->product_name ?></td>
                                                 <td class="text-center"><?= $inv_item->qty . " " . $inv_item->unit ?></td>
-                                                <td><?= $inv_item->product_purchase_price ?> Rs</td>
-                                                <td><?= $inv_item->discount ?> Rs</td>
-                                                <td><?= $inv_item->invoice_subtotal ?> Rs</td>
+                                                <td><?= $inv_item->product_purchase_price ?> NGN</td>
+                                                <td><?= $inv_item->discount ?> NGN</td>
+                                                <td><?= $inv_item->invoice_subtotal ?> NGN</td>
                                             </tr>
                                             <?php
                                             $counter++;
@@ -525,16 +525,84 @@
                                         ?>
                                         <tr class="font-bold font-black">
                                             <td colspan="4" class="text-right">Discount on Sub Total:</td>
-                                            <td colspan="2" class="font-red"><?= $invoice[0]->total_discount ?> Rs</td>
+                                            <td colspan="2" class="font-red"><?= $invoice[0]->total_discount ?> NGN</td>
                                         </tr>
-                                        <tr class="font-bold font-black">
-                                            <td colspan="1" class="text-right font-size-20">TOTAL:</td>
-                                            <?php $amount_total = $invoice[0]->invoice_total; ?>
-                                            <td colspan="4" class="font-blue font-size-18"><?= getPakistaniCurrency($amount_total) ?></td>
-                                            <td colspan="1" class="font-blue font-size-18"><?= $invoice[0]->invoice_total ?> Rs</td>
-                                        </tr>
-                                   </tbody>
+										<?php $amount_total = $invoice[0]->invoice_total; ?>
+										<?php $total_paid = 0;
+											if(empty($receipts)):
+												$total_paid = 0;
+											else:
+												foreach ($receipts as $receipt):
+													$total_paid = $total_paid+ $receipt->r_amount;
+												endforeach;
+	
+											endif;
+	
+											$balance = $amount_total - ($total_paid + $invoice[0]->total_discount);
+										?>
+
+										<tr class="font-bold font-black">
+											<td colspan="1" class="text-right font-size-20">TOTAL:</td>
+	
+											<td colspan="4" class="font-blue font-size-18"> </td>
+											<td colspan="1" class="font-blue font-size-18"><?= $amount_total ?> NGN</td>
+										</tr>
+										<tr class="font-bold font-black">
+											<td colspan="1" class="text-right font-size-20">TOTAL PAID:</td>
+	
+											<td colspan="4" class="font-blue font-size-18"> </td>
+											<td colspan="1" class="font-blue font-size-18"><?= $total_paid ?> NGN</td>
+										</tr>
+										<tr class="font-bold font-black">
+											<td colspan="1" class="text-right font-size-20">BALANCE:</td>
+	
+											<td colspan="4" class="font-blue font-size-18"><?= getPakistaniCurrency($balance) ?> </td>
+	
+											<td colspan="1" class="font-blue font-size-18"><?= $balance ?> NGN</td>
+										</tr>
+
+									</tbody>
                                 </table>
+	
+								<?php
+									if($balance > 0): ?>
+										<form method="post"  action="">
+											<div class="row">
+												<p>Receive Payment</p>
+												<div class="col-md-4">
+													<div class="mb-3">
+														<label for="validationCustom03" class="form-label">Amount:</label>
+														<input type="number" step="any" class="form-control" id="validationCustom05"
+															   placeholder="amount" min="1"  name="r_amount" max="<?=$balance ?>" required>
+						
+						
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-4">
+													<div class="mb-3">
+														<label for="validationCustom03" class="form-label">Date:</label>
+														<input type="date" value="<?php echo date('Y-m-d'); ?>" class="form-control" id="validationCustom05"
+															   name="r_date" required>
+						
+						
+													</div>
+												</div>
+				
+											</div>
+				
+				
+											<br>
+				
+				
+				
+											<button class="btn btn-primary" type="submit">Process</button>
+			
+										</form>
+		
+									<?php			endif;
+								?>
 
                             </div>
 

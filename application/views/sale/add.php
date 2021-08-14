@@ -603,7 +603,12 @@
                                                 }
                                                 
                                                 function resetField(id){
+													let it = $("#invoice_total").val();
+													let st = $("#sub_total" + id).val()
 													$("#sub_total" + id).val(0);
+													$("#invoice_total").val(it - st);
+													$("#qty" + id).val(0)
+													$('#total span').html(parseFloat(it - st).toFixed(2));
 												}
                                                 function  CalculateSubTotal(id) {
                                                 	

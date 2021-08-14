@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="convert sale order only once -- completed">
+    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="reset field almost done">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/views/sale/add.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale/add.php" afterDir="false" />
     </list>
@@ -73,7 +73,7 @@
       <workItem from="1627476448674" duration="26908000" />
       <workItem from="1627929305975" duration="10257000" />
       <workItem from="1628689349207" duration="11000" />
-      <workItem from="1628950429509" duration="9690000" />
+      <workItem from="1628950429509" duration="10641000" />
     </task>
     <task id="LOCAL-00001" summary="new store and store listing completed">
       <created>1626018607669</created>
@@ -411,7 +411,14 @@
       <option name="project" value="LOCAL" />
       <updated>1628957069907</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="reset field almost done">
+      <created>1628960537829</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1628960537829</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -430,7 +437,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add Users to multiple stores and warehouses" />
     <MESSAGE value="route sales based on stores attached to" />
     <MESSAGE value="sales completed based on second brief" />
     <MESSAGE value="run production routine to credit product and debit raw materials" />
@@ -455,7 +461,8 @@
     <MESSAGE value="show user who prepared invoice on invoice (print and view)" />
     <MESSAGE value="convert sale order only once" />
     <MESSAGE value="convert sale order only once -- completed" />
-    <option name="LAST_COMMIT_MESSAGE" value="convert sale order only once -- completed" />
+    <MESSAGE value="reset field almost done" />
+    <option name="LAST_COMMIT_MESSAGE" value="reset field almost done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

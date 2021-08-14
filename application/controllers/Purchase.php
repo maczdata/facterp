@@ -200,21 +200,96 @@ class Purchase extends MY_Controller {
 
     function view_invoice() {
         $invoice_id = $this->uri->segment(3);
+	
+	    if($_POST):
+		    $data['r_user_id'] = $this->session->userdata('user_id');
+		    $data['r_amount'] = $_POST['r_amount'];
+		    $data['r_invoice_id'] = $invoice_id;
+		    $data['r_date'] = $_POST['r_date'];
+		
+		    $this->web->Add('receivables', $data);
+		    $total_paid =0;
+		
+		    $query = "SELECT invoice.*,accounts.*, contacts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice LEFT JOIN accounts ON invoice.account_id = accounts.account_id LEFT JOIN contacts ON invoice.invoice_contact_id = contacts.contact_id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
+		
+		    $query = $this->db->query($query);
+		    $invoice = $query->result();
+		
+		    $receipts = $this->web->GetOne('r_invoice_id', 'receivables', $invoice_id);
+		    foreach ($receipts as $receipt):
+			    $total_paid = $total_paid+ $receipt->r_amount;
+		    endforeach;
+		
+		    if($total_paid == ($invoice[0]->invoice_total + $invoice[0]->total_discount) ):
+			    $invoice_data = array(
+				    'payment_status' => 'Confirmed'
+			    );
+			
+			    $this->web->Update("invoice_id", "invoice", $invoice_id, $invoice_data);
+		    endif;
+		
+		    $url = 'purchase/view_invoice/'.$invoice_id;
+		
+		    redirect($url, "refresh");
+	
+	    else:
+     
+     
+     
 //        $this->data['invoice'] = $this->web->GetOneWithInner('invoice_id', 'invoice', "accounts", "account_id", NULL, NULL, $invoice_id);
-        $query = "SELECT invoice.*,accounts.*, contacts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice LEFT JOIN accounts ON invoice.account_id = accounts.account_id LEFT JOIN contacts ON invoice.invoice_contact_id = contacts.contact_id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
-        $query = $this->db->query($query);
-        $this->data['invoice'] = $query->result();
+	    $receivables = $this->web->GetOne('r_invoice_id', 'receivables', $invoice_id);
+	
+	    $query = "SELECT invoice.*,accounts.*, contacts.*, users.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice LEFT JOIN accounts ON invoice.account_id = accounts.account_id LEFT JOIN contacts ON invoice.invoice_contact_id = contacts.contact_id LEFT JOIN users ON invoice.user_id = users.id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
+	
+	    $query = $this->db->query($query);
+	    $invoice = $query->result();
+	
+	    if($invoice[0]->invoice_store_id):
+		    $store = $this->web->GetOne('store_id', 'stores', $invoice[0]->invoice_store_id);
+		    $invoice[0]->target_name = $store[0]->store_name;
+	    endif;
+	
+	
+	    if($invoice[0]->invoice_warehouse_id):
+		    $store = $this->web->GetOne('warehouse_id', 'warehouses', $invoice[0]->invoice_warehouse_id);
+		    $invoice[0]->target_name = $store[0]->warehouse_name;
+	    endif;
+	    $this->data['invoice'] = $invoice;
+//        $this->data['invoice'] = $this->web->GetOneWithInner('invoice_id', 'invoice', "accounts", "account_id", NULL, NULL, $invoice_id);
+//        $this->data['invoice'] = $this->web->GetOneWithInner('invoice_id', 'invoice', "accounts", "account_id", NULL, NULL, $invoice_id);
+//        echo $this->db->last_query();
+	    $this->data['receipts']= $receivables;
         //print_r($this->data['invoice']);
         $this->data['invoice_items'] = $this->web->GetInvoiceItems($invoice_id);
        $this->load->view("purchase/view_invoice", $this->data);
+      endif;
     }
 
     function print_inv() {
         $invoice_id = $this->uri->segment(3);
 //        $this->data['invoice'] = $this->web->GetOneWithInner('invoice_id', 'invoice', "accounts", "account_id", NULL, NULL, $invoice_id);
-        $query = "SELECT invoice.*,accounts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice INNER JOIN accounts ON invoice.account_id = accounts.account_id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
-        $query = $this->db->query($query);
-        $this->data['invoice'] = $query->result();
+	    $receivables = $this->web->GetOne('r_invoice_id', 'receivables', $invoice_id);
+	
+	    $query = "SELECT invoice.*,accounts.*, contacts.*, users.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice LEFT JOIN accounts ON invoice.account_id = accounts.account_id LEFT JOIN contacts ON invoice.invoice_contact_id = contacts.contact_id LEFT JOIN users ON invoice.user_id = users.id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
+	
+	    $query = $this->db->query($query);
+	    $invoice = $query->result();
+	
+	    if($invoice[0]->invoice_store_id):
+		    $store = $this->web->GetOne('store_id', 'stores', $invoice[0]->invoice_store_id);
+		    $invoice[0]->target_name = $store[0]->store_name;
+	    endif;
+	
+	
+	    if($invoice[0]->invoice_warehouse_id):
+		    $store = $this->web->GetOne('warehouse_id', 'warehouses', $invoice[0]->invoice_warehouse_id);
+		    $invoice[0]->target_name = $store[0]->warehouse_name;
+	    endif;
+	    $this->data['invoice'] = $invoice;
+//        $this->data['invoice'] = $this->web->GetOneWithInner('invoice_id', 'invoice', "accounts", "account_id", NULL, NULL, $invoice_id);
+//        $this->data['invoice'] = $this->web->GetOneWithInner('invoice_id', 'invoice', "accounts", "account_id", NULL, NULL, $invoice_id);
+//        echo $this->db->last_query();
+	    $this->data['receipts']= $receivables;
         $this->data['invoice_items'] = $this->web->GetInvoiceItems($invoice_id);
         $this->load->view("purchase/print_invoice", $this->data);
     }
@@ -332,8 +407,12 @@ class Purchase extends MY_Controller {
           if($_POST['target'] == 2):
 	        $store_id = $_POST['store_id'];
 	        endif;
-	        
-            $data_items = array();
+	
+	        $payment_status = $this->db->escape_str($this->input->post("payment_status", true));
+	        $amount_tendered = $this->db->escape_str($this->input->post("amount_tendered", true));
+	        $date = date("Y-m-d", strtotime(str_replace("-", "/", $this->input->post("date", true)))) . " " . date("H:i:s");
+	
+	        $data_items = array();
             $data['account_id'] = $this->db->escape_str($this->input->post("account", true));
             $data['date_created'] = date("Y-m-d", strtotime(str_replace("-", "/", $this->input->post("date", true)))) . " " . date("H:i:s");
             $data_items['product_id'] = $this->input->post("product_name", true);
@@ -406,7 +485,39 @@ class Purchase extends MY_Controller {
                     $ledger_query = "INSERT INTO ledger (debit_amount,credit_amount,description,type,invoice_ref,account_id,date) ";
                     $ledger_query .= "VALUES (NULL,'" . $data['invoice_total'] . "','" . $invoice[0]->voucher_no . '<br>' . $invoice[0]->builty_no . '<br>' . $invoice[0]->description . '<br>' . "','Invoice','" . $invoice[0]->invoice_id . "','" . $data['account_id'] . "','" . $data['date_created'] . "')";
                 }
-                if ($this->db->query($insert_items) && $this->db->query($ledger_query) && $this->db->query($product_ledger)) {
+	
+	
+	            if(($payment_status == 'Pending') && (!is_null($amount_tendered) || $amount_tendered != 0) || (!empty($amount_tendered))) {
+		            $invoice = $invoice[0]->invoice_id;
+		            $dat['r_user_id'] = $this->session->userdata('user_id');
+		            $dat['r_amount'] = $amount_tendered;
+		            $dat['r_invoice_id'] = $invoice;
+		            $dat['r_date'] = $date;
+		
+		            $this->web->Add('receivables', $dat);
+		            $total_paid = 0;
+		
+		            $query = "SELECT invoice.*,accounts.*, contacts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice LEFT JOIN accounts ON invoice.account_id = accounts.account_id LEFT JOIN contacts ON invoice.invoice_contact_id = contacts.contact_id WHERE invoice.invoice_id = '" . $invoice . "' ORDER BY invoice.invoice_id ASC";
+		
+		            $query = $this->db->query($query);
+		            $invoices = $query->result();
+		
+		            $receipts = $this->web->GetOne('r_invoice_id', 'receivables', $invoice);
+		            foreach ($receipts as $receipt):
+			            $total_paid = $total_paid + $receipt->r_amount;
+		            endforeach;
+		
+		            if ($total_paid == ($invoices[0]->invoice_total + $invoices[0]->total_discount)):
+			            $invoice_data = array(
+				            'payment_status' => 'Confirmed'
+			            );
+			
+			            $this->web->Update("invoice_id", "invoice", $invoice, $invoice_data);
+		            endif;
+	            }
+		
+		
+		            if ($this->db->query($insert_items) && $this->db->query($ledger_query) && $this->db->query($product_ledger)) {
                     redirect("purchase", "refresh");
                 }
             }

@@ -136,13 +136,42 @@
                             <td colspan="4" class="text-right">Discount on Sub Total:</td>
                             <td colspan="2" class="font-red"><?= $invoice[0]->total_discount ?> Rs</td>
                         </tr>
-                        <tr class="font-bold font-black">
-                            <td colspan="1" class="text-right font-size-18">TOTAL:</td>
-                            <?php $amount_total = $invoice[0]->invoice_total; ?>
-                            <td colspan="4" class="font-blue font-size-16"><?= getPakistaniCurrency($amount_total) ?></td>
-                            <td colspan="1" class="font-blue font-size-16"><?= $invoice[0]->invoice_total ?> NGN</td>
-                        </tr>
-            </tbody>
+				<?php
+					$amount_total = $invoice[0]->total_discount;
+					$total_paid = 0;
+					if(empty($receipts)):
+						$total_paid = 0;
+					else:
+						foreach ($receipts as $receipt):
+							$total_paid = $total_paid+ $receipt->r_amount;
+						endforeach;
+	
+					endif;
+	
+					$balance = $amount_total - ($total_paid + $invoice[0]->total_discount);
+				?>
+
+				<tr class="font-bold font-black">
+					<td colspan="1" class="text-right font-size-20">TOTAL:</td>
+	
+					<td colspan="4" class="font-blue font-size-18"> </td>
+					<td colspan="1" class="font-blue font-size-18"><?= $amount_total ?> NGN</td>
+				</tr>
+				<tr class="font-bold font-black">
+					<td colspan="1" class="text-right font-size-20">TOTAL PAID:</td>
+	
+					<td colspan="4" class="font-blue font-size-18"> </td>
+					<td colspan="1" class="font-blue font-size-18"><?= $total_paid ?> NGN</td>
+				</tr>
+				<tr class="font-bold font-black">
+					<td colspan="1" class="text-right font-size-20">BALANCE:</td>
+	
+					<td colspan="4" class="font-blue font-size-18"><?= getPakistaniCurrency($balance) ?> </td>
+	
+					<td colspan="1" class="font-blue font-size-18"><?= $balance ?> NGN</td>
+				</tr>
+
+			</tbody>
         </table>
          <footer style="font-size: 10px; bottom: 0; position: fixed; left: 0; width: 100%; text-align: center" class="footer">
         <table width="100%" style="margin-top: 50px !important;">

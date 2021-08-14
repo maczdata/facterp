@@ -705,7 +705,7 @@
                                                 </div>
                                                 <label class="col-sm-2 control-label">Payment Status</label>
                                                 <div class="col-sm-2">
-                                                    <select name="payment_status" onchange="Validation()"  id="payment_status" class="chosen-select">
+                                                    <select name="payment_status" onchange="Validation(), check_credit()"  id="payment_status" class="chosen-select">
                                                         <option value="">Select Option</option>
                                                         <option value="Pending">Pending</option>
                                                         <option value="Confirmed">Confirmed</option>
@@ -732,6 +732,13 @@
                                                 <div class="col-sm-2">
                                                     <input type="text" name="pv_no" id="pv_no" value=" <?= isset($last_purchase_no) ? strip_tags($last_purchase_no) : '' ?>" class="form-control" readonly=""  >
                                                 </div>
+	
+												<div id="amt_tdiv">
+													<label class="col-sm-2 control-label">Amount Tendered:</label>
+													<div class="col-sm-2">
+														<input  type="number" step="any" name="amount_tendered" id="amount_tendered" value="0" class="form-control" placeholder="Enter Amount.">
+													</div>
+												</div>
                                             </div>
 
 											<input type="hidden" name="target" value="<?=$target; ?>">
@@ -748,6 +755,9 @@
                                                     <textarea name="desc" id="desc"></textarea>
                                                 </div>
                                             </div>
+										
+											
+											
                                             <div class="form-group">
                                                 <div class="col-md-4 col-sm-0"></div>
                                                 <button class="btn btn-alt btn-hover btn-blue-alt col-md-4" onclick="return ConfirmAdd();">
@@ -776,7 +786,20 @@
             </script>
             <script>
 	
+				$("#amt_tdiv").hide();
+				function check_credit(){
+					let payment_type = $("#payment_status").val();
+					if(payment_type == 'Pending'){
+						$("#amt_tdiv").show();
+						TotalInvoiceAmount()
+					}else{
+						$("#amt_tdiv").hide();
+						$("#amount_tendered").attr({
+							"max" : 0
 				
+						})
+					}
+				}
                 function ConfirmAdd() {
                     var account = $("#account").val();
 //                    var discount = $("#total_discount").val();

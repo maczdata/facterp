@@ -497,7 +497,7 @@ class Sale extends MY_Controller {
 	
 	    $receivables = $this->web->GetOne('r_invoice_id', 'receivables', $invoice_id);
 	    
-	    $query = "SELECT invoice.*,accounts.*, contacts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice LEFT JOIN accounts ON invoice.account_id = accounts.account_id LEFT JOIN contacts ON invoice.invoice_contact_id = contacts.contact_id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
+	    $query = "SELECT invoice.*,accounts.*, contacts.*, users.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice LEFT JOIN accounts ON invoice.account_id = accounts.account_id LEFT JOIN contacts ON invoice.invoice_contact_id = contacts.contact_id LEFT JOIN users ON invoice.user_id = users.id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
 	
 	    $query = $this->db->query($query);
         $invoice = $query->result();
@@ -524,7 +524,7 @@ class Sale extends MY_Controller {
     function print_inv_with_ntn() {
         $invoice_id = $this->uri->segment(3);
 //        $this->data['invoice'] = $this->web->GetOneWithInner('invoice_id', 'invoice', "accounts", "account_id", NULL, NULL, $invoice_id);
-	    $query = "SELECT invoice.*,accounts.*, contacts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice LEFT JOIN accounts ON invoice.account_id = accounts.account_id LEFT JOIN contacts ON invoice.invoice_contact_id = contacts.contact_id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
+	    $query = "SELECT invoice.*,accounts.*, contacts.*, users.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice LEFT JOIN accounts ON invoice.account_id = accounts.account_id LEFT JOIN contacts ON invoice.invoice_contact_id = contacts.contact_id LEFT JOIN users ON invoice.user_id = users.id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
 	
 	    $query = $this->db->query($query);
 	    $invoice = $query->result();
@@ -554,7 +554,7 @@ class Sale extends MY_Controller {
     function print_inv_without_ntn() {
         $invoice_id = $this->uri->segment(3);
 //        $this->data['invoice'] = $this->web->GetOneWithInner('invoice_id', 'invoice', "accounts", "account_id", NULL, NULL, $invoice_id);
-	    $query = "SELECT invoice.*,accounts.*, contacts.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice LEFT JOIN accounts ON invoice.account_id = accounts.account_id LEFT JOIN contacts ON invoice.invoice_contact_id = contacts.contact_id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
+	    $query = "SELECT invoice.*,accounts.*, contacts.*, users.*, invoice.description as invoice_desc, accounts.description as account_desc FROM invoice LEFT JOIN accounts ON invoice.account_id = accounts.account_id LEFT JOIN contacts ON invoice.invoice_contact_id = contacts.contact_id LEFT JOIN users ON invoice.user_id = users.id WHERE invoice.invoice_id = '" . $invoice_id . "' ORDER BY invoice.invoice_id ASC";
 	
 	    $query = $this->db->query($query);
 	    $invoice = $query->result();
@@ -753,6 +753,7 @@ class Sale extends MY_Controller {
             $data['mobile_no'] = $this->input->post("mobile_no");
             $data['invoice_store_id'] =  $store_id;
 	        $data['invoice_contact_id'] = $_POST['customer'];
+	        $data['user_id'] = $this->session->userdata('user_id');
 
             if (!($inv)) {
                 $data['invoice_no'] = 'S-00001';

@@ -19,11 +19,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="invoice showing balance and total paid">
+    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="print invoice with total paid and balance">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/controllers/Sale.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Sale.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/views/sale/print_invoice_with_ntn.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale/print_invoice_with_ntn.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/views/sale/print_invoice_without_ntn.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale/print_invoice_without_ntn.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/sale/view_invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/sale/view_invoice.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +76,7 @@
       <workItem from="1627476448674" duration="26908000" />
       <workItem from="1627929305975" duration="10257000" />
       <workItem from="1628689349207" duration="11000" />
-      <workItem from="1628950429509" duration="2291000" />
+      <workItem from="1628950429509" duration="3309000" />
     </task>
     <task id="LOCAL-00001" summary="new store and store listing completed">
       <created>1626018607669</created>
@@ -385,7 +386,14 @@
       <option name="project" value="LOCAL" />
       <updated>1628951805699</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="print invoice with total paid and balance">
+      <created>1628952827283</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1628952827283</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -404,7 +412,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="sales display completed showing originating store" />
     <MESSAGE value="sales completed with report displaying" />
     <MESSAGE value="tracking employee activities" />
     <MESSAGE value="print payslip by month and year, add bank details on new employee page" />
@@ -429,7 +436,8 @@
     <MESSAGE value="print showing customer name" />
     <MESSAGE value="date on receivables" />
     <MESSAGE value="invoice showing balance and total paid" />
-    <option name="LAST_COMMIT_MESSAGE" value="invoice showing balance and total paid" />
+    <MESSAGE value="print invoice with total paid and balance" />
+    <option name="LAST_COMMIT_MESSAGE" value="print invoice with total paid and balance" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

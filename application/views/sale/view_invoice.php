@@ -504,7 +504,9 @@
 									<div class="col-md-4">
 										<h2 class="invoice-client mrg10T">Invoice Description:</h2>
 										<?= html_entity_decode($invoice[0]->voucher_no) ?> <br>
-										Target: <?= html_entity_decode($invoice[0]->target_name) ?>
+										Target: <?= html_entity_decode($invoice[0]->target_name) ?> <br>
+										Prepared By: <?=html_entity_decode($invoice[0]->name) ?>
+										
 									</div>
 								</div>
 	

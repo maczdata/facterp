@@ -81,6 +81,7 @@
                             <span style="text-align: right;"><?= html_entity_decode($invoice[0]->voucher_no) ?></span>
                         </li>
 						<li> <b style="text-align: left"> Target: </b><?= html_entity_decode($invoice[0]->target_name) ?></li>
+						<li> <b style="text-align: left"> Prepared By: </b>  <?=html_entity_decode($invoice[0]->name) ?> </li>
                         <li><b style="text-align: justify;">Date:</b>
                             <span style="text-align: right"><?= date("F j, Y", strtotime($invoice[0]->date_created)) ?></span>
                         </li>

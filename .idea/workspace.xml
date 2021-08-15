@@ -19,12 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="purchase price on addition and edit of product">
+    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="recievement on purchase invoice..">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/Purchase.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Purchase.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/purchase/add.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/purchase/add.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/purchase/print_invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/purchase/print_invoice.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/purchase/view_invoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/purchase/view_invoice.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/Web_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Web_model.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,14 +73,7 @@
       <workItem from="1627476448674" duration="26908000" />
       <workItem from="1627929305975" duration="10257000" />
       <workItem from="1628689349207" duration="11000" />
-      <workItem from="1628950429509" duration="13239000" />
-    </task>
-    <task id="LOCAL-00004" summary="toggle between transfer type">
-      <created>1626260061392</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1626260061392</updated>
+      <workItem from="1628950429509" duration="14285000" />
     </task>
     <task id="LOCAL-00005" summary="toggle between transfer type">
       <created>1626260881992</created>
@@ -421,7 +411,14 @@
       <option name="project" value="LOCAL" />
       <updated>1628963177043</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="recievement on purchase invoice..">
+      <created>1628964234084</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1628964234084</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -440,7 +437,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added optional field to capture warehouse id alias for process function" />
     <MESSAGE value="sales order converting to sales successfully" />
     <MESSAGE value="purchase and purchase orders completed, converting purchase order to purchases" />
     <MESSAGE value="product ledger showing from inception" />
@@ -465,7 +461,8 @@
     <MESSAGE value="reset field complete" />
     <MESSAGE value="purchase price on purchase" />
     <MESSAGE value="purchase price on addition and edit of product" />
-    <option name="LAST_COMMIT_MESSAGE" value="purchase price on addition and edit of product" />
+    <MESSAGE value="recievement on purchase invoice.." />
+    <option name="LAST_COMMIT_MESSAGE" value="recievement on purchase invoice.." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

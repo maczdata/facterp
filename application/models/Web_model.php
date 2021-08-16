@@ -169,7 +169,7 @@ class Web_model extends MY_Model {
 	}
 
     function GetAllSalesOrder($limit = NULL) {
-        $query = "SELECT ordr.*,ordr.date_created as ordr_date,accounts.* FROM ordr INNER JOIN accounts ON accounts.account_id = ordr.account_id WHERE type='sale' ORDER BY ordr_id DESC";
+        $query = "SELECT ordr.*,ordr.date_created as ordr_date,accounts.* FROM ordr INNER JOIN accounts ON accounts.account_id = ordr.account_id WHERE type='sale' AND ordr_status=0 ORDER BY ordr_id DESC";
         if ($limit != NULL) {
             $query .= " limit $limit";
         }
@@ -178,7 +178,7 @@ class Web_model extends MY_Model {
     }
 
     function GetAllSalesOrder_filter($date_from, $date_to, $category, $product, $prod_type, $limit = NULL, $search = NULL) {
-        $query = "SELECT ordr.*,ordr_items.*,ordr.date_created as ordr_date,accounts.* FROM ordr INNER JOIN ordr_items ON ordr_items.ordr_id = ordr.ordr_id INNER JOIN products ON ordr_items.product_id = products.product_id  INNER JOIN accounts ON accounts.account_id = ordr.account_id WHERE ordr.type='Sale'  ";
+        $query = "SELECT ordr.*,ordr_items.*,ordr.date_created as ordr_date,accounts.* FROM ordr INNER JOIN ordr_items ON ordr_items.ordr_id = ordr.ordr_id INNER JOIN products ON ordr_items.product_id = products.product_id  INNER JOIN accounts ON accounts.account_id = ordr.account_id WHERE ordr.type='Sale' AND ordr.status=0  ";
         if (!empty($date_from) && !empty($date_to)) {
             $query .= " and (DATE(ordr.date_created) between '$date_from' and '$date_to') ";
         }
@@ -529,7 +529,7 @@ AND product_ledger.date_ledger > '" . $to_date . "' GROUP BY product_ledger.prod
 		
 		function GetReportforProductsToDate($to_date, $product_id) {
 			
-			$query = "select p_l.*,p.*,u.*,p_l.description as product_ledger_description from product_ledger p_l inner join products p on p.product_id=p_l.product_id inner join units u on p.unit_id = u.unit_id where p_l.product_id={$product_id} and p_l.date_ledger <= '$to_date'  and p.product_id = $product_id  order by p_l.date_ledger ASC";
+			$query = "select p_l.*,p.*,u.*,p_l.description as product_ledger_description from product_ledger p_l inner join products p on p.product_id=p_l.product_id inner join units u on p.unit_id = u.unit_id where p_l.product_id={$product_id} and p_l.date_ledger <= '$to_date'  and p.product_id = $product_id and p_l.description not like 'PROCESS-%'  order by p_l.date_ledger ASC";
 			
 			$query = $this->db->query($query);
 			return $query->result();
@@ -786,7 +786,7 @@ AND product_ledger.date_ledger > '" . $to_date . "' GROUP BY product_ledger.prod
 
     function GetTotalSalesOrder_filter($date_from, $date_to, $category, $product, $prod_type, $search = NULL) {
         // print_r($prod_type);die();
-        $query = "SELECT ordr.ordr_total as total_balnc FROM ordr INNER JOIN ordr_items ON ordr_items.ordr_id = ordr.ordr_id INNER JOIN products ON ordr_items.product_id = products.product_id  INNER JOIN accounts ON accounts.account_id = ordr.account_id WHERE ordr.type='Sale' ";
+        $query = "SELECT ordr.ordr_total as total_balnc FROM ordr INNER JOIN ordr_items ON ordr_items.ordr_id = ordr.ordr_id INNER JOIN products ON ordr_items.product_id = products.product_id  INNER JOIN accounts ON accounts.account_id = ordr.account_id WHERE ordr.type='Sale' AND ordr.status=0 ";
         if (!empty($date_from) && !empty($date_to)) {
             $query .= " and (DATE(ordr.date_created) between '$date_from' and '$date_to') ";
         }

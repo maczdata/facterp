@@ -450,7 +450,7 @@
                                             <img src="<?= base_url() ?>/images/colorflexlogo2.png" />
                                         </div>
                                         <!-- <address class="invoice-address">
-                                          160/B,Small Industries Estate,Sahiwal - Pakistan. 
+                                          160/B,Small Industries Estate,Sahiwal - Pakistan.
                                              <br>
                                         Tel: +92-40-4502650-51
                                         </address> -->
@@ -479,75 +479,100 @@
                                     </div>
                                 </div>
 
-                                <div class="divider"></div>
-
-                                <div class="row">
-                                    <div class="col-md-4">
-                                    
+                           
+	
+								<div class="divider"></div>
+	
+								<div class="row">
+									<div class="col-md-4">
+			
 										<h2 class="invoice-client mrg10T">Client information:</h2>
 										<h5><?= $invoice[0]->contact_name ?></h5>
 										<address class="invoice-address">
 											<?= html_entity_decode($invoice[0]->account_desc) ?>
 											<?= $invoice[0]->contact_phone ?>
 										</address>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h2 class="invoice-client mrg10T">Invoice Info:</h2>
-                                        <ul class="reset-ul">
-                                            <li><b>Date:</b><?= date("F j, Y", strtotime($invoice[0]->date_created)) ?></li>
-                                            <li><b>Status:</b> <?= $invoice[0]->payment_status == 'Pending' ? '<span class="bs-label label-warning">Pending</span>' : '<span class="bs-label label-success">Confirmed</span>' ?></li>
-                                            <li><b>Id:</b> #<?= $invoice[0]->invoice_id ?></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h2 class="invoice-client mrg10T">Invoice Description:</h2>
-                                        <?= html_entity_decode($invoice[0]->voucher_no) ?> <br>
-	                                   Store: <?= html_entity_decode($invoice[0]->store_name) ?>
-                                    </div>
-                                </div>
-
-                                <table class="table mrg20T table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Product Name</th>
-                                            <th class="text-center">Qty</th>
+									</div>
+									<div class="col-md-4">
+										<h2 class="invoice-client mrg10T">Invoice Info:</h2>
+										<ul class="reset-ul">
+											<li><b>Date:</b><?= date("F j, Y", strtotime($invoice[0]->date_created)) ?></li>
+											<li><b>Status:</b> <?= $invoice[0]->payment_status == 'Pending' ? '<span class="bs-label label-warning">Pending</span>' : '<span class="bs-label label-success">Confirmed</span>' ?></li>
+											<li><b>Id:</b> #<?= $invoice[0]->invoice_id ?></li>
+										</ul>
+									</div>
+									<div class="col-md-4">
+										<h2 class="invoice-client mrg10T">Invoice Description:</h2>
+										<?= html_entity_decode($invoice[0]->voucher_no) ?> <br>
+										Target: <?= html_entity_decode($invoice[0]->target_name) ?> <br>
+										Prepared By: <?=html_entity_decode($invoice[0]->name) ?>
+										
+									</div>
+								</div>
+	
+								<table class="table mrg20T table-hover">
+									<thead>
+									<tr>
+										<th>#</th>
+										<th>Product Name</th>
+										<th class="text-center">Qty</th>
 										<th class="text-center">Rate</th>
-											<th class="text-center">Batch</th> 
-                                            <th>Discount</th>
-                                            <th>Price</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $count = 1;
-                                        foreach ($invoice_items as $inv_item) {
-                                            ?>
-                                            <tr>
-                                                <td><?= $count ?></td>
-                                                <td><?= $inv_item->product_name ?></td>
-                                                <td class="text-center"><?= $inv_item->qty . " " . $inv_item->unit ?></td>
+										<th class="text-center">Batch</th>
+										<th>Discount</th>
+										<th>Price</th>
+									</tr>
+									</thead>
+									<tbody>
+									<?php
+										$count = 1;
+										foreach ($invoice_items as $inv_item) {
+											?>
+											<tr>
+												<td><?= $count ?></td>
+												<td><?= $inv_item->product_name ?></td>
+												<td class="text-center"><?= $inv_item->qty . " " . $inv_item->unit ?></td>
 												<td class="text-center"><?= $inv_item->product_sale_price ?> NGN</td>
 												<td class="text-center"><?= $inv_item->batch ?></td>
-                                                <td><?= $inv_item->discount ?> NGN</td>
-                                                <td><?= $inv_item->invoice_subtotal ?> NGN</td>
-                                            </tr>
-                                            <?php
-                                            $count++;
-                                        }
-                                        ?>
-                                    <tr class="font-bold font-black">
-                                        <td colspan="5" class="text-right">Discount on Sub Total:</td>
-                                        <td colspan="2" class="font-red"><?= $invoice[0]->total_discount ?> NGN</td>
-                                    </tr>
-                                    <tr class="font-bold font-black">
-                                        <td colspan="1" class="text-right font-size-20">TOTAL:</td>
-                                        <?php $amount_total = $invoice[0]->invoice_total; ?>
-                                        <td colspan="5" class="font-blue font-size-18"><?= getPakistaniCurrency($amount_total) ?></td>
-                                        <td colspan="1" class="font-blue font-size-18"><?= $invoice[0]->invoice_total ?> NGN</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+												<td><?= $inv_item->discount ?> NGN</td>
+												<td><?= $inv_item->invoice_subtotal ?> NGN</td>
+											</tr>
+											<?php
+											$count++;
+										}
+									?>
+									<tr class="font-bold font-black">
+										<td colspan="5" class="text-right">Discount on Sub Total:</td>
+										<td colspan="2" class="font-red"><?= $invoice[0]->total_discount ?> NGN</td>
+									</tr>
+									<?php $amount_total = $invoice[0]->invoice_total; ?>
+									<?php $total_paid = 0;
+										if(empty($receipts)):
+											$total_paid = 0;
+										else:
+											foreach ($receipts as $receipt):
+												$total_paid = $total_paid+ $receipt->r_amount;
+											endforeach;
+			
+										endif;
+			
+										$balance = $amount_total - ($total_paid + $invoice[0]->total_discount);
+									?>
+		
+									<tr class="font-bold font-black">
+										<td colspan="1" class="text-right font-size-20">TOTAL PAID:</td>
+			
+										<td colspan="5" class="font-blue font-size-18"> </td>
+										<td colspan="1" class="font-blue font-size-18"><?= $total_paid ?> NGN</td>
+									</tr>
+									<tr class="font-bold font-black">
+										<td colspan="1" class="text-right font-size-20">BALANCE:</td>
+			
+										<td colspan="5" class="font-blue font-size-18"><?= getPakistaniCurrency($balance) ?> </td>
+			
+										<td colspan="1" class="font-blue font-size-18"><?= $balance ?> NGN</td>
+									</tr>
+									</tbody>
+								</table>
 
                             </div>
 

@@ -583,6 +583,14 @@
 														</div>
 													</div>
 													
+													<label class="col-sm-2 control-label">Purchase Unit Price</label>
+													<div class="col-sm-2">
+														<div class="input-group">
+															<span class="input-group-addon glyph-icon icon-cubes"></span>
+															<input type="number" name="purchase_unit_price" value="<?= $product[0]->purchase_unit_price ?>"   id="purchase_price" class="form-control" placeholder="Sale Price">
+														</div>
+													</div>
+													
 											
                                                
                                                 </div>

@@ -399,6 +399,7 @@ class Sale_order extends MY_Controller {
             $data['cargo'] = $this->input->post("cargo");
             $data['builty_no'] = $this->input->post("builty_no");
             $data['ordr_store_id'] = $this->input->post('store_id');
+            $data['ordr_status'] = 0;
             if (!($inv)) {
                 $data['ordr_no'] = 'S-00001';
             } else {

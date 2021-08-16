@@ -83,8 +83,10 @@
                         <li><b style="text-align: left">Sale Voucher:</b>
                             <span style="text-align: right;"><?= html_entity_decode($invoice[0]->voucher_no) ?></span>
                         </li>
-						<li> <b style="text-align: left"> Store:</b> <?= html_entity_decode($invoice[0]->store_name) ?></li>
-                        <li><b style="text-align: justify;">Date:</b>
+						<li> <b style="text-align: left"> Target: </b><?= html_entity_decode($invoice[0]->target_name) ?></li>
+						<li> <b style="text-align: left"> Prepared By: </b>  <?=html_entity_decode($invoice[0]->name) ?> </li>
+	
+						<li><b style="text-align: justify;">Date:</b>
                             <span style="text-align: right"><?= date("F j, Y", strtotime($invoice[0]->date_created)) ?></span>
                         </li>
                         <li><b style="text-align: left">Status:</b>
@@ -123,31 +125,55 @@
                         <td><?= $counter ?></td>
                         <td><?= $inv_item->product_name ?></td>
                         <td align="right"><?= $inv_item->qty . " " . $inv_item->unit ?></td>
-						<td align="right"><?= $inv_item->product_sale_price ?> Rs</td>
+						<td align="right"><?= $inv_item->product_sale_price ?> NGN</td>
                         <td align="right"><?= $inv_item->batch ?></td>
-						<td align="right"><?= $inv_item->discount ?> Rs</td>
-                        <td align="right"><?= $inv_item->invoice_subtotal ?> Rs</td>
+						<td align="right"><?= $inv_item->discount ?> NGN</td>
+                        <td align="right"><?= $inv_item->invoice_subtotal ?> NGN</td>
                     </tr>
                     <?php
                     $counter++;
                 }
                 ?>
-                <tr class="font-bold font-black">
-                    <td colspan="4" class="text-right">Discount on Sub Total:</td>
-                    <td colspan="3" class="font-red text-right"><?= $invoice[0]->total_discount ?> Rs</td>
-                </tr>
+				<tr class="font-bold font-black">
+					<td colspan="5" class="text-right">Discount on Sub Total:</td>
+					<td colspan="2" class="font-red"><?= $invoice[0]->total_discount ?> NGN</td>
+				</tr>
+
+				<tr class="font-bold font-black">
+					<td colspan="5" class="text-right">Invoice Total:</td>
+					<td colspan="2" class="font-red"><?= $invoice[0]->invoice_total ?> NGN</td>
+				</tr>
+				<?php $amount_total = $invoice[0]->invoice_total; ?>
+				<?php $total_paid = 0;
+					if(empty($receipts)):
+						$total_paid = 0;
+					else:
+						foreach ($receipts as $receipt):
+							$total_paid = $total_paid+ $receipt->r_amount;
+						endforeach;
+	
+					endif;
+	
+					$balance = $amount_total - ($total_paid + $invoice[0]->total_discount);
+				?>
+
+				<tr class="font-bold font-black">
+					<td colspan="1" class="text-right font-size-20">TOTAL PAID:</td>
+	
+					<td colspan="5" class="font-blue font-size-18"> </td>
+					<td colspan="1" class="font-blue font-size-18"><?= $total_paid ?> NGN</td>
+				</tr>
+				<tr class="font-bold font-black">
+					<td colspan="1" class="text-right font-size-20">BALANCE:</td>
+	
+					<td colspan="5" class="font-blue font-size-18"><?= getPakistaniCurrency($balance) ?> </td>
+	
+					<td colspan="1" class="font-blue font-size-18"><?= $balance ?> NGN</td>
+				</tr>
             </tbody>
         </table>
 
-            <table class="">
-            <tr class="font-bold font-black">
-                <td colspan="2" class="text-right font-size-18">TOTAL: &nbsp;&nbsp;</td>
-                <?php $amount_total = $invoice[0]->invoice_total; ?>
-                    <td colspan="5" class="font-blue font-size-16"><?= getPakistaniCurrency($amount_total) ?>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                    <td></td>
-                    <td  float="right" class="font-Black font-size-16 text-right"><?= $invoice[0]->invoice_total ?> NGN</td>
-            </tr>
-        </table>
+        
    </div>  
      <!-- table Data DIv ENd -->   
         

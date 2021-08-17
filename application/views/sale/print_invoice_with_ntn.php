@@ -133,28 +133,15 @@
                         <td><?= $counter ?></td>
                         <td><?= $inv_item->product_name ?></td>
                         <td align="right"><?= $inv_item->qty . " " . $inv_item->unit ?></td>
-<<<<<<< HEAD
-						<td align="right"><?= $inv_item->product_sale_price ?> N</td>
-                        <td align="right"><?= $inv_item->batch ?></td>
-						<td align="right"><?= $inv_item->discount ?> N</td>
-                        <td align="right"><?= $inv_item->invoice_subtotal ?> N</td>
-=======
 						<td align="right"><?= $inv_item->product_sale_price ?> NGN</td>
                         <td align="right"><?= $inv_item->batch ?></td>
 						<td align="right"><?= $inv_item->discount ?> NGN</td>
                         <td align="right"><?= $inv_item->invoice_subtotal ?> NGN</td>
->>>>>>> 3c6ba30a95a1f95cfaab7c83059f79dcc2bd331f
                     </tr>
                     <?php
                     $counter++;
                 }
                 ?>
-<<<<<<< HEAD
-                <tr class="font-bold font-black">
-                    <td colspan="4" class="text-right">Discount on Sub Total:</td>
-                    <td colspan="3" class="font-red text-right"><?= $invoice[0]->total_discount ?> N</td>
-                </tr>
-=======
 				<tr class="font-bold font-black">
 					<td colspan="5" class="text-right">Discount on Sub Total:</td>
 					<td colspan="2" class="font-red"><?= $invoice[0]->total_discount ?> NGN</td>
@@ -191,7 +178,6 @@
 	
 					<td colspan="1" class="font-blue font-size-18"><?= $balance ?> NGN</td>
 				</tr>
->>>>>>> 3c6ba30a95a1f95cfaab7c83059f79dcc2bd331f
             </tbody>
         </table>
 

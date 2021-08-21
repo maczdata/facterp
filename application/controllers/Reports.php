@@ -506,46 +506,131 @@ class Reports extends MY_Controller {
         $this->load->view("reports/cash_memo", $this->data);
     }
 
-    function warehouse_statement() {
-        if ($this->input->post()) {
-            $this->data['warehouse_id'] = $this->input->post("warehouse", true);
-            $this->data['from_date'] = date("Y-m-d H:i:s", strtotime(str_replace("-", "/", $this->input->post("from_date", true)) . " 00:00:00"));
-            $this->data['to_date'] = date("Y-m-d H:i:s", strtotime(str_replace("-", "/", $this->input->post("to_date", true)) . " 23:59:59"));
-
-            $this->data['balance_to_date'] = date('Y-m-d H:i:s', strtotime(($this->data['from_date'])));
-            $this->data['get_wharehouse_pro'] = $this->web->get_wharehouse_pro($this->data['warehouse_id']);
-
-            $counter = 0;
-
-            foreach ($this->data['get_wharehouse_pro'] as $WP) {
-
-                $this->data['prev_balnc'] = $this->web->GetProductsLedger($this->data['balance_to_date'], $WP ["product_id"]);
-                $data[$counter] = array(
-                    'product_id' => $this->data['prev_balnc'][0]->product_id,
-                    'product_name' => $this->data['prev_balnc'][0]->product_name,
-                    'product_balnc' => $this->data['prev_balnc'][0]->product_balnc,
-                    'unit_id' => $this->data['prev_balnc'][0]->unit_id,
-                    'unit_name' => $this->data['prev_balnc'][0]->unit_name,
-                    'unit_symbol' => $this->data['prev_balnc'][0]->unit_symbol
-                );
-                $this->data['prev_balnc'] = $data;
-                $counter ++;
-            }
-
-            $this->data['warhous'] = $this->data['get_wharehouse_pro'][0]["warehouse_name"];
-            $this->data['products_report'] = $this->web->GetReportforProducts($this->data['from_date'], $this->data['to_date'], $this->data['warehouse_id']);
-
-            $this->data['modal'] = FALSE;
-        } else {
-            $this->data['modal'] = TRUE;
-            $this->data['account_report'] = $this->data['account_name'] = $this->data['open_balance'] = NULL;
-            $this->data['warehouses'] = $this->web->GetAll("warehouse_id", "warehouses");
-            $this->data['warhous'] = NULL;
-        }
-
-        $this->load->view("reports/warehouse_statement", $this->data);
-    }
-
+//    function warehouse_statement() {
+//        if ($this->input->post()) {
+//            $this->data['warehouse_id'] = $this->input->post("warehouse", true);
+//            $this->data['from_date'] = date("Y-m-d H:i:s", strtotime(str_replace("-", "/", $this->input->post("from_date", true)) . " 00:00:00"));
+//            $this->data['to_date'] = date("Y-m-d H:i:s", strtotime(str_replace("-", "/", $this->input->post("to_date", true)) . " 23:59:59"));
+//
+//            $this->data['balance_to_date'] = date('Y-m-d H:i:s', strtotime(($this->data['from_date'])));
+//            $this->data['get_wharehouse_pro'] = $this->web->get_wharehouse_pro($this->data['warehouse_id']);
+//
+//            $counter = 0;
+//
+//            foreach ($this->data['get_wharehouse_pro'] as $WP) {
+//
+//                $this->data['prev_balnc'] = $this->web->GetProductsLedger($this->data['balance_to_date'], $WP ["product_id"]);
+//                $data[$counter] = array(
+//                    'product_id' => $this->data['prev_balnc'][0]->product_id,
+//                    'product_name' => $this->data['prev_balnc'][0]->product_name,
+//                    'product_balnc' => $this->data['prev_balnc'][0]->product_balnc,
+//                    'unit_id' => $this->data['prev_balnc'][0]->unit_id,
+//                    'unit_name' => $this->data['prev_balnc'][0]->unit_name,
+//                    'unit_symbol' => $this->data['prev_balnc'][0]->unit_symbol
+//                );
+//                $this->data['prev_balnc'] = $data;
+//                $counter ++;
+//            }
+//
+//            $this->data['warhous'] = $this->data['get_wharehouse_pro'][0]["warehouse_name"];
+//            $this->data['products_report'] = $this->web->GetReportforProducts($this->data['from_date'], $this->data['to_date'], $this->data['warehouse_id']);
+//
+//            $this->data['modal'] = FALSE;
+//        } else {
+//            $this->data['modal'] = TRUE;
+//            $this->data['account_report'] = $this->data['account_name'] = $this->data['open_balance'] = NULL;
+//            $this->data['warehouses'] = $this->web->GetAll("warehouse_id", "warehouses");
+//            $this->data['warhous'] = NULL;
+//        }
+//
+//        $this->load->view("reports/warehouse_statement", $this->data);
+//    }
+	
+	function warehouse_statement(){
+		$warehouse_id = $this->input->post('warehouse_id', true);
+		//$store_id = 1;
+		$warehouse_detail = $this->web->GetOne('warehouse_id', 'warehouses', $warehouse_id)[0];
+		$stocks = $this->web->GetOne('warehouse_stock_warehouse_id', 'warehouse_stock', $warehouse_id);
+		
+		$new_product_array = array();
+		$i = 0;
+		foreach ($stocks as $stock):
+			$product = $this->web->GetOne('product_id', 'products', $stock->warehouse_stock_product_id)[0];
+			
+			$stock->product_name = $product->product_name;
+			
+			$new_product_array[$i] = $stock;
+			
+			$i++;
+		endforeach;
+		$this->data['warehouse'] = $warehouse_detail;
+		$this->data['products'] = $new_product_array;
+		
+		$this->load->view("reports/warehouse_statements", $this->data);
+	}
+		
+		function store_statement() {
+			
+			$store_id = $this->input->post('store_id', true);
+			//$store_id = 1;
+			$store_detail = $this->web->GetOne('store_id', 'stores', $store_id)[0];
+			$stocks = $this->web->GetOne('store_stock_store_id', 'store_stock', $store_id);
+			
+			$new_product_array = array();
+			$i = 0;
+			foreach ($stocks as $stock):
+				$product = $this->web->GetOne('product_id', 'products', $stock->store_stock_product_id)[0];
+				
+				$stock->product_name = $product->product_name;
+				
+				$new_product_array[$i] = $stock;
+				
+				$i++;
+			endforeach;
+			if ($this->input->post()) {
+			
+			
+			
+			
+//				$this->data['warehouse_id'] = $this->input->post("warehouse", true);
+//				$this->data['from_date'] = date("Y-m-d H:i:s", strtotime(str_replace("-", "/", $this->input->post("from_date", true)) . " 00:00:00"));
+//				$this->data['to_date'] = date("Y-m-d H:i:s", strtotime(str_replace("-", "/", $this->input->post("to_date", true)) . " 23:59:59"));
+//
+//				$this->data['balance_to_date'] = date('Y-m-d H:i:s', strtotime(($this->data['from_date'])));
+//				$this->data['get_wharehouse_pro'] = $this->web->get_wharehouse_pro($this->data['warehouse_id']);
+//
+//				$counter = 0;
+//
+//				foreach ($this->data['get_wharehouse_pro'] as $WP) {
+//
+//					$this->data['prev_balnc'] = $this->web->GetProductsLedger($this->data['balance_to_date'], $WP ["product_id"]);
+//					$data[$counter] = array(
+//						'product_id' => $this->data['prev_balnc'][0]->product_id,
+//						'product_name' => $this->data['prev_balnc'][0]->product_name,
+//						'product_balnc' => $this->data['prev_balnc'][0]->product_balnc,
+//						'unit_id' => $this->data['prev_balnc'][0]->unit_id,
+//						'unit_name' => $this->data['prev_balnc'][0]->unit_name,
+//						'unit_symbol' => $this->data['prev_balnc'][0]->unit_symbol
+//					);
+//					$this->data['prev_balnc'] = $data;
+//					$counter ++;
+//				}
+//
+//				$this->data['warhous'] = $this->data['get_wharehouse_pro'][0]["warehouse_name"];
+//				$this->data['products_report'] = $this->web->GetReportforProducts($this->data['from_date'], $this->data['to_date'], $this->data['warehouse_id']);
+//
+//				$this->data['modal'] = FALSE;
+			} else {
+//				$this->data['modal'] = TRUE;
+//				$this->data['account_report'] = $this->data['account_name'] = $this->data['open_balance'] = NULL;
+//				$this->data['warehouses'] = $this->web->GetAll("warehouse_id", "warehouses");
+//				$this->data['warhous'] = NULL;
+			}
+			$this->data['store'] = $store_detail;
+			$this->data['products'] = $new_product_array;
+			
+			$this->load->view("reports/store_statements", $this->data);
+		}
     function warehouse_general_statement() {
         if ($this->input->post()) {
             $this->data['warehouse_id'] = $this->input->post("warehouse", true);

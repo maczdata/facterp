@@ -19,9 +19,13 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="recievement on purchase invoice..">
+    <list default="true" id="fa5ccb91-9825-467b-98e0-49c59c3c2339" name="Default Changelist" comment="total and balance on customer invoices">
+      <change afterPath="$PROJECT_DIR$/application/views/reports/store_statements.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/views/reports/warehouse_statements.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/Web_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Web_model.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Reports.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Reports.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/stores/all.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/stores/all.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/warehouses/all.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/warehouses/all.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,16 +52,20 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/application/views/reports" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\facterp\application\views\reports" />
       <recent name="C:\xampp\htdocs\facterp\application\views\contacts" />
       <recent name="C:\xampp\htdocs\facterp\application\views\Purchase_order" />
       <recent name="C:\xampp\htdocs\facterp\application\views\sale_order" />
       <recent name="C:\xampp\htdocs\facterp\application\views\production" />
-      <recent name="C:\xampp\htdocs\facterp\application\views\sale" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -73,28 +81,9 @@
       <workItem from="1627476448674" duration="26908000" />
       <workItem from="1627929305975" duration="10257000" />
       <workItem from="1628689349207" duration="11000" />
-      <workItem from="1628950429509" duration="14285000" />
-    </task>
-    <task id="LOCAL-00005" summary="toggle between transfer type">
-      <created>1626260881992</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1626260881992</updated>
-    </task>
-    <task id="LOCAL-00006" summary="product transfer for store to warehouse, warehouse to store, store to store and warehouse to warehouse completed and reflecting in product ledger">
-      <created>1626261817553</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1626261817553</updated>
-    </task>
-    <task id="LOCAL-00007" summary="validation on new product">
-      <created>1626288012888</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1626288012888</updated>
+      <workItem from="1628950429509" duration="14993000" />
+      <workItem from="1629471216836" duration="879000" />
+      <workItem from="1629549569016" duration="3901000" />
     </task>
     <task id="LOCAL-00008" summary="showing total products from all warehouse and store on products page">
       <created>1626336890370</created>
@@ -418,7 +407,28 @@
       <option name="project" value="LOCAL" />
       <updated>1628964234084</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="process not showing on ledger">
+      <created>1629008899025</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1629008899025</updated>
+    </task>
+    <task id="LOCAL-00055" summary="total and balance on all sales">
+      <created>1629550023275</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1629550023275</updated>
+    </task>
+    <task id="LOCAL-00056" summary="total and balance on customer invoices">
+      <created>1629550572972</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1629550572972</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -437,9 +447,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="sales order converting to sales successfully" />
-    <MESSAGE value="purchase and purchase orders completed, converting purchase order to purchases" />
-    <MESSAGE value="product ledger showing from inception" />
     <MESSAGE value="added vendor and customer to all kinds of invoice (purchase and sales)" />
     <MESSAGE value="contact details showing on invoices" />
     <MESSAGE value="receiving payment for credit sales" />
@@ -462,7 +469,10 @@
     <MESSAGE value="purchase price on purchase" />
     <MESSAGE value="purchase price on addition and edit of product" />
     <MESSAGE value="recievement on purchase invoice.." />
-    <option name="LAST_COMMIT_MESSAGE" value="recievement on purchase invoice.." />
+    <MESSAGE value="process not showing on ledger" />
+    <MESSAGE value="total and balance on all sales" />
+    <MESSAGE value="total and balance on customer invoices" />
+    <option name="LAST_COMMIT_MESSAGE" value="total and balance on customer invoices" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

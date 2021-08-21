@@ -85,6 +85,7 @@
 			$new_sales_array = array();
 			$i = 0;
 			$total_balance = 0;
+			$paid = 0;
 			foreach ($sales as $sale):
 				$total_paid = 0;
 				
@@ -127,7 +128,9 @@
 					$i++;
 				endif;
 				$total_balance = $total_balance + $sale['balance'];
+				$paid += ($sale['invoice_total'] - $sale['total_discount']);
 			endforeach;
+			$this->data['total_paid'] = $paid;
 			$this->data['sales'] = $new_sales_array;
 			$this->data['total_balance'] = $total_balance;
 			

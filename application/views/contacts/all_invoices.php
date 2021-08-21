@@ -471,12 +471,14 @@
 							<div class="row">
 								<div class="col-md-12">
 									<div class="col-md-3">
-										<h3> Total Balance: <?php echo $total_balance; ?> </h3>
+										<h3> Total: <?php echo number_format($total_paid, 2); ?> </h3>
+										<br>
+										<h3> Total Balance: <?php echo number_format($total_balance, 2); ?> </h3><br>
 									</div>
 									
 										</div>
 							
-							
+							<br>
 							
 							<div class="example-box-wrapper">
 								<table class="table  table-bordered responsive no-wrap" cellspacing="0" width="100%">

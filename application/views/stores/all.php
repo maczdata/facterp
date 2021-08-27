@@ -553,7 +553,7 @@
                                                             }
                                                             function GoLedger(store_id) {
 //                                                                alert(curr_date);
-                                                                $.post("<?= base_url() ?>" + "reports/store_statement", {store: store_id, from_date: curr_date, to_date: curr_date})
+                                                                $.post("<?= base_url() ?>" + "reports/store_statement", {store_id: store_id})
                                                                         .done(function (data) {
 //                                                                            console.log(data);
 //                                                                            return false;

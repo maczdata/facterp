@@ -1,3 +1,6 @@
+<script>
+    var curr_date = "<?= date("Y-m-d") ?>";
+</script>
 <!DOCTYPE html>
 <html  lang="en">
 
@@ -11,7 +14,7 @@
 	
 	<meta charset="UTF-8">
 	<!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
-	<title> Facteezo: Sales </title>
+	<title> Facteezo: Product </title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	
@@ -30,6 +33,8 @@
 	<!-- JS Core -->
 	
 	<script type="text/javascript" src="<?= base_url() ?>assets-minified/js-core.js"></script>
+	<script type="text/javascript" src="<?= base_url() ?>assets/widgets/chosen/chosen.js"></script>
+	<script type="text/javascript" src="<?= base_url() ?>assets/widgets/chosen/chosen-demo.js"></script>
 	
 	
 	
@@ -421,133 +426,94 @@
 					<script type="text/javascript" src="<?= base_url() ?>assets/widgets/datatable/datatable.js"></script>
 					<script type="text/javascript" src="<?= base_url() ?>assets/widgets/datatable/datatable-bootstrap.js"></script>
 					<script type="text/javascript" src="<?= base_url() ?>assets/widgets/datatable/datatable-responsive.js"></script>
-					<script type="text/javascript" src="<?= base_url() ?>assets/widgets/datepicker/datepicker.js"></script>
-					<!-- Chosen -->
 					
-					<!--<link rel="stylesheet" type="text/css" href="../../assets/widgets/chosen/chosen.css">-->
-					<script type="text/javascript" src="<?= base_url() ?>assets/widgets/chosen/chosen.js"></script>
-					<script type="text/javascript" src="<?= base_url() ?>assets/widgets/chosen/chosen-demo.js"></script>
 					<script type="text/javascript">
 
                         /* Datatables responsive */
 
                         $(document).ready(function () {
-                            $('#datatable-responsive').DataTable({
-                                responsive: true
-                            });
+//        $('#datatable-responsive').DataTable({
+//            responsive: true
+//        });
                         });
 
                         $(document).ready(function () {
-                            $('.dataTables_filter input').attr("placeholder", "Search...");
+//        $('.dataTables_filter input').attr("placeholder", "Search...");
                         });
 					
 					</script>
-					<script type="text/javascript">
-                        /* Datepicker bootstrap */
-
-                        $(function () {
-                            "use strict";
-                            $('.bootstrap-datepicker').bsdatepicker({
-                                format: 'mm-dd-yyyy'
-                            });
-                        });
-					</script>
-					<div id="page-title" style="overflow: hidden;">
-						<div class="col-md-8">
-							<h2>ALl Invoices</h2>
+					
+					<div id="page-title" >
+						<div class="row">
+							<div class="col-md-12">
+								
+								<div class="col-md-2">
+									<h2><?=$warehouse->warehouse_name ?></h2>
+									<p>View Stock in your  Warehouse</p>
+								</div>
 							
-						</div>
-						<div class="col-md-2 panel-group" id="accordion">
-							<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">
-								<i class="glyph-icon icon-calendar" style="font-size: 200%;padding-left: 140px;"></i>
-							</a>
-						</div>
+							
+							
+							</div>
 						
+						
+						
+						
+						</div>
 					</div>
 					
 					<div class="panel">
 						<div class="panel-body">
-							
-							<div class="row">
-								<div class="col-md-12">
-									<div class="col-md-3">
-										<h3> Total: <?php echo number_format($total_paid, 2); ?> </h3>
-										<br>
-										<h3> Total Balance: <?php echo number_format($total_balance, 2); ?> </h3><br>
-									</div>
-									
-										</div>
-							
-							<br>
+							<div class="row ">
+								<a href="<?= base_url() ?>stores"><h3 class="title-hero">
+										Store Stocks
+									</h3></a>
+								<div class="col-md-3  pull-right form-group has-feedback "><i style="margin: 0px 15px auto;" class="glyph-icon icon-search form-control-feedback"></i><input class="form-control" type="text" id="search" name="search" placeholder="Search"/></div>
+							</div>
 							
 							<div class="example-box-wrapper">
-								<table class="table  table-bordered responsive no-wrap" cellspacing="0" width="100%">
+								<table  class="table table-striped table-bordered responsive no-wrap" cellspacing="0" width="100%">
 									<tbody class="post-list" id="postList">
 									<tr>
 										<th>Sr#</th>
-										<th>ID</th>
-										<th>Date</th>
-										<th>Account Name</th>
-										<th>Discount</th>
-										<th> Payment Status</th>
-										<th>Total</th>
-										<th>Balance</th>
-										<th> Target</th>
-										<th>Payment Method</th>
-										<th>Manage</th>
+										
+										<th>Store</th>
+										<th>In Stock</th>
+									
 									</tr>
 									
 									
+									
 									<?php
-										if (!empty($sales)): $count = 1;
-											foreach ($sales as $sale):
+										if (!empty($products)): $count = 1;
+											foreach ($products as $product):
 												?>
-												<tr <?= $sale['return_invoice_id'] != NULL ? "style='background:#ffe5e5 !important;'" : "" ?>>
+												<tr>
 													<td><?= $count ?></td>
-													<td><?= $sale['invoice_no'] ?></td>
-													<td><?= $sale['invoice_date'] ?></td>
-													<td><?= $sale['account_name'] ?></td>
-													<td><?= $sale['total_discount'] ?></td>
-													<td> <?php if($sale['payment_status'] == 'Confirmed'): echo "Paid Fully"; endif;
-															if($sale['payment_status'] == 'Pending'): echo "On Credit"; endif;
-														?></td>
-													<td><?= $sale['invoice_total'] ?></td>
-													<td> <?=$sale['balance'] ?></td>
-													<td><?php if($sale['store_name']){echo $sale['store_name']; } if($sale['warehouse_name']){echo $sale['warehouse_name']; } ?></td>
-													<td><?= $sale['payment_method'] ?></td>
-													
-													<td>
-													
-														<button class="btn btn-round btn-success" data-toggle="tooltip" data-placement="top" title="View" onclick="ViewSale('<?= $sale['invoice_id'] ?>');">
-															<i class="glyph-icon icon-file-text-o"></i>
-														</button>
-														
-														<?php if($sale['payment_status'] == 'Pending'): ?>
-														
-														<button class="btn btn-round btn-success" data-toggle="tooltip" data-placement="top" title="Receive Payment" onclick="ReceivePayment('<?= $sale['invoice_id'] ?>');">
-															<i class="glyph-icon icon-arrow-down"></i>
-														</button>
-														
-														<?php endif; ?>
-													
-													</td>
+													<td> <?=$product->product_name; ?></td>
+													<td><?= $product->warehouse_stock_quantity ?></td>
+												
+												
+												
+												
 												</tr>
 												<?php
 												$count++;
 											endforeach;
 										else:
 											?>
-											<p>Sale(s) not available.</p>
+											<p>Product(s) not available.</p>
 										<?php endif; ?>
-								
-										
-									
 									
 									
 									</tbody>
 								</table>
 							</div>
 						</div>
+						
+						
+						
+						
 					</div>
 				
 				</div>
@@ -561,102 +527,8 @@
 	
 	<!-- JS Demo -->
 	<script type="text/javascript" src="<?= base_url() ?>assets-minified/admin-all-demo.js"></script>
-	
-	<script>
-        function EditSale(invoice_id) {
-            window.location.href = "<?= base_url() ?>sale/view/" + invoice_id;
-        }
-
-        function DeleteSale(invoice_id) {
-            var cnfirm = confirm("Are You Sure?");
-            if (cnfirm) {
-                $.post("<?= base_url() ?>sale/delete", {id: invoice_id})
-                    .done(function (data) {
-//                                                                                    alert(data);
-                        if ($.trim(data) == 'done') {
-                            location.reload(true);
-                        }
-                    });
-            }
-        }
 
 
-
-        function SaleReturn(invoice_id) {
-            window.location.href = "<?= base_url() ?>sale/view_return/" + invoice_id;
-        }
-        function AddSale() {
-            window.location.href = "<?= base_url() ?>sale/new_sales";
-        }
-        function ViewSale(invoice_id) {
-            window.location.href = "<?= base_url() ?>sale/view_invoice/" + invoice_id;
-        }
-        function ReceivePayment(invoice_id) {
-            window.location.href = "<?= base_url() ?>contacts/receive_payment/" + invoice_id;
-        }
-        function GetProducts(cat_id) {
-            var pro_type = $("#pro_type").val();
-
-            var base_url = "<?= base_url() ?>";
-            $("#all_pro_outer select").html("<option value=''>Select Option</option>");
-            $.post(base_url + "sale/GetProducts", {cat_id: cat_id, pro_type: pro_type})
-                .done(function (data) {
-                    console.log(data);
-                    var obj = JSON.parse(data);
-                    $.each(obj, function (k, v) {
-                        $("#all_pro_outer select").append("<option value='" + v['product_id'] + "'>" + v['product_name'] + "</option>");
-
-                    });
-                    $(".ppp").trigger("chosen:updated");
-                });
-
-        }
-	
-	</script>
-	<script>
-        $("#search").keyup(function (event) {
-            var keycode = (event.keyCode ? event.keyCode : event.which);
-            if (keycode == '13') {
-                var rtngPtId = $("#search").val();
-                if (rtngPtId == "") {
-                    $("#search").attr("placeholder", "Enter Valid Input");
-                } else {
-                    $.post("<?= base_url() ?>sale/search", {id: rtngPtId})
-                        .done(function (data) {
-
-                            if ($.trim(data) == 'no') {
-                                $("#search")
-                                    .attr('data-original-title', "N0 Data Found")
-                                    .tooltip('fixTitle')
-                                    .tooltip('show');
-                            } else {
-                                var newDoc = document.open("text/html", "replace");
-                                newDoc.write(data);
-                                newDoc.close();
-                            }
-                        });
-                }
-            }
-
-        });
-	</script>
-	
-	<script type="text/javascript">
-        $(document).ready(function () {
-            $("#from_date").bsdatepicker({
-                format: 'mm-dd-yyyy',
-            });
-            $("#to_date").bsdatepicker({
-                format: 'mm-dd-yyyy',
-            });
-            $('#from_date').on('changeDate', function (ev) {
-                $(this).bsdatepicker('hide');
-            });
-            $('#to_date').on('changeDate', function (ev) {
-                $(this).bsdatepicker('hide');
-            });
-        });
-	</script>
 </div>
 <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-dialog">

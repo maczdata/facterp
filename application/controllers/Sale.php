@@ -121,6 +121,7 @@ class Sale extends MY_Controller {
 		        $sales = $this->web->GetAllSales("$this->perPage");
 		        $new_sales_array = array();
 		        $i = 0;
+		        $total_balance = 0;
 		        foreach ($sales as $sale):
 			        $total_paid = 0;
 			
@@ -142,6 +143,8 @@ class Sale extends MY_Controller {
 					        endforeach;
 				
 				        endif;
+				
+				         $total_balance += $sale['invoice_total'] - ($total_paid + $sale['total_discount'] );
 				
 				        $sale['balance'] = $sale['invoice_total'] - ($total_paid + $sale['total_discount'] );
 			        endif;
@@ -179,6 +182,7 @@ class Sale extends MY_Controller {
 		
 		        $new_sales_array = array();
 		        $i = 0;
+		        $total_balance = 0;
 		        foreach ($sales as $sale):
 			        $total_paid = 0;
 			
@@ -200,6 +204,8 @@ class Sale extends MY_Controller {
 					        endforeach;
 				
 				        endif;
+				
+				        $total_balance += $sale['invoice_total'] - ($total_paid + $sale['total_discount'] );
 				
 				        $sale['balance'] = $sale['invoice_total'] - ($total_paid + $sale['total_discount'] );
 			        endif;
@@ -227,6 +233,7 @@ class Sale extends MY_Controller {
 		        //print_r($this->data['sales']);
 		        
 		        //print_r($this->data['sales']);
+	        $this->data['total_balance'] = $total_balance;
 	       $this->load->view("sale/all", $this->data);
         	
             //pagination configuration

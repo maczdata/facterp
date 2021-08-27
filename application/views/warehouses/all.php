@@ -553,7 +553,7 @@
                                                             }
                                                             function GoLedger(warehouse_id) {
 //                                                                alert(curr_date);
-                                                                $.post("<?= base_url() ?>" + "reports/warehouse_statement", {warehouse: warehouse_id, from_date: curr_date, to_date: curr_date})
+                                                                $.post("<?= base_url() ?>" + "reports/warehouse_statement", {warehouse_id: warehouse_id})
                                                                         .done(function (data) {
 //                                                                            console.log(data);
 //                                                                            return false;
